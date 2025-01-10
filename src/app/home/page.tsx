@@ -1,35 +1,31 @@
-import Image from "next/image";
-import { IoLogoLinkedin } from "react-icons/io";
+import Image from 'next/image';
+import { SiStarbucks } from 'react-icons/si';
+import { IoMdMenu } from 'react-icons/io';
+import { IconButton } from '@mui/material';
+import Link from 'next/link';
 
 function Login() {
     return (
-        <div className="w-full h-full">
-            <div className="flex justify-between py-3 px-4 items-center">
-                <div className="relative w-28 h-6">
-                    <Image
-                        src="https://rb.gy/vtbzlp"
-                        layout="fill"
-                        objectFit="contain"
-                        alt="home-icon"
-                    />
-                </div>
-                <button className="py-3 px-6 rounded-full border-[#0a66c2] border-[1px] text-[#0a66c2]">
-                    Sign in
-                </button>
+        <div className="h-full w-full">
+            <div className="flex items-center justify-between border-b-2 border-[#dcdcdc] p-4">
+                <Link
+                    href={'/'}
+                    target="_self">
+                    <SiStarbucks className="h-10 w-10 text-primary" />
+                </Link>
+                <IconButton>
+                    <IoMdMenu className="h-7 w-7 text-[#00000094]" />
+                </IconButton>
             </div>
             <main>
-                <section className="px-4 pt-6 flex flex-col items-center">
-                    <h3 className="text-3xl text-center text-[#526a6e]">
-                        Welcome to your expert community
-                    </h3>
-                    <button className="py-2 px-6 my-4 text-black border-black border-[1px] w-full rounded-full text-lg font-medium">
-                        Đăng nhập bằng email
-                    </button>
-                    <p className="text-center">
-                        By clicking Continue to join or log in, you agree to
-                        LinkedIn's User Agreement, Privacy Policy, and Cookie
-                        Policy.
-                    </p>
+                <section className="mt-8">
+                    <Image
+                        src={'/images/home/home-img-01.webp'}
+                        alt="home-img"
+                        className="h-full w-full"
+                        width={1000}
+                        height={1000}
+                    />
                 </section>
             </main>
         </div>
