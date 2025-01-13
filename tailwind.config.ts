@@ -12,7 +12,21 @@ export default {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',
                 primary: '#156241'
+            },
+            screens: {
+                lg: '1025px'
             }
+        },
+        fontFamily: {
+            regular: ['SoDoSansSansRegular', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+            semibold: [
+                'SoDoSansSansSemiBold',
+                'Helvetica Neue',
+                'Helvetica',
+                'Arial',
+                'sans-serif'
+            ],
+            bold: ['SoDoSansSansBold', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
         }
     },
     plugins: []
