@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { CiYoutube } from 'react-icons/ci';
@@ -5,25 +9,29 @@ import { FaSpotify } from 'react-icons/fa';
 import { FaFacebookF } from 'react-icons/fa';
 import { FaPinterestP } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
-import { IoMdMenu } from 'react-icons/io';
 import { IoLocationSharp } from 'react-icons/io5';
 import { SiStarbucks } from 'react-icons/si';
 import { TbBrandX } from 'react-icons/tb';
 
-import { IconButton } from '@mui/material';
+import HeaderMenu from '@/components/HeaderMenu/page';
 
-function Login() {
+function Home() {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     return (
-        <div className="h-full w-full">
-            <div className="flex items-center justify-between border-b-2 border-[#dcdcdc] p-4 lg:hidden">
+        <div className="relative h-full w-full pt-28">
+            <div
+                className={`left-0 top-0 z-10 h-full w-full bg-black/40 transition duration-1000 ${isOpen ? 'absolute opacity-100' : 'hidden opacity-0'}`}
+            />
+            <div className="fixed left-0 top-0 z-20 w-full border-b-2 border-[#dcdcdc] bg-white p-4 lg:hidden">
                 <Link
                     href={'/'}
                     target="_self">
                     <SiStarbucks className="h-10 w-10 text-primary md:h-[50px] md:w-[50px]" />
                 </Link>
-                <IconButton>
-                    <IoMdMenu className="h-7 w-7 text-[#00000094]" />
-                </IconButton>
+                <HeaderMenu
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                />
             </div>
             <div className="hidden border-b-2 border-[#dcdcdc] px-6 py-4 lg:flex lg:items-center lg:justify-between lg:px-10 lg:py-6">
                 <div className="flex items-center">
@@ -57,18 +65,18 @@ function Login() {
                         target="_self"
                         className="mr-16 flex text-black hover:text-primary">
                         <IoLocationSharp className="h-6 w-6" />
-                        <div className="ml-3 font-semibold text-sm">Find a store</div>
+                        <div className="ml-3 text-sm font-semibold">Find a store</div>
                     </Link>
-                    <button className="mr-4 flex items-center rounded-full border-[1px] border-black px-4 pb-1.5 pt-1 font-semibold text-sm tracking-[1px] text-black hover:bg-gray-200">
+                    <button className="mr-4 flex items-center rounded-full border-[1px] border-black px-4 pb-1.5 pt-1 text-sm font-semibold tracking-[1px] text-black hover:bg-gray-200">
                         Sign in
                     </button>
-                    <button className="flex items-center rounded-full bg-black px-4 pb-1.5 pt-1 font-semibold text-sm tracking-[1px] text-white">
+                    <button className="flex items-center rounded-full bg-black px-4 pb-1.5 pt-1 text-sm font-semibold tracking-[1px] text-white hover:bg-black/70">
                         Join now
                     </button>
                 </div>
             </div>
             <main>
-                <section className="mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
                     <Image
                         src={'/images/home/home-img-01.webp'}
                         alt="home-img"
@@ -77,7 +85,7 @@ function Login() {
                         height={1000}
                     />
                     <div className="flex flex-col items-center bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0">
-                        <h2 className="mb-6 font-semibold text-[28px] tracking-[1.5px] md:text-[32px]">
+                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px]">
                             The best of winter
                         </h2>
                         <p className="mb-8 text-[20px] leading-[1.5] tracking-[0.5px] md:w-[95%] md:text-[26px]">
@@ -85,7 +93,7 @@ function Login() {
                             beverages and Matcha Latte—now customized to your perfect level of
                             sweetness.
                         </p>
-                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 font-semibold text-[15px] text-[#1d3c34]">
+                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 text-[15px] font-semibold text-[#1d3c34]">
                             Add to order
                         </button>
                     </div>
@@ -99,14 +107,14 @@ function Login() {
                         height={1000}
                     />
                     <div className="bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0">
-                        <h2 className="mb-6 font-semibold text-[28px] tracking-[1.5px] md:text-[32px]">
+                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px]">
                             From the birthplace of coffee
                         </h2>
                         <p className="mb-8 text-[20px] leading-[1.5] md:text-[26px]">
                             With distinctive floral, tangerine and lemon balm notes, Single-Origin
                             Ethiopia is a unique global favorite.
                         </p>
-                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 font-semibold text-[15px] text-[#1d3c34]">
+                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 text-[15px] font-semibold text-[#1d3c34]">
                             Add to order
                         </button>
                     </div>
@@ -120,7 +128,7 @@ function Login() {
                         height={1000}
                     />
                     <div className="flex flex-col items-center bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-16 md:py-0">
-                        <h2 className="mb-6 font-semibold text-[22px] tracking-[1.5px] md:text-[26px]">
+                        <h2 className="mb-6 text-[22px] font-semibold tracking-[1.5px] md:text-[26px]">
                             Your first taste of Rewards is free
                         </h2>
                         <p className="mb-8 text-[16px] leading-[1.5] md:text-[20px]">
@@ -128,7 +136,7 @@ function Login() {
                             drink when you make a qualifying purchase during your first week as a
                             Starbucks<sup>®</sup>
                         </p>
-                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 font-semibold text-[15px] text-[#1d3c34]">
+                        <button className="rounded-[50px] border-[1px] border-[#1d3c34] px-4 py-2 text-[15px] font-semibold text-[#1d3c34]">
                             Join now
                         </button>
                     </div>
@@ -231,4 +239,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Home;
