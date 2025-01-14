@@ -18,15 +18,7 @@ export default {
             }
         },
         fontFamily: {
-            regular: ['SoDoSansSansRegular', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-            semibold: [
-                'SoDoSansSansSemiBold',
-                'Helvetica Neue',
-                'Helvetica',
-                'Arial',
-                'sans-serif'
-            ],
-            bold: ['SoDoSansSansBold', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
+            netflix: ['Netflix']
         }
     },
     plugins: []
