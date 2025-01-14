@@ -18,11 +18,12 @@ import HeaderMenu from '@/components/HeaderMenu/page';
 function Home() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     return (
-        <div className="relative h-full w-full pt-28">
+        <div className="relative h-full w-full pt-28 lg:pt-0">
             <div
-                className={`left-0 top-0 z-10 h-full w-full bg-black/40 transition duration-1000 ${isOpen ? 'absolute opacity-100' : 'hidden opacity-0'}`}
+                className={`left-0 top-0 z-10 h-full w-full border-none bg-black/50 transition duration-1000 ${isOpen ? 'absolute opacity-100' : 'hidden opacity-0'}`}
             />
-            <div className="fixed left-0 top-0 z-20 w-full border-b-2 border-[#dcdcdc] bg-white p-4 lg:hidden">
+            <div
+                className={`fixed left-0 top-0 z-20 w-full bg-white p-4 lg:hidden ${isOpen ? '' : 'border-b-2 border-[#dcdcdc]'}`}>
                 <Link
                     href={'/'}
                     target="_self">
@@ -76,7 +77,7 @@ function Home() {
                 </div>
             </div>
             <main>
-                <section className="md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:mt-8 lg:py-0">
                     <Image
                         src={'/images/home/home-img-01.webp'}
                         alt="home-img"

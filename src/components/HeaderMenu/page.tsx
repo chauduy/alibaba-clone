@@ -1,16 +1,22 @@
 'use client';
 
-import { Dispatch, useEffect, useRef } from 'react';
+import { Dispatch, useRef } from 'react';
 import { SetStateAction } from 'react';
 
 import * as motion from 'motion/react-client';
 import type { Variants } from 'motion/react';
+import Link from 'next/link';
+import { IoLocationSharp } from 'react-icons/io5';
+
+import useDimensions from '@/hook/useDimensions';
 
 interface PathProps {
     d?: string;
     variants: Variants;
     transition?: { duration: number };
 }
+
+const menu = ['Menu', 'Rewards', 'Gift Cards'];
 
 const Path = (props: PathProps) => (
     <motion.path
@@ -21,9 +27,14 @@ const Path = (props: PathProps) => (
         {...props}
     />
 );
+
 const MenuToggle = ({ toggle }: { toggle: () => void }) => (
     <button
-        style={toggleContainer}
+        className="fixed right-[16px] top-[13px] h-[50px] w-6 cursor-pointer rounded-full border-none bg-transparent outline-none md:top-[18px]"
+        style={{
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none'
+        }}
         onClick={toggle}>
         <svg
             width="24"
@@ -53,19 +64,18 @@ const MenuToggle = ({ toggle }: { toggle: () => void }) => (
     </button>
 );
 
-const navVariants = {
-    open: {
-        transition: { staggerChildren: 0.07, delayChildren: 0.2 }
-    },
-    closed: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 }
-    }
-};
 const Navigation = () => (
     <motion.ul
-        className="absolute top-10 m-0 flex list-none flex-col p-6"
-        variants={navVariants}>
-        {['Menu', 'Rewards', 'Gift Cards'].map((item, index) => (
+        className="absolute top-8 m-0 flex list-none flex-col px-8 py-4"
+        variants={{
+            open: {
+                transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+            },
+            closed: {
+                transition: { staggerChildren: 0.05, staggerDirection: -1 }
+            }
+        }}>
+        {menu.map((item, index) => (
             <MenuItem
                 item={item}
                 key={index}
@@ -74,52 +84,31 @@ const Navigation = () => (
     </motion.ul>
 );
 
-const itemVariants = {
-    open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            y: { stiffness: 1000, velocity: -100 }
-        }
-    },
-    closed: {
-        y: 50,
-        opacity: 0,
-        transition: {
-            y: { stiffness: 1000 }
-        }
-    }
-};
 const MenuItem = ({ item }: { item: string }) => {
     return (
         <motion.li
-            style={listItem}
-            variants={itemVariants}
+            className="m-0 mb-8 flex cursor-pointer list-none items-center justify-start p-0"
+            variants={{
+                open: {
+                    y: 0,
+                    opacity: 1,
+                    transition: {
+                        y: { stiffness: 1000, velocity: -100 }
+                    }
+                },
+                closed: {
+                    y: 50,
+                    opacity: 0,
+                    transition: {
+                        y: { stiffness: 1000 }
+                    }
+                }
+            }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}>
-            <div style={{ ...textPlaceholder }}>{item}</div>
+            <div className="text-lg text-black md:text-2xl">{item}</div>
         </motion.li>
     );
-};
-
-const sidebarVariants = {
-    open: (height = 1000) => ({
-        clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
-        transition: {
-            type: 'spring',
-            stiffness: 20,
-            restDelta: 2
-        }
-    }),
-    closed: {
-        clipPath: 'circle(0px at 0px 0px)',
-        transition: {
-            delay: 0.2,
-            type: 'spring',
-            stiffness: 400,
-            damping: 40
-        }
-    }
 };
 
 export default function HeaderMenu({
@@ -134,109 +123,74 @@ export default function HeaderMenu({
 
     return (
         <div>
-            <div style={container}>
+            <div className="fixed right-0 top-[72px] flex h-full w-[80%] max-w-full flex-1 items-stretch justify-start overflow-hidden md:top-[83px]">
                 <motion.nav
                     initial={false}
                     animate={isOpen ? 'open' : 'closed'}
                     custom={height}
-                    ref={containerRef}
-                    style={nav}>
+                    ref={containerRef}>
                     <motion.div
-                        style={background}
-                        variants={sidebarVariants}
+                        className="absolute bottom-0 left-0 top-0 w-full border-t-2 border-[#dcdcdc] bg-white"
+                        variants={{
+                            open: (height = 1000) => ({
+                                clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+                                transition: {
+                                    type: 'spring',
+                                    stiffness: 20,
+                                    restDelta: 2
+                                }
+                            }),
+                            closed: {
+                                clipPath: 'circle(0px at 0px 0px)',
+                                transition: {
+                                    delay: 0.4,
+                                    type: 'spring',
+                                    stiffness: 400,
+                                    damping: 40
+                                }
+                            }
+                        }}
                     />
                     <Navigation />
                     <MenuToggle toggle={() => setIsOpen(!isOpen)} />
                 </motion.nav>
+                <motion.div
+                    className="absolute left-8 right-8 top-56 w-[77%] border-b-2 border-[#dcdcdc]"
+                    variants={{
+                        open: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                y: { stiffness: 1000, velocity: -100 }
+                            }
+                        },
+                        closed: {
+                            y: 200,
+                            opacity: 0,
+                            transition: {
+                                y: { stiffness: 1000 }
+                            }
+                        }
+                    }}
+                    initial={false}
+                    animate={isOpen ? 'open' : 'closed'}>
+                    <div className="absolute mt-8 flex items-center">
+                        <button className="mr-4 flex items-center rounded-full border-[1px] border-black px-4 pb-1.5 pt-1 text-sm font-semibold tracking-[1px] text-black">
+                            Sign in
+                        </button>
+                        <button className="flex items-center rounded-full bg-black px-4 pb-1.5 pt-1 text-sm font-semibold tracking-[1px] text-white">
+                            Join now
+                        </button>
+                    </div>
+                    <Link
+                        href={'/'}
+                        target="_self"
+                        className="absolute mt-24 flex text-black">
+                        <IoLocationSharp className="h-6 w-6" />
+                        <div className="ml-3 text-sm font-semibold">Find a store</div>
+                    </Link>
+                </motion.div>
             </div>
         </div>
     );
 }
-
-const container: React.CSSProperties = {
-    position: 'fixed',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    flex: 1,
-    width: 300,
-    maxWidth: '100%',
-    height: 400,
-    backgroundColor: 'var(--accent)',
-    overflow: 'hidden',
-    top: 75,
-    right: 0
-};
-
-const nav: React.CSSProperties = {
-    width: 300
-};
-
-const background: React.CSSProperties = {
-    backgroundColor: '#ffffff',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    width: '100%'
-};
-
-const toggleContainer: React.CSSProperties = {
-    outline: 'none',
-    border: 'none',
-    WebkitUserSelect: 'none',
-    MozUserSelect: 'none',
-    cursor: 'pointer',
-    position: 'fixed',
-    top: 13,
-    right: 16,
-    width: 24,
-    height: 50,
-    borderRadius: '50%',
-    background: 'transparent'
-};
-
-const listItem: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: 0,
-    margin: 0,
-    listStyle: 'none',
-    marginBottom: 40,
-    cursor: 'pointer'
-};
-
-const iconPlaceholder: React.CSSProperties = {
-    width: 40,
-    height: 40,
-    borderRadius: '50%',
-    flex: '40px 0',
-    marginRight: 20
-};
-
-const textPlaceholder: React.CSSProperties = {
-    fontSize: '20px',
-    color: 'black'
-};
-
-/**
- * ==============   Utils   ================
- */
-
-// Naive implementation - in reality would want to attach
-// a window or resize listener. Also use state/layoutEffect instead of ref/effect
-// if this is important to know on initial client render.
-// It would be safer to  return null for unmeasured states.
-const useDimensions = (ref: React.RefObject<HTMLDivElement | null>) => {
-    const dimensions = useRef({ width: 0, height: 0 });
-
-    useEffect(() => {
-        if (ref.current) {
-            dimensions.current.width = ref.current.offsetWidth;
-            dimensions.current.height = ref.current.offsetHeight;
-        }
-    }, [ref]);
-
-    return dimensions.current;
-};
