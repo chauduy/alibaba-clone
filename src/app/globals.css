@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Netflix';
-    src: url('/font/NetflixSans_W_Rg.woff2');
-}
-
 :root {
     --background: #ffffff;
     --foreground: #171717;
@@ -26,7 +21,7 @@ body {
 
 @layer base {
     body {
-        @apply font-netflix leading-[1.2];
+        @apply leading-[1.2];
     }
 }
 

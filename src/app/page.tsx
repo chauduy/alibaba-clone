@@ -23,7 +23,7 @@ function Home() {
                 className={`left-0 top-0 z-10 h-full w-full border-none bg-black/50 transition duration-1000 ${isOpen ? 'absolute opacity-100' : 'hidden opacity-0'}`}
             />
             <div
-                className={`fixed left-0 top-0 z-20 w-full bg-white p-4 lg:hidden ${isOpen ? '' : 'border-b-2 border-[#dcdcdc]'}`}>
+                className={`fixed left-0 top-0 z-20 w-full bg-white p-4 lg:hidden ${isOpen ? '' : 'border-secondary border-b-2'}`}>
                 <Link
                     href={'/'}
                     target="_self">
@@ -34,7 +34,7 @@ function Home() {
                     setIsOpen={setIsOpen}
                 />
             </div>
-            <div className="hidden border-b-2 border-[#dcdcdc] px-6 py-4 lg:flex lg:items-center lg:justify-between lg:px-10 lg:py-6">
+            <div className="border-secondary hidden border-b-2 px-6 py-4 lg:flex lg:items-center lg:justify-between lg:px-10 lg:py-6">
                 <div className="flex items-center">
                     <Link
                         href={'/'}

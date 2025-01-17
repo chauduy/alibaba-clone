@@ -11,14 +11,13 @@ export default {
             colors: {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',
-                primary: '#156241'
+                primary: '#156241',
+                secondary: '#dcdcdc',
+                black: '#000000DE'
             },
             screens: {
                 lg: '1025px'
             }
-        },
-        fontFamily: {
-            netflix: ['Netflix']
         }
     },
     plugins: []

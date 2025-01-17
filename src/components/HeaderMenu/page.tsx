@@ -149,7 +149,7 @@ const Menu = () => (
 const MenuItem = ({ item }: { item: string }) => {
     return (
         <motion.li
-            className="m-0 mb-8 flex cursor-pointer list-none items-center justify-start p-0"
+            className="m-0 mb-8 flex cursor-pointer list-none items-center justify-start p-0 font-semibold"
             variants={listItemVariants}>
             <div className="text-lg text-black md:text-2xl">{item}</div>
         </motion.li>
