@@ -1,20 +1,13 @@
 'use client';
 
-import { Dispatch, useRef } from 'react';
-import { SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 import * as motion from 'motion/react-client';
-import type { Variants } from 'motion/react';
 import Link from 'next/link';
 import { IoLocationSharp } from 'react-icons/io5';
 
 import useDimensions from '@/hook/useDimensions';
-
-interface PathProps {
-    d?: string;
-    variants: Variants;
-    transition?: { duration: number };
-}
+import { PathProps } from '@/type';
 
 const menu = ['Menu', 'Rewards', 'Gift Cards'];
 const containerVariants = {
@@ -165,9 +158,24 @@ export default function HeaderMenu({
 }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { height } = useDimensions(containerRef);
+    const [isShow, setIsShow] = useState(false);
+
+    // set hide menu
+    useEffect(() => {
+        if (isOpen) {
+            setIsShow(true);
+        } else {
+            const timeout = setTimeout(() => {
+                setIsShow(false);
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [isOpen]);
 
     return (
-        <div className="fixed right-0 top-[72px] flex h-full w-[80%] max-w-full flex-1 items-stretch justify-start overflow-hidden md:top-[83px]">
+        <div
+            className={`right-0 top-[72px] flex w-[80%] items-stretch justify-start overflow-hidden md:top-[83px] ${isShow ? 'fixed h-full' : 'absolute z-[-100] h-0'}`}>
             <motion.nav
                 initial={false}
                 animate={isOpen ? 'open' : 'closed'}

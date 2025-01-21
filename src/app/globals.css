@@ -21,7 +21,7 @@ body {
 
 @layer base {
     body {
-        @apply leading-[1.2];
+        @apply leading-[1.2] text-black;
     }
 }
 
@@ -40,5 +40,11 @@ body {
 
     .headerLink {
         @apply text-xs font-black tracking-[2px] text-black hover:text-primary;
+    }
+}
+
+@layer utilities {
+    .lgConstrain {
+        @apply mx-auto max-w-[1440px];
     }
 }

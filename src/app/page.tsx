@@ -13,6 +13,7 @@ import { IoLocationSharp } from 'react-icons/io5';
 import { SiStarbucks } from 'react-icons/si';
 import { TbBrandX } from 'react-icons/tb';
 
+import { AccordionWrapper } from '@/components/AccordionWrapper/page';
 import HeaderMenu from '@/components/HeaderMenu/page';
 
 function Home() {
@@ -23,7 +24,7 @@ function Home() {
                 className={`left-0 top-0 z-10 h-full w-full border-none bg-black/50 transition duration-1000 ${isOpen ? 'absolute opacity-100' : 'hidden opacity-0'}`}
             />
             <div
-                className={`fixed left-0 top-0 z-20 w-full bg-white p-4 lg:hidden ${isOpen ? '' : 'border-secondary border-b-2'}`}>
+                className={`fixed left-0 top-0 z-20 w-full bg-white p-4 lg:hidden ${isOpen ? '' : 'border-b-2 border-secondary'}`}>
                 <Link
                     href={'/'}
                     target="_self">
@@ -34,16 +35,16 @@ function Home() {
                     setIsOpen={setIsOpen}
                 />
             </div>
-            <div className="border-secondary hidden border-b-2 px-6 py-4 lg:flex lg:items-center lg:justify-between lg:px-10 lg:py-6">
+            <div className="lg:lgConstrain hidden lg:flex lg:items-center lg:justify-between lg:py-6">
                 <div className="flex items-center">
                     <Link
                         href={'/'}
                         target="_self">
-                        <SiStarbucks className="h-[50px] w-[50px] text-primary" />
+                        <SiStarbucks className="-ml-20 h-[50px] w-[50px] text-primary" />
                     </Link>
                     <Link
                         href={'/'}
-                        className="headerLink ml-10"
+                        className="headerLink"
                         target="_self">
                         MENU
                     </Link>
@@ -76,8 +77,9 @@ function Home() {
                     </button>
                 </div>
             </div>
+            <div className="w-full border-b-2 border-secondary" />
             <main>
-                <section className="md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:mt-8 lg:py-0">
+                <section className="lg:lgConstrain md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:mt-8 lg:py-0">
                     <Image
                         src={'/images/home/home-img-01.webp'}
                         alt="home-img"
@@ -86,10 +88,10 @@ function Home() {
                         height={1000}
                     />
                     <div className="flex flex-col items-center bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0">
-                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px]">
+                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px] lg:text-[50px] lg:font-bold">
                             The best of winter
                         </h2>
-                        <p className="mb-8 text-[20px] leading-[1.5] tracking-[0.5px] md:w-[95%] md:text-[26px]">
+                        <p className="mb-8 text-[20px] leading-[1.5] tracking-[0.5px] md:w-[95%] md:text-[26px] lg:font-medium">
                             A new winter menu is here, featuring new Cortado alongside Pistachio
                             beverages and Matcha Latte—now customized to your perfect level of
                             sweetness.
@@ -99,7 +101,7 @@ function Home() {
                         </button>
                     </div>
                 </section>
-                <section className="mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="lg:lgConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
                     <Image
                         src={'/images/home/home-img-02.webp'}
                         alt="home-img"
@@ -107,11 +109,11 @@ function Home() {
                         width={1000}
                         height={1000}
                     />
-                    <div className="bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0">
-                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px]">
+                    <div className="bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0 lg:px-24">
+                        <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px] lg:text-[50px] lg:font-bold">
                             From the birthplace of coffee
                         </h2>
-                        <p className="mb-8 text-[20px] leading-[1.5] md:text-[26px]">
+                        <p className="mb-8 text-[20px] leading-[1.5] md:text-[26px] lg:font-medium">
                             With distinctive floral, tangerine and lemon balm notes, Single-Origin
                             Ethiopia is a unique global favorite.
                         </p>
@@ -120,7 +122,7 @@ function Home() {
                         </button>
                     </div>
                 </section>
-                <section className="mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="lg:lgConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
                     <Image
                         src={'/images/home/home-img-03.webp'}
                         alt="home-img"
@@ -129,10 +131,10 @@ function Home() {
                         height={1000}
                     />
                     <div className="flex flex-col items-center bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-16 md:py-0">
-                        <h2 className="mb-6 text-[22px] font-semibold tracking-[1.5px] md:text-[26px]">
+                        <h2 className="mb-6 text-[22px] font-semibold tracking-[1.5px] md:text-[26px] lg:text-[50px] lg:font-bold">
                             Your first taste of Rewards is free
                         </h2>
-                        <p className="mb-8 text-[16px] leading-[1.5] md:text-[20px]">
+                        <p className="mb-8 text-[16px] leading-[1.5] md:text-[20px] lg:font-medium">
                             Unlock Rewards from the very first sip, starting with a free handcrafted
                             drink when you make a qualifying purchase during your first week as a
                             Starbucks<sup>®</sup>
@@ -143,7 +145,7 @@ function Home() {
                     </div>
                 </section>
                 <section className="mt-8 md:flex md:justify-center">
-                    <p className="px-4 py-8 text-center text-[13px] leading-[1.8] text-black md:w-[57%] lg:w-[43%]">
+                    <p className="px-4 py-8 text-center text-[13px] font-semibold leading-[1.8] text-black md:w-[57%] lg:w-[43%]">
                         * Valid for new Starbucks Rewards members for 7 days from sign up. Coupon
                         will be available in the offers tab of your Starbucks app following sign up
                         and may take up to 48 hours to arrive. Good at participating U.S. stores for
@@ -153,7 +155,10 @@ function Home() {
                         services. Sign up before 3/30/2025.
                     </p>
                 </section>
-                <footer className="h-full w-full p-6 text-black lg:px-10">
+                <div className="border-t-2 border-gray-200 px-4 py-6">
+                    <AccordionWrapper />
+                </div>
+                <footer className="lg:lgConstrain h-full w-full border-t-2 border-gray-200 p-6 text-black lg:px-0 lg:py-10">
                     <div className="flex h-full w-full items-center gap-x-4">
                         <Link
                             href={'https://open.spotify.com/user/starbucks'}
@@ -230,7 +235,7 @@ function Home() {
                             className="footerLink">
                             Accessibility
                         </Link>
-                        <p className="py-4 text-xs text-gray-500 md:text-sm">
+                        <p className="pt-4 text-xs text-gray-500 md:text-sm">
                             © 2025 Starbucks Coffee Company. All rights reserved.
                         </p>
                     </div>
