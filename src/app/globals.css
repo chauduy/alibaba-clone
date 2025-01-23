@@ -44,7 +44,7 @@ body {
 }
 
 @layer utilities {
-    .lgConstrain {
+    .largeScreenConstrain {
         @apply mx-auto max-w-[1440px];
     }
 }

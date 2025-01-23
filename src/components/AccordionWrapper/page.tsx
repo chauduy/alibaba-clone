@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
-import { accordions } from '@/constants';
+import { topFooter } from '@/constants';
 import { AccordionProps } from '@/type';
 
 const Accordion = ({
@@ -73,8 +73,8 @@ export const AccordionWrapper = () => {
     const [expanded, setExpanded] = useState<boolean | number | null>(null);
 
     return (
-        <div className="lg:lgConstrain">
-            {accordions.map((item, index) => (
+        <div className="2xl:largeScreenConstrain">
+            {topFooter.map((item, index) => (
                 <Accordion
                     item={item}
                     key={index}

@@ -15,6 +15,7 @@ import { TbBrandX } from 'react-icons/tb';
 
 import { AccordionWrapper } from '@/components/AccordionWrapper/page';
 import HeaderMenu from '@/components/HeaderMenu/page';
+import { topFooter } from '@/constants';
 
 function Home() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -35,16 +36,16 @@ function Home() {
                     setIsOpen={setIsOpen}
                 />
             </div>
-            <div className="lg:lgConstrain hidden lg:flex lg:items-center lg:justify-between lg:py-6">
+            <div className="2xl:largeScreenConstrain hidden lg:flex lg:items-center lg:justify-between lg:px-10 lg:py-6 2xl:px-0">
                 <div className="flex items-center">
                     <Link
                         href={'/'}
                         target="_self">
-                        <SiStarbucks className="-ml-20 h-[50px] w-[50px] text-primary" />
+                        <SiStarbucks className="h-[50px] w-[50px] text-primary 2xl:-ml-20" />
                     </Link>
                     <Link
                         href={'/'}
-                        className="headerLink"
+                        className="headerLink ml-6 2xl:ml-0"
                         target="_self">
                         MENU
                     </Link>
@@ -79,7 +80,7 @@ function Home() {
             </div>
             <div className="w-full border-b-2 border-secondary" />
             <main>
-                <section className="lg:lgConstrain md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:mt-8 lg:py-0">
+                <section className="2xl:largeScreenConstrain md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:mt-8 lg:py-0">
                     <Image
                         src={'/images/home/home-img-01.webp'}
                         alt="home-img"
@@ -101,7 +102,7 @@ function Home() {
                         </button>
                     </div>
                 </section>
-                <section className="lg:lgConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="2xl:largeScreenConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
                     <Image
                         src={'/images/home/home-img-02.webp'}
                         alt="home-img"
@@ -109,7 +110,7 @@ function Home() {
                         width={1000}
                         height={1000}
                     />
-                    <div className="bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0 lg:px-24">
+                    <div className="bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-8 md:py-0 xl:px-24">
                         <h2 className="mb-6 text-[28px] font-semibold tracking-[1.5px] md:text-[32px] lg:text-[50px] lg:font-bold">
                             From the birthplace of coffee
                         </h2>
@@ -122,7 +123,7 @@ function Home() {
                         </button>
                     </div>
                 </section>
-                <section className="lg:lgConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10 lg:py-0">
+                <section className="2xl:largeScreenConstrain mt-8 md:flex md:items-center md:bg-[#CFE6B5] md:py-8 lg:mx-10">
                     <Image
                         src={'/images/home/home-img-03.webp'}
                         alt="home-img"
@@ -131,7 +132,7 @@ function Home() {
                         height={1000}
                     />
                     <div className="flex flex-col items-center bg-[#CFE6B5] px-4 py-8 text-center text-[#1d3c34] md:px-16 md:py-0">
-                        <h2 className="mb-6 text-[22px] font-semibold tracking-[1.5px] md:text-[26px] lg:text-[50px] lg:font-bold">
+                        <h2 className="mb-6 text-[22px] font-semibold tracking-[1.5px] md:text-[26px] lg:text-[40px] lg:font-bold">
                             Your first taste of Rewards is free
                         </h2>
                         <p className="mb-8 text-[16px] leading-[1.5] md:text-[20px] lg:font-medium">
@@ -155,10 +156,34 @@ function Home() {
                         services. Sign up before 3/30/2025.
                     </p>
                 </section>
-                <div className="border-t-2 border-gray-200 px-4 py-6">
+                <div className="w-full border-t-2 border-gray-200" />
+                <div className="px-4 py-6 lg:hidden">
                     <AccordionWrapper />
                 </div>
-                <footer className="lg:lgConstrain h-full w-full border-t-2 border-gray-200 p-6 text-black lg:px-0 lg:py-10">
+                <div className="2xl:largeScreenConstrain mt-8 hidden justify-between gap-x-8 lg:flex lg:px-10 2xl:px-0">
+                    {topFooter.map((item) => (
+                        <div
+                            key={item.id}
+                            className="w-1/5">
+                            <div className="mb-8 text-[20px] font-medium text-black">
+                                {item.title}
+                            </div>
+                            <div className="flex flex-col gap-y-6">
+                                {item.children.map((child) => (
+                                    <div key={child.link}>
+                                        <Link
+                                            href={child.link}
+                                            className="text-[16px] font-medium text-gray-600 hover:text-black"
+                                            target="_blank">
+                                            {child.title}
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <footer className="2xl:largeScreenConstrain h-full w-fit border-t-2 border-gray-200 p-6 text-black lg:m-10 lg:pl-0 2xl:px-0">
                     <div className="flex h-full w-full items-center gap-x-4">
                         <Link
                             href={'https://open.spotify.com/user/starbucks'}

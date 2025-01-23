@@ -4,10 +4,8 @@ import { SiStarbucks } from 'react-icons/si';
 function CreateAccount() {
     return (
         <div className="h-full w-full">
-            <div className="border-secondary border-b-2 p-4">
-                <Link
-                    href={'/'}
-                    target="_self">
+            <div className="border-b-2 border-secondary p-4">
+                <Link href={'/'}>
                     <SiStarbucks className="h-12 w-12 text-primary md:h-[50px] md:w-[50px]" />
                 </Link>
             </div>
@@ -19,16 +17,17 @@ function CreateAccount() {
                     <span className="mr-1 text-primary">*</span>indicates required field
                 </div>
                 <div className="relative mt-5">
-                    <label
-                        htmlFor="username"
-                        className="absolute left-3 top-[-11px] z-50 flex items-center bg-primary/10 px-1 text-sm font-medium text-[#868686] peer-focus:bg-primary/10">
-                        <span className="mr-1 text-primary">*</span>Username or email address
-                    </label>
                     <input
                         id="username"
                         type="text"
-                        className="peer absolute z-0 w-full rounded-lg border-[1px] border-[#999999] px-4 py-3 font-medium text-black outline-0 focus:border-2 focus:border-primary focus:bg-primary/10"
+                        placeholder=" "
+                        className="peer absolute left-0 top-0 z-0 w-full rounded-lg border border-[#999999] px-4 py-3 font-medium text-black outline-0 focus:border-2 focus:border-primary focus:bg-primary/10"
                     />
+                    <label
+                        htmlFor="username"
+                        className="absolute left-4 top-[-12px] z-40 bg-white px-2 text-sm font-medium text-[#868686] peer-focus:bg-primary/10 peer-focus:text-sm peer-focus:text-primary">
+                        <span className="mr-1 text-primary">*</span>Username or email address
+                    </label>
                 </div>
             </form>
         </div>

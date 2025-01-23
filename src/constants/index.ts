@@ -1,4 +1,4 @@
-export const accordions = [
+export const topFooter = [
     {
         id: 0,
         title: 'About Us',
