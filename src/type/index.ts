@@ -11,3 +11,36 @@ export interface AccordionProps {
     title: string;
     children: Array<{ title: string; link: string }>;
 }
+
+interface ProductPreview {
+    id: number;
+    imageSrc: string;
+    minUnit: string;
+    price: string;
+}
+
+interface Product {
+    id: number;
+    imageSrc: string;
+    minPerOrder: string;
+    popularityScore?: string;
+    price: string;
+    subject: string;
+    hotSellingScore?: string;
+    bestReviewScore?: string;
+}
+
+export interface Category {
+    id: number;
+    categoryType: string;
+    productList: Product[];
+    productPreview: ProductPreview[];
+    title: string;
+}
+
+export interface TabProps {
+    id: string;
+    text: string;
+    selected: boolean;
+    setSelected: (text: string) => void;
+}

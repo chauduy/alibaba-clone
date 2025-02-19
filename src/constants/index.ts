@@ -134,3 +134,18 @@ export const topFooter = [
         ]
     }
 ];
+
+export const tabs = [
+    {
+        key: 'most-popular',
+        name: 'Most popular'
+    },
+    {
+        key: 'hot-selling',
+        name: 'Hot selling'
+    },
+    {
+        key: 'best-reviewed',
+        name: 'Best reviewed'
+    }
+];

@@ -15,7 +15,7 @@
 }
 
 body {
-    color: var(--foreground);
+    color: black;
     background: var(--background);
 }
 
@@ -46,5 +46,9 @@ body {
 @layer utilities {
     .largeScreenConstrain {
         @apply mx-auto max-w-[1440px];
+    }
+
+    .appPadding {
+        @apply px-6 py-4 lg:px-10 lg:py-6;
     }
 }
