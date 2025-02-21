@@ -19,7 +19,7 @@ interface ProductPreview {
     price: string;
 }
 
-interface Product {
+export interface Product {
     id: number;
     imageSrc: string;
     minPerOrder: string;

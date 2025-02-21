@@ -3,23 +3,10 @@
 import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { CiYoutube } from 'react-icons/ci';
-import { FaSpotify } from 'react-icons/fa';
-import { FaFacebookF } from 'react-icons/fa';
-import { FaPinterestP } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { FaRegUser } from 'react-icons/fa6';
-import { FiShoppingCart } from 'react-icons/fi';
-import { IoLocationSharp } from 'react-icons/io5';
-import { SiStarbucks } from 'react-icons/si';
-import { TbBrandX } from 'react-icons/tb';
 
-import { AccordionWrapper } from '@/components/AccordionWrapper/page';
 import CategoryPreview from '@/components/CategoryPreview/page';
-import HeaderMenu from '@/components/HeaderMenu/page';
 import CategoryTabs from '@/components/Tabs/page';
-import { tabs, topFooter } from '@/constants';
+import { tabs } from '@/constants';
 import { Category } from '@/type';
 
 import data from '../../data.json';
@@ -37,24 +24,6 @@ function Home() {
 
     return (
         <div className="h-full w-full">
-            <div className={`appPadding flex w-full items-center justify-between bg-white`}>
-                <Link
-                    href={'/'}
-                    target="_self">
-                    <Image
-                        src={'/images/logo.avif'}
-                        alt="brand-logo"
-                        width={1000}
-                        height={1000}
-                        className="h-[30px] w-full object-cover"
-                    />
-                </Link>
-                <div className="flex items-center gap-x-6 text-black">
-                    <FiShoppingCart className="h-5 w-5" />
-                    <FaRegUser className="h-5 w-5" />
-                </div>
-            </div>
-
             <Image
                 src={'/images/banner.avif'}
                 alt="banner"
@@ -63,7 +32,7 @@ function Home() {
                 className="h-[100px] w-full object-cover md:h-[150px] lg:h-[220px]"
             />
 
-            <main className="mx-auto px-4 py-10 lg:max-w-screen-xl">
+            <main className="appPadding largeScreenConstrain">
                 <div className="mx-1.5">
                     <CategoryTabs
                         selectedCategory={selectedCategory}

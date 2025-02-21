@@ -14,7 +14,7 @@ const Tab = ({ id, text, selected, setSelected }: TabProps) => {
             {selected && (
                 <motion.span
                     layoutId="tab"
-                    transition={{ type: 'spring', duration: 0.4 }}
+                    transition={{ type: 'spring', duration: 0.6 }}
                     className="absolute inset-0 z-0 rounded-[100px] border-2 border-[#222] bg-white"></motion.span>
             )}
         </button>

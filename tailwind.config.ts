@@ -16,6 +16,8 @@ export default {
                 black: '#000000DE'
             },
             screens: {
+                xxs: '450px',
+                xs: '550px',
                 lg: '1025px'
             }
         }

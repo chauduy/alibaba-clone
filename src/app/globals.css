@@ -45,10 +45,10 @@ body {
 
 @layer utilities {
     .largeScreenConstrain {
-        @apply mx-auto max-w-[1440px];
+        @apply mx-auto lg:max-w-screen-xl;
     }
 
     .appPadding {
-        @apply px-6 py-4 lg:px-10 lg:py-6;
+        @apply px-4 py-6 lg:px-6 lg:py-8;
     }
 }

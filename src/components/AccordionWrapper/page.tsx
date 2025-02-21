@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -5,7 +7,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
-import { topFooter } from '@/constants';
+import { footerLink } from '@/constants';
 import { AccordionProps } from '@/type';
 
 const Accordion = ({
@@ -57,7 +59,7 @@ const Accordion = ({
                                     className="text-sm font-medium text-gray-600 hover:font-semibold hover:text-black"
                                     href={child.link}
                                     key={child.link}
-                                    target="_self">
+                                    target="_blank">
                                     {child.title}
                                 </Link>
                             ))}
@@ -73,8 +75,8 @@ export const AccordionWrapper = () => {
     const [expanded, setExpanded] = useState<boolean | number | null>(null);
 
     return (
-        <div className="2xl:largeScreenConstrain">
-            {topFooter.map((item, index) => (
+        <div className="">
+            {footerLink.map((item, index) => (
                 <Accordion
                     item={item}
                     key={index}

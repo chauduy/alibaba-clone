@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
+import { Roboto } from 'next/font/google';
+
+import Footer from '@/components/Footer/page';
+import MainHeader from '@/components/MainHeader/page';
 
 import './globals.css';
 
-const openSan = Open_Sans({
+const roboto = Roboto({
+    weight: ['400', '500', '700', '900'],
+    style: ['normal', 'italic'],
     subsets: ['latin'],
     display: 'swap'
 });
@@ -20,7 +25,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={openSan.className}>{children}</body>
+            <body className={roboto.className}>
+                <MainHeader />
+                {children}
+                <Footer />
+            </body>
         </html>
     );
 }
