@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-import ProductItem from '@/components/Product/page';
+import ProductItem from '@/components/ProductItem/page';
 import { productBanner } from '@/constants';
 import { Category as CategoryProps } from '@/type';
 
@@ -59,10 +59,11 @@ function Category() {
                     />
                 </div>
                 <div className="mt-5 md:flex md:flex-wrap">
-                    {currentCategoy?.productList.map((item) => (
+                    {currentCategoy?.productList.map((item, index) => (
                         <ProductItem
                             {...item}
                             key={item.id}
+                            isLast={index === currentCategoy.productList.length - 1}
                         />
                     ))}
                 </div>

@@ -28,6 +28,9 @@ export interface Product {
     subject: string;
     hotSellingScore?: string;
     bestReviewScore?: string;
+    isLast?: boolean;
+    star: number;
+    sold: number;
 }
 
 export interface Category {
