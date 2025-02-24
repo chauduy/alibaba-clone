@@ -47,7 +47,7 @@ function ProductItem({
 
     return (
         <div
-            className={`mb-4 flex h-fit border-b-2 border-gray-200 pb-4 md:w-[24.25%] md:flex-col md:border-none lg:w-[19.2%] ${isTablet && id % 4 !== 0 ? 'md:mr-[1%]' : ''} ${isDesktop && id % 5 !== 0 ? 'lg:mr-[1%]' : ''}`}
+            className={`mb-4 flex h-fit cursor-pointer border-b-2 border-gray-200 pb-4 md:w-[24.25%] md:flex-col md:border-none lg:w-[19.2%] ${isTablet && id % 4 !== 0 ? 'md:mr-[1%]' : ''} ${isDesktop && id % 5 !== 0 ? 'lg:mr-[1%]' : ''}`}
             key={id}>
             <Image
                 src={imageSrc}
@@ -58,7 +58,7 @@ function ProductItem({
             />
             <div className="ml-2 mt-1 text-sm xxs:ml-4 xxs:text-lg xs:text-[22px] sm:text-[26px] md:ml-0 md:mt-2 md:text-sm">
                 <Tooltip title={subject}>
-                    <div className="line-clamp-2">{subject}</div>
+                    <div className="line-clamp-2 hover:text-primary">{subject}</div>
                 </Tooltip>
                 <div className="mt-1.5 text-[20px] font-bold xxs:text-lg xs:mt-3 xs:text-[24px] sm:text-[28px] md:mt-0.5 md:text-[20px]">
                     {price}

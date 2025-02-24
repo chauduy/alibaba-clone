@@ -30,7 +30,7 @@ function Footer() {
                     </div>
                 ))}
             </div>
-            <div className="ml-2 mt-6 flex flex-col gap-y-4 lg:mt-0 lg:flex-row lg:gap-x-2">
+            <div className="ml-2 mt-6 flex flex-col gap-y-4 lg:mt-0 lg:flex-row lg:gap-x-2 xl:mx-auto xl:flex xl:max-w-screen-2xl xl:px-10">
                 <div className="flex items-center gap-x-2">
                     {footerPayment.slice(0, 5).map((item) => (
                         <Image
@@ -68,7 +68,7 @@ function Footer() {
                     ))}
                 </div>
             </div>
-            <div className="ml-2 mt-6 flex items-center gap-x-6 lg:mt-8">
+            <div className="ml-2 mt-6 flex items-center gap-x-6 lg:mt-8 xl:mx-auto xl:flex xl:max-w-screen-2xl xl:px-10">
                 {footerSocial.map((item) => (
                     <Link
                         className="text-secondary"
