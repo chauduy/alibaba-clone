@@ -46,7 +46,7 @@ function ReviewStar({ star }: { star: number }) {
     return (
         <div className="flex items-center gap-x-1">
             {renderStar()}
-            <div className="mt-0.5 text-[#767676]">{star} .</div>
+            <div className="ml-1 mt-0.5 text-[#767676]">{star} . </div>
         </div>
     );
 }

@@ -7,13 +7,13 @@ import { useParams } from 'next/navigation';
 
 import ProductItem from '@/components/ProductItem/page';
 import { productBanner } from '@/constants';
-import { Category as CategoryProps } from '@/type';
+import { BannerProps, Category as CategoryProps } from '@/type';
 
 import data from '../../../../data.json';
 
 function Category() {
     const [currentCategoy, setCurrentCategory] = useState<CategoryProps | null>(null);
-    const [bannerContent, setBannerContent] = useState<any>();
+    const [bannerContent, setBannerContent] = useState<BannerProps>();
     const param = useParams();
     const categoryId = Number(param.slug);
 

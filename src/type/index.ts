@@ -47,3 +47,9 @@ export interface TabProps {
     selected: boolean;
     setSelected: (text: string) => void;
 }
+
+export interface BannerProps {
+    key: string;
+    title: string;
+    description: string;
+}

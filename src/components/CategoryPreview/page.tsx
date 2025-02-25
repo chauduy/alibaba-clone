@@ -1,9 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { GrFormNextLink } from 'react-icons/gr';
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Category } from '@/type';
-
-import { Tooltip } from '@mui/material';
 
 function CategoryPreview({ id, categoryType, productList, title, productPreview }: Category) {
     return (
@@ -12,9 +12,14 @@ function CategoryPreview({ id, categoryType, productList, title, productPreview 
                 href={`/category/${id}`}
                 target="_self">
                 <div className="mb-4 flex items-center justify-between">
-                    <Tooltip title={title}>
-                        <div className="line-clamp-1 text-[20px] font-bold">{title}</div>
-                    </Tooltip>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <div className="line-clamp-1 text-[20px] font-bold">{title}</div>
+                            </TooltipTrigger>
+                            <TooltipContent>{title}</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                     <GrFormNextLink className="h-7 w-7 hover:text-gray-400" />
                 </div>
                 <div className="flex gap-x-3">
@@ -22,7 +27,9 @@ function CategoryPreview({ id, categoryType, productList, title, productPreview 
                         <div
                             className="w-1/3"
                             key={item.id}>
-                            <img
+                            <Image
+                                width={1000}
+                                height={1000}
                                 src={item.imageSrc}
                                 alt="preview-product"
                                 className="w-full rounded-lg object-cover"

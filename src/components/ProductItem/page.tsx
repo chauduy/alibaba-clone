@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import Image from 'next/image';
+import Link from 'next/link';
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import useViewport from '@/hook/useViewport';
 import { Product } from '@/type';
-
-import { Tooltip } from '@mui/material';
 
 function ProductItem({
     id,
@@ -47,7 +45,8 @@ function ProductItem({
     };
 
     return (
-        <div
+        <Link
+            href={`/product/${id}`}
             className={`mb-4 flex h-fit cursor-pointer ${!isLast ? 'border-b-2 border-gray-200' : ''} pb-4 md:w-[24.25%] md:flex-col md:border-none lg:w-[19.2%] ${isTablet && id % 4 !== 0 ? 'md:mr-[1%]' : ''} ${isDesktop && id % 5 !== 0 ? 'lg:mr-[1%]' : ''}`}
             key={id}>
             <Image
@@ -58,16 +57,24 @@ function ProductItem({
                 className="h-fit w-2/5 rounded-md md:w-full md:rounded-xl"
             />
             <div className="ml-2 mt-1 text-sm xxs:ml-4 xxs:text-lg xs:text-[22px] sm:text-[26px] md:ml-0 md:mt-2 md:text-sm">
-                <Tooltip title={subject}>
-                    <div className="line-clamp-2 hover:text-primary">{subject}</div>
-                </Tooltip>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <div className="line-clamp-2 text-left hover:text-primary">
+                                {subject}
+                            </div>
+                        </TooltipTrigger>
+                        <TooltipContent>{subject}</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+
                 <div className="mt-1.5 text-[20px] font-bold xxs:text-lg xs:mt-3 xs:text-[24px] sm:text-[28px] md:mt-0.5 md:text-[20px]">
                     {price}
                 </div>
                 <div className="mt-1 xs:mt-3 md:mt-0.5">Min. orde: {minPerOrder}</div>
                 <div className="mt-1 xs:mt-3 md:mt-0.5">{getScore()}</div>
             </div>
-        </div>
+        </Link>
     );
 }
 
