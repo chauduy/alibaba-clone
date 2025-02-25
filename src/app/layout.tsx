@@ -28,7 +28,7 @@ export default function RootLayout({
             <body className={roboto.className}>
                 <MainHeader />
                 {children}
-                <Footer />
+                {/* <Footer /> */}
             </body>
         </html>
     );
