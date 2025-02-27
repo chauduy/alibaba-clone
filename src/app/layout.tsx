@@ -9,8 +9,7 @@ import './globals.css';
 const roboto = Roboto({
     weight: ['400', '500', '700', '900'],
     style: ['normal', 'italic'],
-    subsets: ['latin'],
-    display: 'swap'
+    subsets: ['greek']
 });
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export default function RootLayout({
             <body className={roboto.className}>
                 <MainHeader />
                 {children}
-                {/* <Footer /> */}
+                <Footer />
             </body>
         </html>
     );

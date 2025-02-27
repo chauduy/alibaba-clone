@@ -5,7 +5,9 @@ import { FiShoppingCart } from 'react-icons/fi';
 
 function MainHeader() {
     return (
-        <div className={`appPadding flex w-full items-center justify-between bg-white`}>
+        <div
+            className={`appPadding flex w-full items-center justify-between bg-white`}
+            id="main-top">
             <Link
                 href={'/'}
                 target="_self">

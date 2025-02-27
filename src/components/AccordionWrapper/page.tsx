@@ -58,7 +58,7 @@ const Accordion = ({
                                 <Link
                                     className="text-sm font-medium text-gray-600 hover:font-semibold hover:text-black"
                                     href={child.link}
-                                    key={child.link}
+                                    key={index}
                                     target="_blank">
                                     {child.title}
                                 </Link>
@@ -79,7 +79,7 @@ export const AccordionWrapper = () => {
             {footerLink.map((item, index) => (
                 <Accordion
                     item={item}
-                    key={index}
+                    key={item.id}
                     i={index}
                     expanded={expanded}
                     setExpanded={setExpanded}
