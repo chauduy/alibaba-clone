@@ -58,7 +58,7 @@ function Category() {
                         className="w-[150px] object-cover md:w-[250px] lg:w-[388px]"
                     />
                 </div>
-                <div className="mt-5 md:flex md:flex-wrap">
+                <div className="mt-5 md:flex md:flex-wrap md:gap-x-2">
                     {currentCategoy?.productList.map((item, index) => (
                         <ProductItem
                             {...item}

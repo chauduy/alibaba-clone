@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import useViewport from '@/hook/useViewport';
 import { Product } from '@/type';
 
 function ProductItem({
@@ -16,10 +15,6 @@ function ProductItem({
     bestReviewScore,
     isLast
 }: Product) {
-    const { width } = useViewport();
-    const isDesktop = width > 1024;
-    const isTablet = width > 768 && width < 1024;
-
     const getScore = () => {
         if (popularityScore) {
             return (
@@ -47,7 +42,7 @@ function ProductItem({
     return (
         <Link
             href={`/product/${id}`}
-            className={`mb-4 flex h-fit cursor-pointer ${!isLast ? 'border-b-2 border-gray-200' : ''} pb-4 md:w-[24.25%] md:flex-col md:border-none lg:w-[19.2%] ${isTablet && id % 4 !== 0 ? 'md:mr-[1%]' : ''} ${isDesktop && id % 5 !== 0 ? 'lg:mr-[1%]' : ''}`}
+            className={`mb-4 flex h-fit cursor-pointer ${!isLast ? 'border-b-2 border-gray-200' : ''} pb-4 md:w-[calc((100%-24px)/4)] md:flex-col md:border-none lg:w-[calc((100%-40px)/6)]`}
             key={id}>
             <Image
                 src={imageSrc}

@@ -6,7 +6,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 function MainHeader() {
     return (
         <div
-            className={`appPadding flex w-full items-center justify-between bg-white`}
+            className={`appPadding flex w-full items-center justify-between bg-white lg:border-b-[1px] lg:border-[#dddddd]`}
             id="main-top">
             <Link
                 href={'/'}
