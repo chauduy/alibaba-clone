@@ -97,11 +97,19 @@ body {
 
 @layer utilities {
     .largeScreenConstrain {
-        @apply mx-auto lg:max-w-screen-xl;
+        @apply mx-auto lg:max-w-[1000px] xl:max-w-screen-lg 2xl:max-w-screen-xl;
     }
 
     .appPadding {
         @apply px-4 py-6 lg:px-6 lg:py-8;
+    }
+
+    .screenWrapperLoading {
+        @apply flex h-screen items-center justify-center;
+    }
+
+    .quantityBtn {
+        @apply flex h-8 w-8 items-center justify-center !rounded-full !border-[#d8d8d8];
     }
 }
 

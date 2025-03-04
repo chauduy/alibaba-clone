@@ -3,6 +3,8 @@ import { Roboto } from 'next/font/google';
 
 import Footer from '@/components/Footer/page';
 import MainHeader from '@/components/MainHeader/page';
+import { Toaster } from '@/components/ui/sonner';
+import AppProvide from '@/redux/provider';
 
 import './globals.css';
 
@@ -25,9 +27,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <MainHeader />
-                {children}
-                <Footer />
+                <AppProvide>
+                    <MainHeader />
+                    {children}
+                    <Footer />
+                    <Toaster />
+                </AppProvide>
             </body>
         </html>
     );

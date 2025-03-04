@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { FaRegCheckCircle } from 'react-icons/fa';
+import { FaXmark } from 'react-icons/fa6';
 import { IoMailOutline } from 'react-icons/io5';
+import { toast } from 'sonner';
 
 import AssuranceDrawer from '@/components/AssuranceDrawer/page';
+import Loading from '@/components/Loading/page';
 import RelatedProduct from '@/components/RelatedProduct/page';
 import ReviewStar from '@/components/ReviewStar/page';
+import { Button } from '@/components/ui/button';
+import { addToCart, removeFromCart } from '@/redux/feature/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
 import { Product as ProductProps } from '@/type';
+import { customToast } from '@/util';
 
 import data from '../../../../data.json';
 import list from '../../../../product.json';
@@ -29,8 +38,11 @@ const getRelatedProducts = (id: number) => {
 function Product() {
     const [product, setProduct] = useState<ProductProps>();
     const [relatedProducts, setRelatedProducts] = useState<ProductProps[]>([]);
+    const [isInCart, setIsInCart] = useState<boolean>();
     const param = useParams();
     const productId = Number(param.slug);
+    const { list } = useAppSelector((state: RootState) => state.cart);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (productId) {
@@ -55,8 +67,48 @@ function Product() {
         }
     }, [product]);
 
+    useEffect(() => {
+        if (product) {
+            const find = list.find((item) => item.id === product.id);
+            if (find) {
+                setIsInCart(true);
+            } else {
+                setIsInCart(false);
+            }
+        }
+    }, [list, product]);
+
+    const handleAddToCart = () => {
+        if (!product) return;
+        if (list.find((item) => item.id === product.id)) {
+            dispatch(removeFromCart(product));
+            toast.success(
+                'Removed from cart',
+                customToast(
+                    'success',
+                    <FaRegCheckCircle className="h-5 w-5 text-green-500" />,
+                    <FaXmark />
+                )
+            );
+        } else {
+            dispatch(addToCart(product));
+            toast(
+                'Added to cart',
+                customToast(
+                    'success',
+                    <FaRegCheckCircle className="h-5 w-5 text-green-500" />,
+                    <FaXmark />
+                )
+            );
+        }
+    };
+
+    const handleOpenMail = () => {
+        return window.open('mailto:email@example.com?subject=Subject&body=Body%20goes%20here');
+    };
+
     return (
-        <div>
+        <>
             {product ? (
                 <div className="largeScreenConstrain bg-gray-100 pb-4 lg:bg-white/80">
                     <div className="grid grid-cols-12">
@@ -65,7 +117,7 @@ function Product() {
                                 <h1 className="mb-1 text-lg font-bold">{product.subject}</h1>
 
                                 <div className="flex items-center">
-                                    <ReviewStar star={product.star!} />
+                                    <ReviewStar star={product.star} />
                                     <div className="mt-0.5 text-[#767676]">{product.sold} sold</div>
                                 </div>
                             </div>
@@ -116,16 +168,24 @@ function Product() {
                                 <div>Estimated delivery within 7 days</div>
                                 <div className="mt-4 flex items-center gap-x-2 lg:mt-6 lg:border-b-[1px] lg:border-[#dddddd] lg:pb-6">
                                     <div className="flex w-[calc(100%-48px)] items-center gap-x-2 md:w-fit lg:w-full">
-                                        <button className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2">
+                                        <Button
+                                            variant={'default'}
+                                            className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2">
                                             Start order
-                                        </button>
-                                        <button className="h-10 w-1/2 rounded-full border-[1px] border-black bg-gray-100 text-sm font-bold md:w-40 lg:h-12 lg:w-1/2">
-                                            Add to cart
-                                        </button>
+                                        </Button>
+                                        <Button
+                                            variant={'outline'}
+                                            className="h-10 w-1/2 rounded-full border-[1px] border-black bg-gray-100 text-sm font-bold md:w-40 lg:h-12 lg:w-1/2"
+                                            onClick={handleAddToCart}>
+                                            {isInCart ? 'Remove from cart' : 'Add to cart'}
+                                        </Button>
                                     </div>
-                                    <button className="flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-black lg:hidden">
+                                    <Button
+                                        variant={'ghost'}
+                                        className="flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-black lg:hidden"
+                                        onClick={handleOpenMail}>
                                         <IoMailOutline className="h-5 w-5" />
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                             <div className="mt-2 bg-white p-3 text-sm md:p-6 lg:mt-0">
@@ -149,9 +209,11 @@ function Product() {
                     </div>
                 </div>
             ) : (
-                <div>Loading</div>
+                <div className="screenWrapperLoading">
+                    <Loading />
+                </div>
             )}
-        </div>
+        </>
     );
 }
 

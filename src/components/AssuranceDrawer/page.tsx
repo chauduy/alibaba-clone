@@ -48,7 +48,7 @@ function AssuranceDrawer() {
                     <div>On-time shipment</div>
                 </div>
             </DrawerTrigger>
-            <DrawerContent className="bg-white">
+            <DrawerContent className="bg-white lg:ml-[55%] lg:h-full lg:w-[45%] lg:overflow-y-auto lg:overflow-x-hidden lg:rounded-none xl:ml-[calc((100%/3)*2)] xl:w-1/3">
                 <DrawerHeader className="relative border-b-[1px] border-[#dddddd]">
                     <DrawerTitle className="text-lg">Trade Assurance</DrawerTitle>
                     <DrawerClose>
