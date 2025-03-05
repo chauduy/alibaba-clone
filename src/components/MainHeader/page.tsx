@@ -20,7 +20,11 @@ function MainHeader() {
                 />
             </Link>
             <div className="flex items-center gap-x-6 text-black">
-                <FiShoppingCart className="h-5 w-5" />
+                <Link
+                    href={'/cart'}
+                    target="_self">
+                    <FiShoppingCart className="h-5 w-5" />
+                </Link>
                 <FaRegUser className="h-5 w-5" />
             </div>
         </div>

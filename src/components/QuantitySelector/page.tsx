@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 
 function QuantitySelector() {
     return (
-        <div className="flex h-8 w-[126px] items-center rounded-full border border-l-0 border-r-0 border-[#d8d8d8]">
+        <div className="flex h-6 w-[88px] items-center rounded-full border border-l-0 border-r-0 border-[#d8d8d8] md:w-[98px] lg:h-8 lg:w-[126px]">
             <Button
                 variant={'outline'}
                 size={'icon'}
@@ -18,7 +18,7 @@ function QuantitySelector() {
                 type="number"
                 value={2}
                 readOnly
-                className="ml-3.5 w-12 text-center"
+                className="w-10 text-center md:ml-3.5 lg:w-12"
             />
             <Button
                 variant={'outline'}
