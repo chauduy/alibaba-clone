@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import CategoryPreview from '@/components/CategoryPreview/page';
+import Loading from '@/components/Loading/page';
 import CategoryTabs from '@/components/Tabs/page';
 import { tabs } from '@/constants';
 import { Category } from '@/type';
@@ -40,21 +41,27 @@ function Home() {
                     />
                 </div>
 
-                <div className="grid grid-cols-12">
-                    {selectedData.map((item) => (
-                        <div
-                            className="col-span-12 mx-1.5 mb-3 md:col-span-6 lg:col-span-4"
-                            key={item.id}>
-                            <CategoryPreview
-                                id={item.id}
-                                categoryType={item.categoryType}
-                                productList={item.productList}
-                                title={item.title}
-                                productPreview={item.productPreview}
-                            />
-                        </div>
-                    ))}
-                </div>
+                {selectedData.length !== 0 ? (
+                    <div className="grid grid-cols-12">
+                        {selectedData.map((item) => (
+                            <div
+                                className="col-span-12 mx-1.5 mb-3 md:col-span-6 lg:col-span-4"
+                                key={item.id}>
+                                <CategoryPreview
+                                    id={item.id}
+                                    categoryType={item.categoryType}
+                                    productList={item.productList}
+                                    title={item.title}
+                                    productPreview={item.productPreview}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="screenWrapperLoading">
+                        <Loading />
+                    </div>
+                )}
             </main>
         </div>
     );

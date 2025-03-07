@@ -31,6 +31,7 @@ export interface Product {
     isLast?: boolean;
     star: number;
     sold: number;
+    quantity?: number;
 }
 
 export interface Category {

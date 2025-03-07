@@ -1,16 +1,23 @@
+'use client';
+
 import React from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaTrash } from 'react-icons/fa6';
 
+import { removeFromCart } from '@/redux/feature/cart/cartSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import { Product } from '@/type';
 
 import data from '../../../data.json';
 
 import QuantitySelector from '../QuantitySelector/page';
+import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 function CartItem({ product }: { product: Product }) {
+    const dispatch = useAppDispatch();
     const getCateogory = () => {
         let findCategory;
         data.forEach((item) => {
@@ -34,24 +41,36 @@ function CartItem({ product }: { product: Product }) {
                     className="h-[110px] w-[110px] rounded-[8px] border lg:h-auto lg:w-[150px]"
                 />
                 <div className="flex flex-col justify-between py-1 lg:py-2">
-                    <Link
-                        href={`/product/${product.id}`}
-                        target="_self">
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger>
-                                    <div className="line-clamp-2 text-left text-sm font-bold lg:text-lg">
-                                        {product.subject}
-                                    </div>
-                                </TooltipTrigger>
-                                <TooltipContent>{product.subject}</TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                    </Link>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Link
+                                    href={`/product/${product.id}`}
+                                    target="_self"
+                                    className="line-clamp-2 text-left text-sm font-bold hover:underline lg:text-lg">
+                                    {product.subject}
+                                </Link>
+                            </TooltipTrigger>
+                            <TooltipContent className="xl:hidden">{product.subject}</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                     <div className="mb-1 text-sm font-extrabold lg:text-[20px]">
                         {product.price}
                     </div>
-                    <QuantitySelector />
+                    <div className="flex items-center justify-between">
+                        <QuantitySelector
+                            quantity={product.quantity}
+                            productId={product.id}
+                        />
+                        <Button
+                            variant={'ghost'}
+                            size={'icon'}
+                            onClick={() => {
+                                dispatch(removeFromCart(product));
+                            }}>
+                            <FaTrash className="text-[#FF1A1A]" />
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

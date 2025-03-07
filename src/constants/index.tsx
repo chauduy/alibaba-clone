@@ -219,3 +219,30 @@ export const footerSocial = [
         link: 'https://www.tiktok.com/@alibaba.com_buyercentral?spm=a27aq.rank_detail.9582958190.30.6c5a43bfy5YWUq&file=@alibaba.com_buyercentral'
     }
 ];
+
+export const accountLink = [
+    {
+        label: 'My Alibaba',
+        link: 'https://google.com'
+    },
+    {
+        label: 'Orders',
+        link: 'https://google.com'
+    },
+    {
+        label: 'Messages',
+        link: 'https://google.com'
+    },
+    {
+        label: 'RFQs',
+        link: 'https://google.com'
+    },
+    {
+        label: 'Favorites',
+        link: 'https://google.com'
+    },
+    {
+        label: 'Account',
+        link: 'https://google.com'
+    }
+];

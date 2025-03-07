@@ -22,11 +22,27 @@ const cartSlice = createSlice({
         removeFromCart: (state, action: PayloadAction<Product>) => {
             state.list = state.list.filter((item) => item.id !== action.payload.id);
             storage.setItem('list', JSON.stringify(state.list));
+        },
+        plusQuantity: (state, action: PayloadAction<number>) => {
+            let findItem = state.list.find((item) => item.id === action.payload);
+            if (findItem) {
+                findItem.quantity = findItem.quantity! + 1;
+                state.list = state.list.map((item) => (item.id === findItem.id ? findItem : item));
+            }
+            storage.setItem('list', JSON.stringify(state.list));
+        },
+        minusQuantity: (state, action: PayloadAction<number>) => {
+            let findItem = state.list.find((item) => item.id === action.payload);
+            if (findItem) {
+                findItem.quantity = findItem.quantity! - 1;
+                state.list = state.list.map((item) => (item.id === findItem.id ? findItem : item));
+            }
+            storage.setItem('list', JSON.stringify(state.list));
         }
     },
     extraReducers: () => {}
 });
 
 const { reducer, actions } = cartSlice;
-export const { addToCart, removeFromCart } = actions;
+export const { addToCart, removeFromCart, plusQuantity, minusQuantity } = actions;
 export default reducer;
