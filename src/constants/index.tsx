@@ -179,12 +179,7 @@ export const footerPayment = [
     'https://s.alicdn.com/@img/imgextra/i1/O1CN01F2dH281hwEJACdKgv_!!6000000004341-2-tps-113-112.png',
     'https://s.alicdn.com/@img/imgextra/i1/O1CN017IIzE71MpGLv2nxMd_!!6000000001483-2-tps-260-112.png',
     'https://s.alicdn.com/@img/imgextra/i1/O1CN01pwSjDv25t4M1W8Xu8_!!6000000007583-2-tps-165-112.png',
-    'https://s.alicdn.com/@img/imgextra/i3/O1CN01Wv6lOf1OTOfx5Dppk_!!6000000001706-2-tps-171-112.png',
-    'https://s.alicdn.com/@img/imgextra/i4/O1CN01yLWgha1BtsZXZDDih_!!6000000000004-2-tps-158-112.png',
-    'https://s.alicdn.com/@img/imgextra/i3/O1CN01EXUFiW1EgXt8o8Ev9_!!6000000000381-2-tps-125-112.png',
-    'https://s.alicdn.com/@img/imgextra/i3/O1CN01tkTNhl1ZaEMHoGWsA_!!6000000003210-2-tps-137-112.png',
-    'https://s.alicdn.com/@img/imgextra/i4/O1CN010I5eGr1aDcQ82EcRH_!!6000000003296-2-tps-169-112.png',
-    'https://s.alicdn.com/@img/imgextra/i1/O1CN01EF6Zjm21spgURRwKI_!!6000000007041-2-tps-138-112.png'
+    'https://s.alicdn.com/@img/imgextra/i3/O1CN01Wv6lOf1OTOfx5Dppk_!!6000000001706-2-tps-171-112.png'
 ];
 
 export const footerSocial = [

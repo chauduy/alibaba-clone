@@ -55,18 +55,6 @@ function Footer() {
                         />
                     ))}
                 </div>
-                <div className="flex items-center gap-x-2">
-                    {footerPayment.slice(11, 16).map((item) => (
-                        <Image
-                            key={item}
-                            src={item}
-                            alt="footer-icon"
-                            width={1000}
-                            height={1000}
-                            className="h-7 w-auto"
-                        />
-                    ))}
-                </div>
             </div>
             <div className="ml-2 mt-6 flex items-center gap-x-6 lg:mt-8 xl:mx-auto xl:flex xl:max-w-screen-2xl xl:px-10">
                 {footerSocial.map((item) => (

@@ -16,8 +16,8 @@ function MainHeader() {
     const [openUser, setOpenUser] = useState<boolean>(false);
     const pathname = usePathname();
     const router = useRouter();
-    const isCartPage = pathname.includes('/cart');
-    const isAccountPage = pathname.includes('/account');
+    const isHideCart = pathname.includes('/cart') || pathname.includes('/auth');
+    const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
     let timeout: NodeJS.Timeout;
 
     useEffect(() => {
@@ -66,7 +66,7 @@ function MainHeader() {
             </Link>
 
             <div className="flex items-center gap-x-6 text-black">
-                {!isCartPage && (
+                {!isHideCart && (
                     <div
                         className="relative"
                         onMouseEnter={handleMouseEnterCart}
@@ -80,15 +80,16 @@ function MainHeader() {
                     </div>
                 )}
 
-                {!isAccountPage && (
+                {!isHideAccount && (
                     <div
-                        className="relative"
+                        className="relative flex items-end gap-x-2"
                         onMouseEnter={handleMouseEnterUser}
                         onMouseLeave={handleMouseLeaveUser}>
                         <FaRegUser
                             className="h-5 w-5 cursor-pointer"
                             onClick={() => router.push('/account')}
                         />
+                        <div>Sign in</div>
 
                         {openUser && <AccountPopup />}
                     </div>

@@ -54,3 +54,15 @@ export interface BannerProps {
     title: string;
     description: string;
 }
+
+export interface RegistrationForm {
+    country_id: string;
+    email: string;
+    password: string;
+    confirm_password: string;
+    first_name: string;
+    last_name: string;
+    phone_code: string;
+    phone_number: string;
+    terms: boolean;
+}
