@@ -1,12 +1,14 @@
 import { User } from 'firebase/auth';
 
+import { storage } from '@/util';
+
 import { createSlice } from '@reduxjs/toolkit';
 
 import { signUp } from './authThunk';
 
 interface AuthState {
     loading: boolean;
-    user: User | null;
+    user: {} | null;
 }
 
 const initialState: AuthState = {
@@ -24,7 +26,7 @@ const authSlice = createSlice({
         });
         builder.addCase(signUp.fulfilled, (state, action) => {
             state.loading = false;
-            state.user = action.payload.user;
+            state.user = action.payload;
         });
         builder.addCase(signUp.rejected, (state, action) => {
             state.loading = false;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Loading({ color }: { color?: string }) {
     return (
         <div

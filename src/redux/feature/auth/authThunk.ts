@@ -18,7 +18,11 @@ export const signUp = createAsyncThunk(
                 payload.email,
                 payload.password
             );
-            return response;
+            const user = response.user;
+            return {
+                uid: user.uid,
+                email: user.email
+            };
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }

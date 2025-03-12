@@ -8,6 +8,8 @@ import CategoryPreview from '@/components/CategoryPreview/page';
 import Loading from '@/components/Loading/page';
 import CategoryTabs from '@/components/Tabs/page';
 import { tabs } from '@/constants';
+import { useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
 import { Category } from '@/type';
 
 import data from '../../data.json';
@@ -15,6 +17,8 @@ import data from '../../data.json';
 function Home() {
     const [selectedCategory, setSelectedCategory] = useState<string>(tabs[0].key);
     const [selectedData, setSelectedData] = useState<Category[]>([]);
+    const { user } = useAppSelector((state: RootState) => state.auth);
+    console.log('user', user);
 
     useEffect(() => {
         if (selectedCategory) {

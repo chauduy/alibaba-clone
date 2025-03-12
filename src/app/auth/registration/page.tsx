@@ -1,13 +1,20 @@
 'use client';
 
-import * as Yup from 'yup';
-import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
+import * as Yup from 'yup';
+import { doc, setDoc } from 'firebase/firestore';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
+import ButtonLoading from '@/components/ButtonLoading/page';
 import Select from '@/components/custom/select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { db } from '@/lib/firebase';
 import { signUp } from '@/redux/feature/auth/authThunk';
 import { useAppDispatch } from '@/redux/hooks';
 import { RegistrationForm } from '@/type';
@@ -33,6 +40,8 @@ const schema = Yup.object().shape({
 });
 
 function Registration() {
+    const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const getCountries = () => {
         return countries.map((item) => {
@@ -70,14 +79,27 @@ function Registration() {
     });
 
     const onSubmit = async (values: RegistrationForm) => {
-        console.log('values', values);
+        setLoading(true);
         try {
             const result = await dispatch(
                 signUp({ email: values.email, password: values.password })
             );
-            console.log('result', result);
-        } catch (error) {
+            if (signUp.fulfilled.match(result)) {
+                const appendCustomer = {
+                    country_id: values.country_id,
+                    email: values.email,
+                    first_name: values.first_name,
+                    last_name: values.last_name,
+                    phone_code: values.phone_code,
+                    phone_number: values.phone_number
+                };
+                await setDoc(doc(db, 'customers', result.payload.uid), appendCustomer);
+                setLoading(false);
+                router.push('/');
+            }
+        } catch (error: any) {
             console.error(error);
+            toast.error(error?.message);
         }
     };
 
@@ -268,7 +290,7 @@ function Registration() {
                     variant={'default'}
                     className="text-white"
                     disabled={!form.watch('terms')}>
-                    Create an account
+                    {loading ? <ButtonLoading /> : 'Create an account'}
                 </Button>
             </div>
         </form>
