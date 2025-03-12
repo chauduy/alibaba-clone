@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import * as Yup from 'yup';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
@@ -10,6 +8,8 @@ import Select from '@/components/custom/select';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { signUp } from '@/redux/feature/auth/authThunk';
+import { useAppDispatch } from '@/redux/hooks';
 import { RegistrationForm } from '@/type';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -33,7 +33,8 @@ const schema = Yup.object().shape({
 });
 
 function Registration() {
-    const listCountry = useMemo(() => {
+    const dispatch = useAppDispatch();
+    const getCountries = () => {
         return countries.map((item) => {
             const { countryCode, countryName, ...rest } = item;
 
@@ -51,7 +52,8 @@ function Registration() {
                 ...rest
             };
         });
-    }, [countries]);
+    };
+    const listCountry = getCountries();
     const form = useForm({
         defaultValues: {
             country_id: listCountry?.[0]?.value,
@@ -69,6 +71,14 @@ function Registration() {
 
     const onSubmit = async (values: RegistrationForm) => {
         console.log('values', values);
+        try {
+            const result = await dispatch(
+                signUp({ email: values.email, password: values.password })
+            );
+            console.log('result', result);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -101,63 +111,73 @@ function Registration() {
             <div className="registrationField">
                 <label
                     htmlFor="email"
-                    className="registrationLabel">
+                    className={`registrationLabel ${form.formState.errors.email ? 'md:-mt-5' : ''}`}>
                     <span className="mr-1 text-red-700">*</span>Email:
                 </label>
-                <Input
-                    placeholder="Your email will be set as account name"
-                    id="email"
-                    className="text-sm"
-                    {...form.register('email')}
-                />
-                {form.formState.errors.email && (
-                    <div className="text-red-600">{form.formState.errors.email.message}</div>
-                )}
+                <div className={`w-full`}>
+                    <Input
+                        placeholder="Your email will be set as account name"
+                        id="email"
+                        className="text-sm"
+                        {...form.register('email')}
+                    />
+                    {form.formState.errors.email && (
+                        <div className="mt-1 text-red-600">
+                            {form.formState.errors.email.message}
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="registrationField">
                 <label
                     htmlFor="password"
-                    className="registrationLabel">
+                    className={`registrationLabel ${form.formState.errors.password ? 'md:-mt-5' : ''}`}>
                     <span className="mr-1 text-red-700">*</span>Password:
                 </label>
-                <Input
-                    placeholder="Set the login password"
-                    id="password"
-                    className="text-sm"
-                    type="password"
-                    {...form.register('password')}
-                />
-                {form.formState.errors.password && (
-                    <div className="text-red-600">{form.formState.errors.password.message}</div>
-                )}
+                <div className="w-full">
+                    <Input
+                        placeholder="Set the login password"
+                        id="password"
+                        className="text-sm"
+                        type="password"
+                        {...form.register('password')}
+                    />
+                    {form.formState.errors.password && (
+                        <div className="mt-1 text-red-600">
+                            {form.formState.errors.password.message}
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="registrationField">
                 <label
                     htmlFor="confirm_password"
-                    className="registrationLabel">
+                    className={`registrationLabel ${form.formState.errors.confirm_password ? 'md:-mt-5' : ''}`}>
                     <span className="mr-1 text-red-700">*</span>Confirm password
                 </label>
-                <Input
-                    placeholder="Enter your login password again to continue"
-                    id="confirm_password"
-                    className="text-sm"
-                    type="password"
-                    {...form.register('confirm_password')}
-                />
-                {form.formState.errors.confirm_password && (
-                    <div className="text-red-600">
-                        {form.formState.errors.confirm_password.message}
-                    </div>
-                )}
+                <div className="w-full">
+                    <Input
+                        placeholder="Enter your login password again to continue"
+                        id="confirm_password"
+                        className="text-sm"
+                        type="password"
+                        {...form.register('confirm_password')}
+                    />
+                    {form.formState.errors.confirm_password && (
+                        <div className="mt-1 text-red-600">
+                            {form.formState.errors.confirm_password.message}
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="registrationField">
                 <label
                     htmlFor="first_name"
-                    className="registrationLabel">
+                    className={`registrationLabel ${form.formState.errors.first_name || form.formState.errors.last_name ? 'md:-mt-5' : ''}`}>
                     <span className="mr-1 text-red-700">*</span>Full name
                 </label>
                 <div className="flex items-start gap-x-2 md:w-full">
-                    <div>
+                    <div className="w-1/2">
                         <Input
                             placeholder="Enter your first name"
                             id="first_name"
@@ -171,7 +191,7 @@ function Registration() {
                             </div>
                         )}
                     </div>
-                    <div>
+                    <div className="w-1/2">
                         <Input
                             placeholder="Enter your last name"
                             id="last_name"
@@ -190,7 +210,7 @@ function Registration() {
             <div className="registrationField">
                 <label
                     htmlFor="phone_number"
-                    className="registrationLabel">
+                    className={`registrationLabel ${form.formState.errors.phone_number ? 'md:-mt-5' : ''}`}>
                     <span className="mr-1 text-red-700">*</span>Tel
                 </label>
                 <div className="flex items-start gap-x-2 md:w-full">
@@ -201,7 +221,7 @@ function Registration() {
                         {...form.register('phone_code')}
                         defaultValue={listCountry?.[0]?.phoneCode}
                     />
-                    <div>
+                    <div className="w-full">
                         <Input
                             placeholder="Enter your phone number"
                             className="text-sm"
@@ -246,7 +266,8 @@ function Registration() {
                 <Button
                     type="submit"
                     variant={'default'}
-                    className="text-white">
+                    className="text-white"
+                    disabled={!form.watch('terms')}>
                     Create an account
                 </Button>
             </div>
