@@ -66,3 +66,13 @@ export interface RegistrationForm {
     phone_number: string;
     terms: boolean;
 }
+
+export interface UserInfo {
+    email?: string;
+    uid: string;
+    country_id?: string;
+    first_name?: string;
+    last_name?: string;
+    phone_code?: string;
+    phone_number?: string;
+}

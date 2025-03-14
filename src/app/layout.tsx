@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
+import AppRedirect from '@/components/AppRedirect/page';
 import Footer from '@/components/Footer/page';
 import MainHeader from '@/components/MainHeader/page';
 import { Toaster } from '@/components/ui/sonner';
@@ -28,10 +29,12 @@ export default function RootLayout({
         <html lang="en">
             <body className={roboto.className}>
                 <AppProvide>
-                    <MainHeader />
-                    {children}
-                    <Footer />
-                    <Toaster />
+                    <AppRedirect>
+                        <MainHeader />
+                        {children}
+                        <Footer />
+                        <Toaster />
+                    </AppRedirect>
                 </AppProvide>
             </body>
         </html>

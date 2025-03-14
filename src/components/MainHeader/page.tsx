@@ -8,6 +8,11 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FaRegUser } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 
+import { getUserInfo } from '@/redux/feature/auth/authThunk';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
+import { storage } from '@/util';
+
 import AccountPopup from '../AccountPopup/page';
 import CartPopup from '../CartPopup/page';
 
@@ -16,9 +21,18 @@ function MainHeader() {
     const [openUser, setOpenUser] = useState<boolean>(false);
     const pathname = usePathname();
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector((state: RootState) => state.auth);
     const isHideCart = pathname.includes('/cart') || pathname.includes('/auth');
     const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
-    let timeout: NodeJS.Timeout;
+    let timeoutCart: NodeJS.Timeout;
+    let timeoutUser: NodeJS.Timeout;
+
+    useEffect(() => {
+        if (user !== null) {
+            dispatch(getUserInfo({ uid: user.uid }));
+        }
+    }, [pathname]);
 
     useEffect(() => {
         setOpenCart(false);
@@ -27,24 +41,24 @@ function MainHeader() {
 
     const handleMouseEnterCart = () => {
         if (openUser) setOpenUser(false);
-        clearTimeout(timeout);
+        clearTimeout(timeoutCart);
         setOpenCart(true);
     };
 
     const handleMouseLeaveCart = () => {
-        timeout = setTimeout(() => {
+        timeoutCart = setTimeout(() => {
             setOpenCart(false);
         }, 150);
     };
 
     const handleMouseEnterUser = () => {
         if (openCart) setOpenCart(false);
-        clearTimeout(timeout);
+        clearTimeout(timeoutUser);
         setOpenUser(true);
     };
 
     const handleMouseLeaveUser = () => {
-        timeout = setTimeout(() => {
+        timeoutUser = setTimeout(() => {
             setOpenUser(false);
         }, 150);
     };
@@ -71,28 +85,48 @@ function MainHeader() {
                         className="relative"
                         onMouseEnter={handleMouseEnterCart}
                         onMouseLeave={handleMouseLeaveCart}>
-                        <FiShoppingCart
-                            className="h-5 w-5 cursor-pointer"
-                            onClick={() => router.push('/cart')}
-                        />
+                        {user ? (
+                            <FiShoppingCart
+                                className="h-5 w-5 cursor-pointer"
+                                onClick={() => router.push('/cart')}
+                            />
+                        ) : (
+                            <FiShoppingCart
+                                className="h-5 w-5 cursor-pointer"
+                                onClick={() => router.push('/auth/login')}
+                            />
+                        )}
 
                         {openCart && <CartPopup />}
                     </div>
                 )}
 
                 {!isHideAccount && (
-                    <div
-                        className="relative flex items-end gap-x-2"
-                        onMouseEnter={handleMouseEnterUser}
-                        onMouseLeave={handleMouseLeaveUser}>
-                        <FaRegUser
-                            className="h-5 w-5 cursor-pointer"
-                            onClick={() => router.push('/account')}
-                        />
-                        <div>Sign in</div>
+                    <>
+                        {user ? (
+                            <div
+                                className="relative flex items-end gap-x-2"
+                                onMouseEnter={handleMouseEnterUser}
+                                onMouseLeave={handleMouseLeaveUser}>
+                                <FaRegUser
+                                    className="h-5 w-5 cursor-pointer"
+                                    onClick={() => router.push('/account')}
+                                />
 
-                        {openUser && <AccountPopup />}
-                    </div>
+                                {openUser && <AccountPopup />}
+                            </div>
+                        ) : (
+                            <div
+                                className="flex cursor-pointer items-center gap-x-2"
+                                onClick={() => {
+                                    storage.setItem('path', pathname);
+                                    router.push('/auth/login');
+                                }}>
+                                <FaRegUser className="h-5 w-5" />
+                                <div className="mt-0.5">Sign in</div>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
         </div>

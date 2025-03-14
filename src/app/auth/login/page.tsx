@@ -1,28 +1,76 @@
+'use client';
+
 import React from 'react';
 
+import * as Yup from 'yup';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 import { FaFacebookF } from 'react-icons/fa';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'sonner';
 
+import ButtonLoading from '@/components/ButtonLoading/page';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { signIn } from '@/redux/feature/auth/authThunk';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string().required('Password is required')
+});
+
+interface AuthState {
+    email: string;
+    password: string;
+}
 
 function Login() {
+    const { loading } = useAppSelector((state: RootState) => state.auth);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const form = useForm({
+        defaultValues: {},
+        resolver: yupResolver(schema)
+    });
+
+    const handleSubmitForm = async (values: AuthState) => {
+        try {
+            const result = await dispatch(
+                signIn({ email: values.email, password: values.password })
+            );
+            if (signIn.fulfilled.match(result)) {
+                router.push('/');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
-        <div className="min-h-[600px] w-full px-5 pb-6 pt-14 text-sm md:mx-auto md:min-h-[800px] md:w-1/2 lg:flex lg:min-h-[600px] lg:w-full lg:bg-[url(/images/bg-login.avif)] lg:bg-no-repeat 2xl:justify-end">
+        <form
+            className="min-h-[600px] w-full px-5 pb-6 pt-14 text-sm md:mx-auto md:min-h-[800px] md:w-1/2 lg:flex lg:min-h-[600px] lg:w-full lg:bg-[url(/images/bg-login.avif)] lg:bg-no-repeat 2xl:justify-end"
+            onSubmit={form.handleSubmit(handleSubmitForm)}>
             <div className="lg:ml-10 lg:h-fit lg:w-[400px] lg:bg-white lg:px-5 lg:py-8 xl:mr-[15%] 2xl:ml-0">
                 <label
                     className="font-bold"
-                    htmlFor="user_name">
+                    htmlFor="email">
                     Account:
                 </label>
                 <Input
                     className="mt-1 text-sm focus-within:border-primary focus-visible:ring-0"
-                    name="user_name"
-                    id="user_name"
+                    id="email"
                     placeholder="Enter your email or member ID"
+                    {...form.register('email')}
                 />
+                {form.formState.errors.email && (
+                    <div className="mt-1 text-red-600">{form.formState.errors.email.message}</div>
+                )}
                 <div className="mt-4 flex items-center justify-between">
                     <label
                         className="font-bold"
@@ -38,14 +86,21 @@ function Login() {
                 </div>
                 <Input
                     className="mt-1 text-sm focus-within:border-primary focus-visible:ring-0"
-                    name="password"
                     id="password"
+                    type="password"
                     placeholder="Enter your email or member ID"
+                    {...form.register('password')}
                 />
+                {form.formState.errors.password && (
+                    <div className="mt-1 text-red-600">
+                        {form.formState.errors.password.message}
+                    </div>
+                )}
                 <Button
+                    type="submit"
                     variant={'default'}
                     className="mt-6 w-full text-white">
-                    Sign in
+                    {loading ? <ButtonLoading /> : 'Sign in'}
                 </Button>
                 <div className="mt-6 text-center text-xs text-[#999999]">Or sign in with</div>
                 <div className="mt-4 flex items-center justify-between px-10">
@@ -71,7 +126,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
 

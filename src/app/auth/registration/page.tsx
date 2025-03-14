@@ -29,7 +29,7 @@ const schema = Yup.object().shape({
     password: Yup.string().required('Password is required'),
     confirm_password: Yup.string()
         .required('Confirm password is required')
-        .oneOf([Yup.ref('password')], 'Passwords must match'),
+        .oneOf([Yup.ref('password')], 'Confirm password and password must match'),
     first_name: Yup.string().required('First name is required'),
     last_name: Yup.string().required('Last name is required'),
     phone_code: Yup.string().required('Phone code is required'),
@@ -78,7 +78,7 @@ function Registration() {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = async (values: RegistrationForm) => {
+    const handleSubmitForm = async (values: RegistrationForm) => {
         setLoading(true);
         try {
             const result = await dispatch(
@@ -106,7 +106,7 @@ function Registration() {
     return (
         <form
             className="flex min-h-[600px] flex-col gap-y-4 px-5 py-10 text-sm md:px-28 lg:mx-auto lg:max-w-screen-md lg:py-20"
-            onSubmit={form.handleSubmit(onSubmit)}>
+            onSubmit={form.handleSubmit(handleSubmitForm)}>
             <div className="registrationField">
                 <label
                     htmlFor="select_country"
@@ -288,7 +288,7 @@ function Registration() {
                 <Button
                     type="submit"
                     variant={'default'}
-                    className="text-white"
+                    className="min-w-[150px] text-white"
                     disabled={!form.watch('terms')}>
                     {loading ? <ButtonLoading /> : 'Create an account'}
                 </Button>

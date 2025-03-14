@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { FaRegCheckCircle } from 'react-icons/fa';
-import { FaXmark } from 'react-icons/fa6';
 import { IoMailOutline } from 'react-icons/io5';
+import { PiWarningLight } from 'react-icons/pi';
 import { toast } from 'sonner';
 
 import AssuranceDrawer from '@/components/AssuranceDrawer/page';
@@ -42,6 +41,7 @@ function Product() {
     const param = useParams();
     const productId = Number(param.slug);
     const { list } = useAppSelector((state: RootState) => state.cart);
+    const { user } = useAppSelector((state: RootState) => state.auth);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -82,24 +82,10 @@ function Product() {
         if (!product) return;
         if (list.find((item) => item.id === product.id)) {
             dispatch(removeFromCart(product));
-            toast.success(
-                'Removed from cart',
-                customToast(
-                    'success',
-                    <FaRegCheckCircle className="h-5 w-5 text-green-500" />,
-                    <FaXmark />
-                )
-            );
+            toast.success('Removed from cart', customToast('success'));
         } else {
             dispatch(addToCart(product));
-            toast(
-                'Added to cart',
-                customToast(
-                    'success',
-                    <FaRegCheckCircle className="h-5 w-5 text-green-500" />,
-                    <FaXmark />
-                )
-            );
+            toast('Added to cart', customToast('success'));
         }
     };
 
@@ -166,14 +152,17 @@ function Product() {
                                     Shipping total: {product.price} for {product.minPerOrder}
                                 </div>
                                 <div>Estimated delivery within 7 days</div>
-                                <div className="mt-4 flex items-center gap-x-2 lg:mt-6 lg:border-b-[1px] lg:border-[#dddddd] lg:pb-6">
+                                <div
+                                    className={`mt-4 flex items-center gap-x-2 lg:mt-6 ${user ? 'lg:border-b-[1px] lg:border-[#dddddd] lg:pb-6' : ''}`}>
                                     <div className="flex w-[calc(100%-48px)] items-center gap-x-2 md:w-fit lg:w-full">
                                         <Button
+                                            disabled={!user}
                                             variant={'default'}
                                             className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2">
                                             Start order
                                         </Button>
                                         <Button
+                                            disabled={!user}
                                             variant={'outline'}
                                             className="h-10 w-1/2 rounded-full border-[1px] border-black bg-gray-100 text-sm font-bold md:w-40 lg:h-12 lg:w-1/2"
                                             onClick={handleAddToCart}>
@@ -187,6 +176,14 @@ function Product() {
                                         <IoMailOutline className="h-5 w-5" />
                                     </Button>
                                 </div>
+                                {!user && (
+                                    <div className="mt-3 flex items-center gap-x-2 text-[16px] text-yellow-400 lg:border-b-[1px] lg:border-[#dddddd] lg:pb-6">
+                                        <PiWarningLight className="h-5 w-5" />
+                                        <div className="pt-0.5">
+                                            You need to log in to start shopping.
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                             <div className="mt-2 bg-white p-3 text-sm md:p-6 lg:mt-0">
                                 <AssuranceDrawer />
