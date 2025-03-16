@@ -29,7 +29,7 @@ function MainHeader() {
     let timeoutUser: NodeJS.Timeout;
 
     useEffect(() => {
-        if (user !== null) {
+        if (user !== null && !pathname.includes('/auth')) {
             dispatch(getUserInfo({ uid: user.uid }));
         }
     }, [pathname]);

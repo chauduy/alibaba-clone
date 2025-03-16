@@ -49,7 +49,8 @@ export default {
             screens: {
                 xxs: '450px',
                 xs: '550px',
-                lg: '1025px'
+                lg: '1025px',
+                '3xl': '1792px'
             },
             borderRadius: {
                 lg: 'var(--radius)',

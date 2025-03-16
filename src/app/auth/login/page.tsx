@@ -54,9 +54,9 @@ function Login() {
 
     return (
         <form
-            className="min-h-[600px] w-full px-5 pb-6 pt-14 text-sm md:mx-auto md:min-h-[800px] md:w-1/2 lg:flex lg:min-h-[600px] lg:w-full lg:bg-[url(/images/bg-login.avif)] lg:bg-no-repeat 2xl:justify-end"
+            className="3xl:justify-end min-h-[600px] w-full px-5 pb-6 pt-14 text-sm md:mx-auto md:min-h-[800px] md:w-1/2 lg:flex lg:min-h-[600px] lg:w-full lg:bg-[url(/images/bg-login.avif)] lg:bg-no-repeat"
             onSubmit={form.handleSubmit(handleSubmitForm)}>
-            <div className="lg:ml-10 lg:h-fit lg:w-[400px] lg:bg-white lg:px-5 lg:py-8 xl:mr-[15%] 2xl:ml-0">
+            <div className="3xl:ml-0 3xl:mr-[15%] lg:ml-10 lg:h-fit lg:w-[400px] lg:bg-white lg:px-5 lg:py-8">
                 <label
                     className="font-bold"
                     htmlFor="email">

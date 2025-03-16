@@ -23,6 +23,8 @@ function AppRedirect({ children }: { children: React.ReactNode }) {
             } else {
                 setLoading(false);
             }
+        } else {
+            setLoading(false);
         }
     }, [pathname]);
 
