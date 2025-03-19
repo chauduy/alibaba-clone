@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FaRegCheckCircle } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
+import { IoIosWarning } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
 import { toast } from 'sonner';
 
@@ -33,6 +34,20 @@ export const customToast = (type: string) => {
                 },
                 style: {
                     color: '#dc2626'
+                }
+            };
+        case 'warning':
+            return {
+                action: {
+                    label: <FaXmark className="text-[#000000]" />,
+                    onClick: () => toast.dismiss()
+                },
+                icon: <IoIosWarning className="h-5 w-5 text-yellow-400" />,
+                actionButtonStyle: {
+                    backgroundColor: '#fff'
+                },
+                style: {
+                    color: '#facc15'
                 }
             };
     }

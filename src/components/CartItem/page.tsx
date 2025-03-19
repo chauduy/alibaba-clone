@@ -40,7 +40,7 @@ function CartItem({ product }: { product: Product }) {
                     alt={`cart-item-${product.id}`}
                     className="h-[110px] w-[110px] rounded-[8px] border lg:h-auto lg:w-[150px]"
                 />
-                <div className="flex flex-col justify-between py-1 lg:py-2">
+                <div className="flex w-full flex-col justify-between py-1 lg:py-2">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>

@@ -50,7 +50,7 @@ const authSlice = createSlice({
         builder.addCase(logOut.fulfilled, (state, action) => {
             state.loading = false;
             state.user = null;
-            storage.removeItem('user');
+            storage.clear();
         });
         builder.addCase(logOut.rejected, (state, action) => {
             state.loading = false;
@@ -63,6 +63,7 @@ const authSlice = createSlice({
             state.loading = false;
             const userInfo = {
                 uid: state.user?.uid!,
+                token: state.user?.token!,
                 ...action.payload
             };
             state.user = userInfo;

@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 
 import ButtonLoading from '@/components/ButtonLoading/page';
 import Select from '@/components/custom/select';
+import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -104,196 +105,201 @@ function Registration() {
     };
 
     return (
-        <form
-            className="flex min-h-[600px] flex-col gap-y-4 px-5 py-10 text-sm md:px-28 lg:mx-auto lg:max-w-screen-md lg:py-20"
-            onSubmit={form.handleSubmit(handleSubmitForm)}>
-            <div className="registrationField">
-                <label
-                    htmlFor="select_country"
-                    className="registrationLabel">
-                    <span className="mr-1 text-red-700">*</span>Country/ Region:
-                </label>
-                <Select
-                    options={listCountry}
-                    placeholder="Select a country"
-                    id="select_country"
-                    defaultValue={listCountry?.[0]?.value}
-                    onValueChange={(item: string) => {
-                        form.setValue(
-                            'phone_code',
-                            listCountry.find((country) => country.value === item)?.phoneCode!
-                        );
-                    }}
-                    {...form.register('country_id')}
-                />
-                {form.formState.errors.country_id && (
-                    <div className="text-red-600">{form.formState.errors.country_id.message}</div>
-                )}
-            </div>
-            <div className="registrationField">
-                <label
-                    htmlFor="email"
-                    className={`registrationLabel ${form.formState.errors.email ? 'md:-mt-5' : ''}`}>
-                    <span className="mr-1 text-red-700">*</span>Email:
-                </label>
-                <div className={`w-full`}>
-                    <Input
-                        placeholder="Your email will be set as account name"
-                        id="email"
-                        className="text-sm"
-                        {...form.register('email')}
+        <div className="min-h-[600px] px-5 py-10 text-sm md:px-28 lg:mx-auto lg:max-w-screen-md lg:py-20">
+            <form
+                className="relative flex flex-col gap-y-4 rounded-2xl p-6"
+                onSubmit={form.handleSubmit(handleSubmitForm)}>
+                <ShineBorder shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />
+                <div className="registrationField">
+                    <label
+                        htmlFor="select_country"
+                        className="registrationLabel">
+                        <span className="mr-1 text-red-700">*</span>Country/ Region:
+                    </label>
+                    <Select
+                        options={listCountry}
+                        placeholder="Select a country"
+                        id="select_country"
+                        defaultValue={listCountry?.[0]?.value}
+                        onValueChange={(item: string) => {
+                            form.setValue(
+                                'phone_code',
+                                listCountry.find((country) => country.value === item)?.phoneCode!
+                            );
+                        }}
+                        {...form.register('country_id')}
                     />
-                    {form.formState.errors.email && (
-                        <div className="mt-1 text-red-600">
-                            {form.formState.errors.email.message}
+                    {form.formState.errors.country_id && (
+                        <div className="text-red-600">
+                            {form.formState.errors.country_id.message}
                         </div>
                     )}
                 </div>
-            </div>
-            <div className="registrationField">
-                <label
-                    htmlFor="password"
-                    className={`registrationLabel ${form.formState.errors.password ? 'md:-mt-5' : ''}`}>
-                    <span className="mr-1 text-red-700">*</span>Password:
-                </label>
-                <div className="w-full">
-                    <Input
-                        placeholder="Set the login password"
-                        id="password"
-                        className="text-sm"
-                        type="password"
-                        {...form.register('password')}
-                    />
-                    {form.formState.errors.password && (
-                        <div className="mt-1 text-red-600">
-                            {form.formState.errors.password.message}
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className="registrationField">
-                <label
-                    htmlFor="confirm_password"
-                    className={`registrationLabel ${form.formState.errors.confirm_password ? 'md:-mt-5' : ''}`}>
-                    <span className="mr-1 text-red-700">*</span>Confirm password
-                </label>
-                <div className="w-full">
-                    <Input
-                        placeholder="Enter your login password again to continue"
-                        id="confirm_password"
-                        className="text-sm"
-                        type="password"
-                        {...form.register('confirm_password')}
-                    />
-                    {form.formState.errors.confirm_password && (
-                        <div className="mt-1 text-red-600">
-                            {form.formState.errors.confirm_password.message}
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className="registrationField">
-                <label
-                    htmlFor="first_name"
-                    className={`registrationLabel ${form.formState.errors.first_name || form.formState.errors.last_name ? 'md:-mt-5' : ''}`}>
-                    <span className="mr-1 text-red-700">*</span>Full name
-                </label>
-                <div className="flex items-start gap-x-2 md:w-full">
-                    <div className="w-1/2">
+                <div className="registrationField">
+                    <label
+                        htmlFor="email"
+                        className={`registrationLabel ${form.formState.errors.email ? 'md:-mt-5' : ''}`}>
+                        <span className="mr-1 text-red-700">*</span>Email:
+                    </label>
+                    <div className={`w-full`}>
                         <Input
-                            placeholder="Enter your first name"
-                            id="first_name"
+                            placeholder="Your email will be set as account name"
+                            id="email"
                             className="text-sm"
-                            type="text"
-                            {...form.register('first_name')}
+                            {...form.register('email')}
                         />
-                        {form.formState.errors.first_name && (
+                        {form.formState.errors.email && (
                             <div className="mt-1 text-red-600">
-                                {form.formState.errors.first_name.message}
-                            </div>
-                        )}
-                    </div>
-                    <div className="w-1/2">
-                        <Input
-                            placeholder="Enter your last name"
-                            id="last_name"
-                            className="text-sm"
-                            type="text"
-                            {...form.register('last_name')}
-                        />
-                        {form.formState.errors.last_name && (
-                            <div className="mt-1 text-red-600">
-                                {form.formState.errors.last_name.message}
+                                {form.formState.errors.email.message}
                             </div>
                         )}
                     </div>
                 </div>
-            </div>
-            <div className="registrationField">
-                <label
-                    htmlFor="phone_number"
-                    className={`registrationLabel ${form.formState.errors.phone_number ? 'md:-mt-5' : ''}`}>
-                    <span className="mr-1 text-red-700">*</span>Tel
-                </label>
-                <div className="flex items-start gap-x-2 md:w-full">
-                    <Input
-                        placeholder="Code"
-                        className="w-1/4 text-sm"
-                        disabled
-                        {...form.register('phone_code')}
-                        defaultValue={listCountry?.[0]?.phoneCode}
-                    />
+                <div className="registrationField">
+                    <label
+                        htmlFor="password"
+                        className={`registrationLabel ${form.formState.errors.password ? 'md:-mt-5' : ''}`}>
+                        <span className="mr-1 text-red-700">*</span>Password:
+                    </label>
                     <div className="w-full">
                         <Input
-                            placeholder="Enter your phone number"
+                            placeholder="Set the login password"
+                            id="password"
                             className="text-sm"
-                            type="number"
-                            id="phone_number"
-                            {...form.register('phone_number')}
+                            type="password"
+                            {...form.register('password')}
                         />
-                        {form.formState.errors.phone_number && (
+                        {form.formState.errors.password && (
                             <div className="mt-1 text-red-600">
-                                {form.formState.errors.phone_number.message}
+                                {form.formState.errors.password.message}
                             </div>
                         )}
                     </div>
                 </div>
-            </div>
-            <div className="flex items-start gap-x-2 md:ml-auto md:w-[68%]">
-                <Checkbox
-                    id="terms"
-                    checked={form.watch('terms')}
-                    onCheckedChange={(checked) => form.setValue('terms', !!checked)}
-                    className="mt-0.5 rounded-full"
-                    defaultValue={'false'}
-                    {...form.register('terms')}
-                />
-                <div>
-                    <label htmlFor="terms">
-                        I agree to the{' '}
-                        <span className="text-primary">Free Membership Agreement</span>
-                        {', '}
-                        <span className="text-primary">Terms of Use </span>and
-                        <span className="text-primary"> Privacy Policy</span> of Alibaba.com. I also
-                        agree to receive more information about its products and services.
+                <div className="registrationField">
+                    <label
+                        htmlFor="confirm_password"
+                        className={`registrationLabel ${form.formState.errors.confirm_password ? 'md:-mt-5' : ''}`}>
+                        <span className="mr-1 text-red-700">*</span>Confirm password
                     </label>
-                    {form.formState.errors.terms && (
-                        <div className="mt-1 text-red-600">
-                            {form.formState.errors.terms.message}
-                        </div>
-                    )}
+                    <div className="w-full">
+                        <Input
+                            placeholder="Enter your login password again to continue"
+                            id="confirm_password"
+                            className="text-sm"
+                            type="password"
+                            {...form.register('confirm_password')}
+                        />
+                        {form.formState.errors.confirm_password && (
+                            <div className="mt-1 text-red-600">
+                                {form.formState.errors.confirm_password.message}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="md:ml-auto md:w-[68%]">
-                <Button
-                    type="submit"
-                    variant={'default'}
-                    className="min-w-[150px] text-white"
-                    disabled={!form.watch('terms')}>
-                    {loading ? <ButtonLoading /> : 'Create an account'}
-                </Button>
-            </div>
-        </form>
+                <div className="registrationField">
+                    <label
+                        htmlFor="first_name"
+                        className={`registrationLabel ${form.formState.errors.first_name || form.formState.errors.last_name ? 'md:-mt-5' : ''}`}>
+                        <span className="mr-1 text-red-700">*</span>Full name
+                    </label>
+                    <div className="flex items-start gap-x-2 md:w-full">
+                        <div className="w-1/2">
+                            <Input
+                                placeholder="Enter your first name"
+                                id="first_name"
+                                className="text-sm"
+                                type="text"
+                                {...form.register('first_name')}
+                            />
+                            {form.formState.errors.first_name && (
+                                <div className="mt-1 text-red-600">
+                                    {form.formState.errors.first_name.message}
+                                </div>
+                            )}
+                        </div>
+                        <div className="w-1/2">
+                            <Input
+                                placeholder="Enter your last name"
+                                id="last_name"
+                                className="text-sm"
+                                type="text"
+                                {...form.register('last_name')}
+                            />
+                            {form.formState.errors.last_name && (
+                                <div className="mt-1 text-red-600">
+                                    {form.formState.errors.last_name.message}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="registrationField">
+                    <label
+                        htmlFor="phone_number"
+                        className={`registrationLabel ${form.formState.errors.phone_number ? 'md:-mt-5' : ''}`}>
+                        <span className="mr-1 text-red-700">*</span>Tel
+                    </label>
+                    <div className="flex items-start gap-x-2 md:w-full">
+                        <Input
+                            placeholder="Code"
+                            className="w-1/4 text-sm"
+                            disabled
+                            {...form.register('phone_code')}
+                            defaultValue={listCountry?.[0]?.phoneCode}
+                        />
+                        <div className="w-full">
+                            <Input
+                                placeholder="Enter your phone number"
+                                className="text-sm"
+                                type="number"
+                                id="phone_number"
+                                {...form.register('phone_number')}
+                            />
+                            {form.formState.errors.phone_number && (
+                                <div className="mt-1 text-red-600">
+                                    {form.formState.errors.phone_number.message}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-start gap-x-2 md:ml-auto md:w-[68%]">
+                    <Checkbox
+                        id="terms"
+                        checked={form.watch('terms')}
+                        onCheckedChange={(checked) => form.setValue('terms', !!checked)}
+                        className="mt-0.5 rounded-full"
+                        defaultValue={'false'}
+                        {...form.register('terms')}
+                    />
+                    <div>
+                        <label htmlFor="terms">
+                            I agree to the{' '}
+                            <span className="text-primary">Free Membership Agreement</span>
+                            {', '}
+                            <span className="text-primary">Terms of Use </span>and
+                            <span className="text-primary"> Privacy Policy</span> of Alibaba.com. I
+                            also agree to receive more information about its products and services.
+                        </label>
+                        {form.formState.errors.terms && (
+                            <div className="mt-1 text-red-600">
+                                {form.formState.errors.terms.message}
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <div className="md:ml-auto md:w-[68%]">
+                    <Button
+                        type="submit"
+                        variant={'default'}
+                        className="min-w-[150px] text-white"
+                        disabled={!form.watch('terms')}>
+                        {loading ? <ButtonLoading /> : 'Create an account'}
+                    </Button>
+                </div>
+            </form>
+        </div>
     );
 }
 

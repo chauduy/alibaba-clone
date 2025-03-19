@@ -22,8 +22,10 @@ export const signUp = createAsyncThunk(
                 payload.password
             );
             const user = response.user;
+            const token = await user.getIdToken();
             return {
-                uid: user.uid
+                uid: user.uid,
+                token: token
             };
         } catch (error) {
             toast.error('User existed', customToast('error'));
@@ -36,8 +38,10 @@ export const signIn = createAsyncThunk('auth/signIn', async (payload: AuthPayloa
     try {
         const response = await signInWithEmailAndPassword(auth, payload.email, payload.password);
         const user = response.user;
+        const token = await user.getIdToken();
         return {
-            uid: user.uid
+            uid: user.uid,
+            token: token
         };
     } catch (error) {
         toast.error('Invalid email or password', customToast('error'));

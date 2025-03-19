@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
+import { doc, setDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaRegUser } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 
+import { db } from '@/lib/firebase';
 import { getUserInfo } from '@/redux/feature/auth/authThunk';
+import { getCart } from '@/redux/feature/cart/cartThunk';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { storage } from '@/util';
@@ -23,10 +26,29 @@ function MainHeader() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state: RootState) => state.auth);
+    const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
     const isHideCart = pathname.includes('/cart') || pathname.includes('/auth');
     const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
     let timeoutCart: NodeJS.Timeout;
     let timeoutUser: NodeJS.Timeout;
+
+    useEffect(() => {
+        if (!user?.uid) return;
+        dispatch(getCart({ uid: user.uid }));
+    }, [user?.uid]);
+
+    useEffect(() => {
+        const handleUpdateCart = async () => {
+            if (!user?.uid) return;
+
+            const userCartRef = doc(db, 'customers', user.uid, 'cart', 'cartData');
+            await setDoc(userCartRef, { list }, { merge: true });
+        };
+
+        if (!loadingCart && list !== null) {
+            handleUpdateCart();
+        }
+    }, [list]);
 
     useEffect(() => {
         if (user !== null && !pathname.includes('/auth')) {

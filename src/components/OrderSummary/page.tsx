@@ -7,13 +7,14 @@ import { GoShieldCheck } from 'react-icons/go';
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 
+import ButtonLoading from '../ButtonLoading/page';
 import { Button } from '../ui/button';
 
-function OrderSummay() {
+function OrderSummay({ loading, onCheckout }: { loading: boolean; onCheckout: () => {} }) {
     const { list } = useAppSelector((state: RootState) => state.cart);
-    const quantity = list.reduce((acc, cur) => acc + cur.quantity!, 0);
+    const quantity = list!.reduce((acc, cur) => acc + cur.quantity!, 0);
     const subtotal = parseFloat(
-        list
+        list!
             .reduce((acc, cur) => {
                 if (cur.price.includes('-')) {
                     const price = cur.price.split('-')[1];
@@ -39,18 +40,25 @@ function OrderSummay() {
             </div>
             <div className="mt-2 flex items-center justify-between border-b border-gray-200 pb-4 text-sm">
                 <div>Shipping fee</div>
-                <div className="font-bold">$50</div>
+                <div className="font-bold">$10</div>
             </div>
             <div className="mt-4 flex items-center justify-between text-sm font-bold">
                 <div>Subtotal excl, tax</div>
-                <div>{`$${parseFloat((subtotal + 50).toFixed(2))}`}</div>
+                <div>{`$${parseFloat((subtotal + 10).toFixed(2))}`}</div>
             </div>
             <div className="mt-1 text-xs text-gray-500">(Excluding tax fee)</div>
             <Button
                 variant={'default'}
-                className="mt-6 h-10 w-full rounded-full bg-primary text-sm font-bold text-white">
-                <GoShieldCheck />
-                <span>Check out</span>
+                className="mt-6 h-10 w-full rounded-full bg-primary text-sm font-bold text-white"
+                onClick={onCheckout}>
+                {loading ? (
+                    <ButtonLoading />
+                ) : (
+                    <div className="flex items-center gap-x-2">
+                        <GoShieldCheck />
+                        <span>Check out</span>
+                    </div>
+                )}
             </Button>
         </div>
     );

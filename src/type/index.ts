@@ -75,4 +75,5 @@ export interface UserInfo {
     last_name?: string;
     phone_code?: string;
     phone_number?: string;
+    token: string;
 }

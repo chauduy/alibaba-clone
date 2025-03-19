@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { IoMailOutline } from 'react-icons/io5';
 import { PiWarningLight } from 'react-icons/pi';
 import { toast } from 'sonner';
@@ -42,6 +42,7 @@ function Product() {
     const productId = Number(param.slug);
     const { list } = useAppSelector((state: RootState) => state.cart);
     const { user } = useAppSelector((state: RootState) => state.auth);
+    const router = useRouter();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -69,7 +70,7 @@ function Product() {
 
     useEffect(() => {
         if (product) {
-            const find = list.find((item) => item.id === product.id);
+            const find = list!.find((item) => item.id === product.id);
             if (find) {
                 setIsInCart(true);
             } else {
@@ -80,12 +81,22 @@ function Product() {
 
     const handleAddToCart = () => {
         if (!product) return;
-        if (list.find((item) => item.id === product.id)) {
+        if (list!.find((item) => item.id === product.id)) {
             dispatch(removeFromCart(product));
             toast.success('Removed from cart', customToast('success'));
         } else {
             dispatch(addToCart(product));
             toast('Added to cart', customToast('success'));
+        }
+    };
+
+    const handleStartOrder = () => {
+        if (!product) return;
+        if (list!.find((item) => item.id === product.id)) {
+            router.push('/cart');
+        } else {
+            dispatch(addToCart(product));
+            router.push('/cart');
         }
     };
 
@@ -158,7 +169,8 @@ function Product() {
                                         <Button
                                             disabled={!user}
                                             variant={'default'}
-                                            className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2">
+                                            className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2"
+                                            onClick={handleStartOrder}>
                                             Start order
                                         </Button>
                                         <Button
