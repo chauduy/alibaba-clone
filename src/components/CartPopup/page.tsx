@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 function CartPopup() {
     const { list } = useAppSelector((state: RootState) => state.cart);
     const router = useRouter();
-    const totalQuantity = list.reduce((total, item) => total + item.quantity!, 0);
+    const totalQuantity = list!.reduce((total, item) => total + item.quantity!, 0);
     const emptyCart = totalQuantity === 0;
     const navigateToCart = () => {
         router.push('/cart');
@@ -36,7 +36,7 @@ function CartPopup() {
                     'Your cart is empty'
                 ) : (
                     <div className="font-normal">
-                        You have <span className="font-bold">{list.length} products</span> in your
+                        You have <span className="font-bold">{list!.length} products</span> in your
                         cart with a total of{' '}
                         <span className="font-bold">{totalQuantity} items</span>.
                     </div>
