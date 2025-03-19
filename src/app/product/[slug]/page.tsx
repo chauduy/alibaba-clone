@@ -70,7 +70,7 @@ function Product() {
 
     useEffect(() => {
         if (product) {
-            const find = list!.find((item) => item.id === product.id);
+            const find = list?.find((item) => item.id === product.id);
             if (find) {
                 setIsInCart(true);
             } else {

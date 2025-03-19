@@ -27,7 +27,7 @@ function MainHeader() {
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state: RootState) => state.auth);
     const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
-    const isHideCart = pathname.includes('/cart') || pathname.includes('/auth');
+    const isHideCart = pathname.includes('/cart') || pathname.includes('/auth') || !user;
     const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
     let timeoutCart: NodeJS.Timeout;
     let timeoutUser: NodeJS.Timeout;
@@ -107,17 +107,10 @@ function MainHeader() {
                         className="relative"
                         onMouseEnter={handleMouseEnterCart}
                         onMouseLeave={handleMouseLeaveCart}>
-                        {user ? (
-                            <FiShoppingCart
-                                className="h-5 w-5 cursor-pointer"
-                                onClick={() => router.push('/cart')}
-                            />
-                        ) : (
-                            <FiShoppingCart
-                                className="h-5 w-5 cursor-pointer"
-                                onClick={() => router.push('/auth/login')}
-                            />
-                        )}
+                        <FiShoppingCart
+                            className="h-5 w-5 cursor-pointer"
+                            onClick={() => router.push('/cart')}
+                        />
 
                         {openCart && <CartPopup />}
                     </div>

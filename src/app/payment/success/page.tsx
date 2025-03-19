@@ -1,16 +1,57 @@
 'use client';
 
+import { useEffect } from 'react';
+
+import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { FaCheck } from 'react-icons/fa6';
+import { v4 as uuidv4 } from 'uuid';
 
 import Confetti from '@/components/Confetti/page';
 import { Button } from '@/components/ui/button';
-import { useAppSelector } from '@/redux/hooks';
+import { db } from '@/lib/firebase';
+import { clearCart } from '@/redux/feature/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
+import { storage } from '@/util';
 
 function Success() {
     const router = useRouter();
     const { list } = useAppSelector((state: RootState) => state.cart);
+    const { user } = useAppSelector((state: RootState) => state.auth);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const handleSubmitOrder = async () => {
+            if (!user?.uid || !list || list.length === 0) return;
+
+            const lastOrderId = storage.getItem('lastOrderId');
+            if (lastOrderId) {
+                console.log('Order already submitted, skipping...');
+                return;
+            }
+
+            const orderId = uuidv4();
+            const orderData = {
+                list,
+                order_time: new Date(),
+                delivery_time: new Date(new Date().setDate(new Date().getDate() + 7)),
+                orderId
+            };
+
+            try {
+                const orderRef = doc(db, 'customers', user.uid, 'orders', orderId);
+                await setDoc(orderRef, orderData);
+                dispatch(clearCart());
+                storage.setItem('lastOrderId', orderId);
+                console.log('Order submitted successfully!');
+            } catch (error) {
+                console.error('Error submitting order:', error);
+            }
+        };
+
+        handleSubmitOrder();
+    }, [list]);
 
     return (
         <div className="flex h-[700px] flex-col items-center justify-center px-6 md:h-[1000px] lg:h-[800px]">

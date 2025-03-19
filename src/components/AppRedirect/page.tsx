@@ -8,6 +8,8 @@ import { storage } from '@/util';
 
 import Loading from '../Loading/page';
 
+//handle payment success & payment cancel page
+
 function AppRedirect({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
