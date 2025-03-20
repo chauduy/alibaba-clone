@@ -13,7 +13,6 @@ import { db } from '@/lib/firebase';
 import { clearCart } from '@/redux/feature/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
-import { storage } from '@/util';
 
 function Success() {
     const router = useRouter();
@@ -24,12 +23,6 @@ function Success() {
     useEffect(() => {
         const handleSubmitOrder = async () => {
             if (!user?.uid || !list || list.length === 0) return;
-
-            const lastOrderId = storage.getItem('lastOrderId');
-            if (lastOrderId) {
-                console.log('Order already submitted, skipping...');
-                return;
-            }
 
             const orderId = uuidv4();
             const orderData = {
@@ -43,7 +36,6 @@ function Success() {
                 const orderRef = doc(db, 'customers', user.uid, 'orders', orderId);
                 await setDoc(orderRef, orderData);
                 dispatch(clearCart());
-                storage.setItem('lastOrderId', orderId);
                 console.log('Order submitted successfully!');
             } catch (error) {
                 console.error('Error submitting order:', error);
