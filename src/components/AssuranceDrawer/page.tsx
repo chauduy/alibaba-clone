@@ -13,7 +13,7 @@ import {
     DrawerTitle,
     DrawerTrigger
 } from '@/components/ui/drawer';
-import useViewport from '@/hook/useViewport';
+import useViewport from '@/hooks/useViewport';
 
 import { Button } from '../ui/button';
 

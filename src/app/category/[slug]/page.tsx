@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import Loading from '@/components/Loading/page';
 import ProductItem from '@/components/ProductItem/page';
 import { productBanner } from '@/constants';
-import useViewport from '@/hook/useViewport';
+import useViewport from '@/hooks/useViewport';
 import { BannerProps, Category as CategoryProps } from '@/type';
 
 import data from '../../../../data.json';

@@ -6,7 +6,7 @@ import * as motion from 'motion/react-client';
 import Link from 'next/link';
 import { IoLocationSharp } from 'react-icons/io5';
 
-import useDimensions from '@/hook/useDimensions';
+import useDimensions from '@/hooks/useDimensions';
 import { PathProps } from '@/type';
 
 const menu = ['Menu', 'Rewards', 'Gift Cards'];
