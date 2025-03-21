@@ -4,31 +4,40 @@ import { useEffect, useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
+import { useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/redux/store';
 import { storage } from '@/util';
 
 import Loading from '../Loading/page';
 
-//handle payment success & payment cancel page
-
 function AppRedirect({ children }: { children: React.ReactNode }) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const router = useRouter();
     const pathname = usePathname();
+    const [loading, setLoading] = useState<boolean>(true);
+    const { user } = useAppSelector((state: RootState) => state.auth);
+    const router = useRouter();
     const path = storage.getItem('path');
 
     useEffect(() => {
-        if (!pathname.includes('auth')) {
-            if (path) {
-                setLoading(true);
-                storage.removeItem('path');
-                router.push(path);
+        const handleRedirect = () => {
+            if (!pathname.includes('auth')) {
+                if (path) {
+                    setLoading(true);
+                    storage.removeItem('path');
+                    router.push(path);
+                } else {
+                    setLoading(false);
+                }
             } else {
-                setLoading(false);
+                if (user) {
+                    router.back();
+                } else {
+                    setLoading(false);
+                }
             }
-        } else {
-            setLoading(false);
-        }
-    }, [pathname, path]);
+        };
+
+        handleRedirect();
+    }, [pathname, path, user]);
 
     if (loading)
         return (

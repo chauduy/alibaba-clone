@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 
 import CartItem from '@/components/CartItem/page';
 import Loading from '@/components/Loading/page';
@@ -12,7 +13,7 @@ import OrderSummay from '@/components/OrderSummary/page';
 import { Button } from '@/components/ui/button';
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
-import { customToast } from '@/util';
+import { customToast, storage } from '@/util';
 
 interface ProductCheckout {
     name: string;
@@ -45,6 +46,8 @@ function Cart() {
                 };
                 cart.push(product);
             });
+            const code = uuidv4();
+            storage.setItem('code', code);
             const token = user.token;
             const res = await fetch(
                 `https://us-central1-${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.cloudfunctions.net/createCheckoutSession`,
@@ -54,7 +57,7 @@ function Cart() {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ items: cart, uid: user.uid }),
+                    body: JSON.stringify({ items: cart, uid: user.uid, code }),
                     mode: 'cors'
                 }
             );
