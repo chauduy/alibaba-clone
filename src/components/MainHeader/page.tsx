@@ -29,7 +29,7 @@ function MainHeader() {
     const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
     const isHideCart = pathname.includes('/cart') || pathname.includes('/auth') || !user;
     const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
-    const isHomePage = pathname.includes('home');
+    const isAccountPage = pathname.includes('account');
     let timeoutCart: NodeJS.Timeout;
     let timeoutUser: NodeJS.Timeout;
 
@@ -88,7 +88,7 @@ function MainHeader() {
 
     return (
         <div
-            className={`appPadding flex w-full items-center justify-between bg-white lg:border-b-[1px] lg:border-[#dddddd] ${isHomePage ? "hidden" : ""}`}
+            className={`appPadding flex w-full items-center justify-between bg-white lg:border-b-[1px] lg:border-[#dddddd] ${isAccountPage ? 'hidden' : ''}`}
             id="main-top">
             <Link
                 href={'/'}
