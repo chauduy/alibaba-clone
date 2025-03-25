@@ -85,7 +85,7 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
                                                     target="_self">
                                                     {item.icon}
                                                     <span
-                                                        className={`text-[16px] text-white ${!isOpen ? 'hidden' : ''}`}>
+                                                        className={`text-[16px] text-white ${!isOpen ? 'lg:hidden' : ''}`}>
                                                         {item.title}
                                                     </span>
                                                 </Link>
@@ -98,7 +98,12 @@ function HomeLayout({ children }: { children: React.ReactNode }) {
                     </SidebarContent>
                 </Sidebar>
 
-                <main className={`flex-1 p-6 transition-all duration-200 ${isOpen ? 'ml-48' : ''}`}>
+                <main
+                    className={`flex-1 p-6 transition-all duration-200 ${isOpen ? 'lg:ml-48' : ''}`}>
+                    <SidebarTrigger
+                        open={isOpen}
+                        toggleSidebar={toggleSidebar}
+                    />
                     {children}
                 </main>
             </div>

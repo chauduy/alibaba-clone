@@ -193,27 +193,12 @@ const Sidebar = React.forwardRef<
 
         if (isMobile) {
             return (
-                <Sheet
-                    open={openMobile}
-                    onOpenChange={setOpenMobile}
+                <div
+                    className={`fixed inset-y-0 left-0 z-50 w-[--sidebar-width] bg-[#020926] text-sidebar-foreground transition-transform duration-200 ease-in-out ${collapsed === 'true' ? '-translate-x-full' : 'translate-x-0'}`}
+                    style={{ '--sidebar-width': SIDEBAR_WIDTH_MOBILE } as React.CSSProperties}
                     {...props}>
-                    <SheetContent
-                        data-sidebar="sidebar"
-                        data-mobile="true"
-                        className="w-[--sidebar-width] bg-[#020926] p-0 text-sidebar-foreground [&>button]:hidden"
-                        style={
-                            {
-                                '--sidebar-width': SIDEBAR_WIDTH_MOBILE
-                            } as React.CSSProperties
-                        }
-                        side={side}>
-                        <SheetHeader className="sr-only">
-                            <SheetTitle>Sidebar</SheetTitle>
-                            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
-                        </SheetHeader>
-                        <div className="flex h-full w-full flex-col">{children}</div>
-                    </SheetContent>
-                </Sheet>
+                    <div className="flex h-full w-full flex-col">{children}</div>
+                </div>
             );
         }
 
@@ -278,9 +263,9 @@ const SidebarTrigger = React.forwardRef<
             }}
             {...props}>
             {open ? (
-                <HiChevronDoubleLeft className="h-6 w-6 text-white" />
+                <HiChevronDoubleLeft className="h-6 w-6 text-red-600" />
             ) : (
-                <HiChevronDoubleRight className="h-6 w-6 text-white" />
+                <HiChevronDoubleRight className="h-6 w-6 text-red-600" />
             )}
         </Button>
     );
