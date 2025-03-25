@@ -1,4 +1,10 @@
+'use client';
+
+import { useState } from 'react';
+
 import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import {
     Sidebar,
@@ -42,21 +48,54 @@ const items = [
 ];
 
 function HomePage() {
+    const [isOpen, setIsOpen] = useState(true); // Manage sidebar state here
+
+    const toggleSidebar = () => {
+        setIsOpen((prev) => !prev);
+    };
     return (
         <SidebarProvider className="flex items-start">
-            <Sidebar>
+            <Sidebar
+                className={`transition-all duration-200 ${isOpen ? 'w-64' : 'w-16'}`}
+                collapsed={!isOpen}
+                variant="sidebar"
+                collapsible="icon">
                 <SidebarContent>
                     <SidebarGroup>
-                        <SidebarGroupLabel>Application</SidebarGroupLabel>
                         <SidebarGroupContent>
                             <SidebarMenu>
+                                <div className="flex items-center justify-between border-b border-white py-2 pl-2">
+                                    <Link
+                                        href={'/'}
+                                        target="_self"
+                                        className={`flex items-center gap-x-1.5 ${!isOpen ? 'hidden' : ''}`}>
+                                        <Image
+                                            src={'/images/brand-logo.png'}
+                                            alt="brand-logo"
+                                            width={1000}
+                                            height={1000}
+                                            className="h-[40px] w-full object-cover"
+                                        />
+                                        <span className="text-[20px] font-bold text-primary">
+                                            Alibaba
+                                        </span>
+                                    </Link>
+                                    <SidebarTrigger
+                                        open={isOpen}
+                                        toggleSidebar={toggleSidebar}
+                                    />
+                                </div>
                                 {items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton asChild>
-                                            <a href={item.url}>
+                                            <Link
+                                                href={item.url}
+                                                target="_self">
                                                 <item.icon />
-                                                <span>{item.title}</span>
-                                            </a>
+                                                <span className={`${!isOpen ? 'hidden' : ''}`}>
+                                                    {item.title}
+                                                </span>
+                                            </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
                                 ))}
@@ -65,7 +104,6 @@ function HomePage() {
                     </SidebarGroup>
                 </SidebarContent>
             </Sidebar>
-            <SidebarTrigger />
         </SidebarProvider>
     );
 }
