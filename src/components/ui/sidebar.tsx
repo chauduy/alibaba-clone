@@ -248,8 +248,12 @@ Sidebar.displayName = 'Sidebar';
 
 const SidebarTrigger = React.forwardRef<
     React.ElementRef<typeof Button>,
-    React.ComponentProps<typeof Button> & { open: boolean; toggleSidebar: () => void }
->(({ className, onClick, open, toggleSidebar, ...props }, ref) => {
+    React.ComponentProps<typeof Button> & {
+        open: boolean;
+        toggleSidebar: () => void;
+        isMobile?: boolean;
+    }
+>(({ className, onClick, open, toggleSidebar, isMobile, ...props }, ref) => {
     return (
         <Button
             ref={ref}
@@ -263,9 +267,11 @@ const SidebarTrigger = React.forwardRef<
             }}
             {...props}>
             {open ? (
-                <HiChevronDoubleLeft className="h-6 w-6 text-red-600" />
+                <HiChevronDoubleLeft className="h-6 w-6 text-white" />
+            ) : isMobile ? (
+                <img src="/icons/close-icon.svg" />
             ) : (
-                <HiChevronDoubleRight className="h-6 w-6 text-red-600" />
+                <HiChevronDoubleRight className="h-6 w-6 text-white" />
             )}
         </Button>
     );

@@ -1,13 +1,15 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { onRequest } from 'firebase-functions/v2/https';
 import Stripe from 'stripe';
 
 admin.initializeApp();
 
-const stripe = new Stripe(functions.config().stripe.secret as string, {
-    apiVersion: '2023-10-16' as Stripe.LatestApiVersion // Ensures the latest API version
-});
+const stripe = new Stripe(
+    'sk_test_51R3HCyI8gDrJXWTogMNubhtvfT55jsEDiaETkMjpMMNZUWvymPR8iMv8FducmDVtmf6wjdX8INy1mzRu3MwEbrZS00gMBXUrYJ' as string,
+    {
+        apiVersion: '2023-10-16' as Stripe.LatestApiVersion
+    }
+);
 
 interface LineItem {
     name: string;
@@ -18,16 +20,26 @@ interface LineItem {
 interface RequestBody {
     uid: string;
     items: LineItem[];
+    code: string;
 }
 
-export const createCheckoutSession = onRequest(async (req, res): Promise<void> => {
+export const createCheckoutSession = functions.https.onRequest(async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    if (req.method === 'OPTIONS') {
+        res.status(204).send('');
+        return;
+    }
+
     if (req.method !== 'POST') {
         res.status(405).send('Method Not Allowed');
         return;
     }
 
     try {
-        const { uid, items } = req.body as RequestBody;
+        const { uid, items, code } = req.body as RequestBody;
 
         if (!uid) {
             res.status(401).send('Unauthorized');
@@ -44,7 +56,7 @@ export const createCheckoutSession = onRequest(async (req, res): Promise<void> =
             price_data: {
                 currency: 'usd',
                 product_data: { name: item.name },
-                unit_amount: item.price * 100 // Convert to cents
+                unit_amount: item.price
             },
             quantity: item.quantity
         }));
@@ -53,16 +65,15 @@ export const createCheckoutSession = onRequest(async (req, res): Promise<void> =
             payment_method_types: ['card'],
             line_items,
             mode: 'payment',
-            success_url: 'https://yourdomain.com/success',
-            cancel_url: 'https://yourdomain.com/cancel',
+            success_url: `https://ali-eco.vercel.app/payment/success?code=${code}`,
+            cancel_url: `https://ali-eco.vercel.app/payment/cancel?code=${code}`,
             metadata: { uid }
         });
 
         res.json({ url: session.url });
         return;
     } catch (error) {
-        const errorMessage = (error as Error).message || 'Internal Server Error';
-        res.status(500).json({ error: errorMessage });
+        res.status(500).json({ error: (error as Error).message || 'Internal Server Error' });
         return;
     }
 });
