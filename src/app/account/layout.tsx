@@ -6,10 +6,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AiFillHome } from 'react-icons/ai';
+import { CgLogOut } from 'react-icons/cg';
 import { FaList } from 'react-icons/fa';
 import { FiFileText } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import { Button } from '@/components/ui/button';
 import {
     Sidebar,
     SidebarContent,
@@ -22,7 +24,8 @@ import {
     SidebarTrigger
 } from '@/components/ui/sidebar';
 import useViewport from '@/hooks/useViewport';
-import { useAppSelector } from '@/redux/hooks';
+import { getOrders, logOut } from '@/redux/feature/auth/authThunk';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 
 const items = [
@@ -43,8 +46,9 @@ const items = [
     }
 ];
 function AccountLayout({ children }: { children: React.ReactNode }) {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const { user } = useAppSelector((state: RootState) => state.auth);
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const viewport = useViewport();
     const isMobile = viewport.width < 768;
@@ -52,11 +56,18 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!user) {
             router.push('/');
+        } else {
+            dispatch(getOrders({ uid: user.uid }));
         }
     }, [user]);
 
     const toggleSidebar = () => {
         setIsOpen((prev) => !prev);
+    };
+
+    const handleSignOut = () => {
+        dispatch(logOut());
+        router.push('/');
     };
 
     if (user) {
@@ -111,6 +122,15 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
                                                 </SidebarMenuButton>
                                             </SidebarMenuItem>
                                         ))}
+                                        <div className="pl-4">
+                                            <Button
+                                                variant={'ghost'}
+                                                className="w-20 text-white"
+                                                onClick={handleSignOut}>
+                                                <CgLogOut />
+                                                Sign out
+                                            </Button>
+                                        </div>
                                     </SidebarMenu>
                                 </SidebarGroupContent>
                             </SidebarGroup>

@@ -46,6 +46,7 @@ export interface TabProps {
     id: string;
     text: string;
     selected: boolean;
+    className?: string;
     setSelected: (text: string) => void;
 }
 

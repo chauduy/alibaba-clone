@@ -132,7 +132,7 @@ export const footerLink = [
     }
 ];
 
-export const tabs = [
+export const categoryTabs = [
     {
         key: 'most-popular',
         name: 'Most popular'
@@ -144,6 +144,21 @@ export const tabs = [
     {
         key: 'best-reviewed',
         name: 'Best reviewed'
+    }
+];
+
+export const orderTabs = [
+    {
+        key: 'all',
+        name: 'All'
+    },
+    {
+        key: 'delivering',
+        name: 'Delivering'
+    },
+    {
+        key: 'completed',
+        name: 'Completed'
     }
 ];
 

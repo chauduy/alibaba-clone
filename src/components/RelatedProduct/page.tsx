@@ -6,7 +6,7 @@ import { Product as ProductProps } from '@/type';
 function RelatedProduct({ product }: { product: ProductProps }) {
     return (
         <Link
-            className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white md:w-[calc((100%-24px)/4)] lg:w-[calc((100%-40px)/6)]"
+            className="w-full"
             target="_self"
             href={`/product/${product.id}`}>
             <Image

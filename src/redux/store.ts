@@ -7,7 +7,14 @@ export const store = configureStore({
     reducer: {
         auth: authReducer,
         cart: cartReducer
-    }
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['/auth/getOrders/fulfilled'],
+                ignoredPaths: ['auth.orders']
+            }
+        })
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { toast } from 'sonner';
 
 import { auth, db } from '@/lib/firebase';
@@ -64,6 +64,23 @@ export const getUserInfo = createAsyncThunk(
         try {
             const response = await getDoc(doc(db, 'customers', payload.uid));
             return response.data();
+        } catch (error) {
+            return thunkApi.rejectWithValue(error);
+        }
+    }
+);
+
+export const getOrders = createAsyncThunk(
+    '/auth/getOrders',
+    async (payload: { uid: string }, thunkApi) => {
+        try {
+            const ordersRef = collection(db, 'customers', payload.uid, 'orders');
+            const ordersSnap = await getDocs(ordersRef);
+            const orders = ordersSnap.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            return orders;
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }

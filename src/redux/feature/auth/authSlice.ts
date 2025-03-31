@@ -3,11 +3,12 @@ import { storage } from '@/util';
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getUserInfo, logOut, signIn, signUp } from './authThunk';
+import { getOrders, getUserInfo, logOut, signIn, signUp } from './authThunk';
 
 interface AuthState {
     loading: boolean;
     user: UserInfo | null;
+    orders?: Array<any>;
 }
 
 const initialState: AuthState = {
@@ -70,6 +71,17 @@ const authSlice = createSlice({
             storage.setItem('user', JSON.stringify(userInfo));
         });
         builder.addCase(getUserInfo.rejected, (state, action) => {
+            state.loading = false;
+        });
+
+        builder.addCase(getOrders.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(getOrders.fulfilled, (state, action) => {
+            state.loading = false;
+            state.orders = action.payload;
+        });
+        builder.addCase(getOrders.rejected, (state, action) => {
             state.loading = false;
         });
     }

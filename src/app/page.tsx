@@ -6,14 +6,14 @@ import Image from 'next/image';
 
 import CategoryPreview from '@/components/CategoryPreview/page';
 import Loading from '@/components/Loading/page';
-import CategoryTabs from '@/components/Tabs/page';
-import { tabs } from '@/constants';
+import { CategoryTabs } from '@/components/Tabs/page';
+import { categoryTabs } from '@/constants';
 import { Category } from '@/type';
 
 import data from '../../data.json';
 
 function Home() {
-    const [selectedCategory, setSelectedCategory] = useState<string>(tabs[0].key);
+    const [selectedCategory, setSelectedCategory] = useState<string>(categoryTabs[0].key);
     const [selectedData, setSelectedData] = useState<Category[]>([]);
 
     useEffect(() => {

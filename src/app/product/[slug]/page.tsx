@@ -209,10 +209,12 @@ function Product() {
                         </div>
                         <div className="flex flex-wrap gap-x-1 gap-y-2 md:gap-x-2">
                             {relatedProducts.map((item) => (
-                                <RelatedProduct
-                                    product={item}
-                                    key={item.id}
-                                />
+                                <div className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white md:w-[calc((100%-24px)/4)] lg:w-[calc((100%-40px)/6)]">
+                                    <RelatedProduct
+                                        product={item}
+                                        key={item.id}
+                                    />
+                                </div>
                             ))}
                         </div>
                     </div>
