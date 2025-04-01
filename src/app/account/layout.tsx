@@ -125,10 +125,12 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
                                         <div className="pl-4">
                                             <Button
                                                 variant={'ghost'}
-                                                className="w-20 text-white"
+                                                className={`w-20 text-white hover:bg-transparent hover:text-white ${!isOpen ? 'lg:w-10 lg:!pl-0' : ''}`}
                                                 onClick={handleSignOut}>
                                                 <CgLogOut />
-                                                Sign out
+                                                <div className={`${!isOpen ? 'lg:hidden' : ''}`}>
+                                                    Sign out
+                                                </div>
                                             </Button>
                                         </div>
                                     </SidebarMenu>
@@ -141,13 +143,17 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
                         className={`w-full transition-all duration-200 ${isOpen ? 'lg:ml-48' : ''}`}>
                         {isMobile && (
                             <div className="flex items-center gap-x-4 border-b border-slate-200 px-4 py-3">
-                                <Image
-                                    src={'/images/brand-logo.png'}
-                                    alt="brand-logo"
-                                    width={1000}
-                                    height={1000}
-                                    className="h-10 w-10 object-cover"
-                                />
+                                <Link
+                                    href={'/'}
+                                    target="_self">
+                                    <Image
+                                        src={'/images/brand-logo.png'}
+                                        alt="brand-logo"
+                                        width={1000}
+                                        height={1000}
+                                        className="h-10 w-10 object-cover"
+                                    />
+                                </Link>
                                 <SidebarTrigger
                                     open={isOpen}
                                     toggleSidebar={toggleSidebar}

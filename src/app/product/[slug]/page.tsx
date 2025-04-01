@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import { FaHeart } from 'react-icons/fa';
+import { FaRegHeart } from 'react-icons/fa';
 import { IoMailOutline } from 'react-icons/io5';
 import { PiWarningLight } from 'react-icons/pi';
 import { toast } from 'sonner';
@@ -14,6 +16,7 @@ import RelatedProduct from '@/components/RelatedProduct/page';
 import ReviewStar from '@/components/ReviewStar/page';
 import { Button } from '@/components/ui/button';
 import { addToCart, removeFromCart } from '@/redux/feature/cart/cartSlice';
+import { addToList, removeFromList } from '@/redux/feature/favorite/favoriteSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { Product as ProductProps } from '@/type';
@@ -38,10 +41,12 @@ function Product() {
     const [product, setProduct] = useState<ProductProps>();
     const [relatedProducts, setRelatedProducts] = useState<ProductProps[]>([]);
     const [isInCart, setIsInCart] = useState<boolean>();
+    const [isInList, setIsInList] = useState<boolean>();
     const param = useParams();
     const productId = Number(param.slug);
     const { list } = useAppSelector((state: RootState) => state.cart);
     const { user } = useAppSelector((state: RootState) => state.auth);
+    const { favoriteList } = useAppSelector((state: RootState) => state.favorite);
     const router = useRouter();
     const dispatch = useAppDispatch();
 
@@ -79,6 +84,17 @@ function Product() {
         }
     }, [list, product]);
 
+    useEffect(() => {
+        if (product) {
+            const find = favoriteList?.find((item) => item.id === product.id);
+            if (find) {
+                setIsInList(true);
+            } else {
+                setIsInList(false);
+            }
+        }
+    }, [favoriteList, product]);
+
     const handleAddToCart = () => {
         if (!product) return;
         if (list!.find((item) => item.id === product.id)) {
@@ -87,6 +103,17 @@ function Product() {
         } else {
             dispatch(addToCart(product));
             toast('Added to cart', customToast('success'));
+        }
+    };
+
+    const handleAddToList = () => {
+        if (!product) return;
+        if (favoriteList!.find((item) => item.id === product.id)) {
+            dispatch(removeFromList(product));
+            toast.success('Removed from your list', customToast('success'));
+        } else {
+            dispatch(addToList(product));
+            toast('Added to your list', customToast('success'));
         }
     };
 
@@ -135,8 +162,23 @@ function Product() {
                                 />
                             </div>
                             <div className="bg-white p-3 text-sm md:p-6 lg:hidden">
-                                <div className="text-2xl font-bold">{product.price}</div>
-                                <div className="mt-1">Min order: {product.minPerOrder}</div>
+                                <div className="flex justify-between">
+                                    <div>
+                                        <div className="text-2xl font-bold">{product.price}</div>
+                                        <div className="mt-1">Min order: {product.minPerOrder}</div>
+                                    </div>
+                                    <Button
+                                        disabled={!user}
+                                        className="!bg-transparent"
+                                        variant={'ghost'}
+                                        onClick={handleAddToList}>
+                                        {isInList ? (
+                                            <FaHeart className="mt-2 !h-6 !w-6 text-red-700" />
+                                        ) : (
+                                            <FaRegHeart className="mt-2 !h-6 !w-6 text-gray-500" />
+                                        )}
+                                    </Button>
+                                </div>
                                 <div className="mt-6">{product.subject}</div>
 
                                 <div className="flex items-center">
@@ -147,11 +189,24 @@ function Product() {
                         </div>
                         <div className="col-span-12 lg:col-span-5 lg:ml-20 lg:mt-6 lg:rounded-xl lg:border-[1px] lg:border-[#fff] lg:shadow-[0_-4px_20px_#0000000f]">
                             <div className="mt-2 bg-white p-3 text-sm md:p-6 lg:mt-0 lg:py-0 lg:text-[16px]">
-                                <div className="mt-6 hidden border-b-[1px] border-[#dddddd] pb-5 lg:block">
-                                    <div className="mb-1 mt-1 text-[16px] text-gray-500">
-                                        Minimum order quantity: {product.minPerOrder}
+                                <div className="mt-6 hidden justify-between border-b-[1px] border-[#dddddd] pb-5 lg:flex">
+                                    <div>
+                                        <div className="mb-1 mt-1 text-[16px] text-gray-500">
+                                            Minimum order quantity: {product.minPerOrder}
+                                        </div>
+                                        <div className="text-3xl font-bold">{product.price}</div>
                                     </div>
-                                    <div className="text-3xl font-bold">{product.price}</div>
+                                    <Button
+                                        disabled={!user}
+                                        className="!bg-transparent"
+                                        variant={'ghost'}
+                                        onClick={handleAddToList}>
+                                        {isInList ? (
+                                            <FaHeart className="mt-2 !h-8 !w-8 text-red-700" />
+                                        ) : (
+                                            <FaRegHeart className="mt-2 !h-8 !w-8 text-gray-500" />
+                                        )}
+                                    </Button>
                                 </div>
                                 <div className="mb-2 font-bold lg:mb-4 lg:mt-5 lg:text-lg">
                                     Shipping
@@ -209,11 +264,10 @@ function Product() {
                         </div>
                         <div className="flex flex-wrap gap-x-1 gap-y-2 md:gap-x-2">
                             {relatedProducts.map((item) => (
-                                <div className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white md:w-[calc((100%-24px)/4)] lg:w-[calc((100%-40px)/6)]">
-                                    <RelatedProduct
-                                        product={item}
-                                        key={item.id}
-                                    />
+                                <div
+                                    className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white md:w-[calc((100%-24px)/4)] lg:w-[calc((100%-40px)/6)]"
+                                    key={item.id}>
+                                    <RelatedProduct product={item} />
                                 </div>
                             ))}
                         </div>
