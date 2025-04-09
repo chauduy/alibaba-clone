@@ -25,7 +25,7 @@ import { customToast } from '@/util';
 import data from '../../../../data.json';
 import list from '../../../../product.json';
 
-const getRelatedProducts = (id: number) => {
+export const getRelatedProducts = (id: number) => {
     let results = [];
     const findIndex = list.findIndex((item) => item.id === id);
     if (id >= list.length - 24) {

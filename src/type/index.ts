@@ -78,3 +78,16 @@ export interface UserInfo {
     phone_number?: string;
     token: string;
 }
+
+export interface Timestamp {
+    seconds: number;
+    nanoseconds: number;
+}
+
+export interface CustomOrderProps {
+    delivery_time: string;
+    list: Product[];
+    orderId: string;
+    order_time: string;
+    status: string;
+}

@@ -4,12 +4,9 @@ import Stripe from 'stripe';
 
 admin.initializeApp();
 
-const stripe = new Stripe(
-    'sk_test_51R3HCyI8gDrJXWTogMNubhtvfT55jsEDiaETkMjpMMNZUWvymPR8iMv8FducmDVtmf6wjdX8INy1mzRu3MwEbrZS00gMBXUrYJ' as string,
-    {
-        apiVersion: '2023-10-16' as Stripe.LatestApiVersion
-    }
-);
+const stripe = new Stripe('123' as string, {
+    apiVersion: '2023-10-16' as Stripe.LatestApiVersion
+});
 
 interface LineItem {
     name: string;

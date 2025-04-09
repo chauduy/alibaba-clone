@@ -47,8 +47,8 @@ const OrderTabs = ({
     selectedOrderType,
     setSelectedOrderType
 }: {
-    selectedOrderType: string;
-    setSelectedOrderType: React.Dispatch<React.SetStateAction<string>>;
+    selectedOrderType: string | undefined;
+    setSelectedOrderType: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) => {
     return (
         <div className="mb-8 flex flex-wrap items-center gap-2">
@@ -59,7 +59,7 @@ const OrderTabs = ({
                     selected={selectedOrderType === tab.key}
                     setSelected={setSelectedOrderType}
                     key={tab.key}
-                    className="min-w-[80px] px-4"
+                    className="h-8 min-w-[80px] px-4"
                 />
             ))}
         </div>

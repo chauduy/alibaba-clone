@@ -77,7 +77,6 @@ export const getOrders = createAsyncThunk(
             const ordersRef = collection(db, 'customers', payload.uid, 'orders');
             const ordersSnap = await getDocs(ordersRef);
             const orders = ordersSnap.docs.map((doc) => ({
-                id: doc.id,
                 ...doc.data()
             }));
             return orders;
