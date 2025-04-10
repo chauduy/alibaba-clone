@@ -16,9 +16,12 @@ function FavoritePreview() {
                 <div className="flex flex-wrap gap-x-1 gap-y-2">
                     {favoriteList?.slice(0, 2)?.map((item) => (
                         <div
-                            className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white md:w-[calc((100%-24px)/4)] lg:w-[calc((100%-40px)/6)]"
+                            className="w-[calc((100%-4px)/2)] rounded-b-sm bg-white"
                             key={item.id}>
-                            <RelatedProduct product={item} />
+                            <RelatedProduct
+                                product={item}
+                                isHideInfo
+                            />
                         </div>
                     ))}
                 </div>

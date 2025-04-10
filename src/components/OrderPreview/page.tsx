@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+import Link from 'next/link';
+
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -49,7 +50,15 @@ function OrderPreview() {
 
     return (
         <div className="mb-2 bg-white px-4 pb-6 pt-3">
-            <h1 className="mb-4 text-2xl font-bold">Orders</h1>
+            <div className="flex gap-x-4">
+                <h1 className="mb-4 text-2xl font-bold">Orders</h1>
+                <Link
+                    className="mt-2 text-blue-600 hover:underline"
+                    href="/"
+                    target="_self">
+                    View all
+                </Link>
+            </div>
             <div>
                 <OrderTabs
                     selectedOrderType={selectedOrderType}
@@ -81,7 +90,7 @@ function OrderPreview() {
                         </TableBody>
                     </Table>
                 ) : (
-                    <div className="text-[16px] font-medium">{`You don't have any orders on ${selectedOrderType}`}</div>
+                    <div className="text-[16px] font-medium">{`You don't have any orders ${selectedOrderType !== 'all' ? 'on ' + selectedOrderType : 'yet'}.`}</div>
                 )}
             </div>
         </div>

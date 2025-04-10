@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-import { getRelatedProducts } from '@/app/product/[slug]/page';
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { Product } from '@/type';
+import { getRelatedProducts } from '@/util';
 
 import RelatedProduct from '../RelatedProduct/page';
 
@@ -20,7 +20,7 @@ function InspirationList() {
             return;
         }
 
-        setInspirationList(getRelatedProducts(favoriteList[0].id));
+        setInspirationList(getRelatedProducts(favoriteList?.[0]?.id));
     }, [favoriteList]);
 
     return (

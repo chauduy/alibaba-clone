@@ -148,4 +148,8 @@ body {
     .homeIcon {
         @apply !h-6 !w-6 text-white;
     }
+
+    .settingLink {
+        @apply cursor-pointer hover:font-semibold;
+    }
 }

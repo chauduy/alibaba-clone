@@ -70,7 +70,7 @@ function ProfileInfo() {
             <h1 className="mb-4 text-2xl font-bold">Profile</h1>
             <div className="flex flex-col gap-y-2">
                 <div className="flex items-center">
-                    <div className="min-w-[120px]">Your fullname:</div>
+                    <div className="min-w-[120px]">Your name:</div>
                     <div>{user?.first_name! + ' ' + user?.last_name!}</div>
                 </div>
                 <div className="flex items-center">
@@ -158,7 +158,7 @@ function ProfileInfo() {
                             Save
                         </Button>
                         <Button
-                            className="border border-gray-500 bg-white text-gray-500"
+                            className="border border-gray-500 bg-white text-gray-500 hover:bg-transparent"
                             onClick={() => {
                                 setIsShowEmailInput(false);
                                 setIsShowPasswordInput(false);
