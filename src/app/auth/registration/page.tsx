@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import ButtonLoading from '@/components/ButtonLoading/page';
-import Select from '@/components/custom/select';
+import CustomSelect from '@/components/custom/select';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -116,7 +116,7 @@ function Registration() {
                         className="registrationLabel">
                         <span className="mr-1 text-red-700">*</span>Country/ Region:
                     </label>
-                    <Select
+                    <CustomSelect
                         options={listCountry}
                         placeholder="Select a country"
                         id="select_country"

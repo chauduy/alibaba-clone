@@ -79,7 +79,7 @@ export const getOrders = createAsyncThunk(
             const orders = ordersSnap.docs.map((doc) => ({
                 ...doc.data()
             }));
-            return orders;
+            return orders || [];
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }

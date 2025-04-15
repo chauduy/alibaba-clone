@@ -4,20 +4,13 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
-} from '@/components/ui/table';
-import { orderTabs } from '@/constants';
+import { cellOrderColumns, headOrderColumns, orderTabs } from '@/constants';
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { CustomOrderProps } from '@/type';
 import { convertToDate, getAmount, getOrderStatus } from '@/util';
 
+import CustomTable from '../custom/table';
 import { OrderTabs } from '../Tabs/page';
 
 function OrderPreview() {
@@ -28,19 +21,28 @@ function OrderPreview() {
 
     useEffect(() => {
         if (!orders) return;
-        const tempOrders = orders.map((item) => ({
+        const tempOrders = orders.map((item, index) => ({
             ...item,
+            id: item.orderId,
+            no: String(index + 1),
             delivery_time: convertToDate(item.delivery_time),
             order_time: convertToDate(item.order_time),
-            status: getOrderStatus(item.delivery_time)
+            status: getOrderStatus(item.delivery_time),
+            amount: `$${getAmount(item.list)}`,
+            status_style:
+                getOrderStatus(item.delivery_time) === 'Completed'
+                    ? 'text-green-600'
+                    : 'text-yellow-400',
+            amount_style: 'font-bold'
         }));
+
         setSelectedOrderType(orderTabs[0].key);
         setCustomOrders(tempOrders);
     }, [orders]);
 
     useEffect(() => {
-        if (selectedOrderType === 'all') {
-            setCurrentOrders(customOrders);
+        if (selectedOrderType === 'All') {
+            setCurrentOrders(customOrders?.slice(0, 3));
             return;
         }
         setCurrentOrders(
@@ -54,7 +56,7 @@ function OrderPreview() {
                 <h1 className="mb-4 text-2xl font-bold">Orders</h1>
                 <Link
                     className="mt-2 text-blue-600 hover:underline"
-                    href="/"
+                    href="/account/order"
                     target="_self">
                     View all
                 </Link>
@@ -65,32 +67,13 @@ function OrderPreview() {
                     setSelectedOrderType={setSelectedOrderType}
                 />
                 {currentOrders && currentOrders?.length > 0 ? (
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>No</TableHead>
-                                <TableHead className="text-nowrap">Order time</TableHead>
-                                <TableHead className="text-nowrap">Delivery time</TableHead>
-                                <TableHead className="text-center">Amount</TableHead>
-                                <TableHead className="text-center">Status</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {currentOrders?.map((item, index) => (
-                                <TableRow key={item.orderId}>
-                                    <TableCell className="font-medium">{index + 1}</TableCell>
-                                    <TableCell>{item.order_time}</TableCell>
-                                    <TableCell>{item.delivery_time}</TableCell>
-                                    <TableCell className="text-center">{`$${getAmount(item.list)}`}</TableCell>
-                                    <TableCell className="text-center">
-                                        {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <CustomTable
+                        row={currentOrders}
+                        cellColumns={cellOrderColumns}
+                        headColumns={headOrderColumns}
+                    />
                 ) : (
-                    <div className="text-[16px] font-medium">{`You don't have any orders ${selectedOrderType !== 'all' ? 'on ' + selectedOrderType : 'yet'}.`}</div>
+                    <div className="text-[16px] font-medium">{`You don't have any orders ${selectedOrderType !== 'All' ? 'on ' + selectedOrderType?.toLocaleLowerCase() : 'yet'}.`}</div>
                 )}
             </div>
         </div>

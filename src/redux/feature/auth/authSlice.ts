@@ -8,12 +8,13 @@ import { getOrders, getUserInfo, logOut, signIn, signUp } from './authThunk';
 interface AuthState {
     loading: boolean;
     user: UserInfo | null;
-    orders?: Array<any>;
+    orders?: Array<any> | null;
 }
 
 const initialState: AuthState = {
     loading: false,
-    user: JSON.parse(storage.getItem('user') as string) as UserInfo | null
+    user: JSON.parse(storage.getItem('user') as string) as UserInfo | null,
+    orders: null
 };
 
 const authSlice = createSlice({

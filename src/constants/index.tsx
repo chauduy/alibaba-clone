@@ -149,15 +149,15 @@ export const categoryTabs = [
 
 export const orderTabs = [
     {
-        key: 'all',
+        key: 'All',
         name: 'All'
     },
     {
-        key: 'delivering',
+        key: 'Delivering',
         name: 'Delivering'
     },
     {
-        key: 'completed',
+        key: 'Completed',
         name: 'Completed'
     }
 ];
@@ -255,4 +255,20 @@ export const accountLink = [
         label: 'Account',
         link: 'https://google.com'
     }
+];
+
+export const headOrderColumns = [
+    { name: 'No' },
+    { name: 'Order time' },
+    { name: 'Delivery time' },
+    { name: 'Amount' },
+    { name: 'Status' }
+];
+
+export const cellOrderColumns = [
+    { name: 'no' },
+    { name: 'order_time' },
+    { name: 'delivery_time' },
+    { name: 'amount' },
+    { name: 'status' }
 ];

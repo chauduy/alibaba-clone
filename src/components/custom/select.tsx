@@ -1,12 +1,12 @@
 import {
-    Select as CoreSelect,
+    Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select';
 
-function Select({
+function CustomSelect({
     id,
     options,
     placeholder,
@@ -22,7 +22,7 @@ function Select({
     onValueChange?: (item: string) => void;
 }) {
     return (
-        <CoreSelect
+        <Select
             defaultValue={defaultValue}
             onValueChange={onValueChange}>
             <SelectTrigger className={className}>
@@ -42,8 +42,8 @@ function Select({
                     </SelectItem>
                 ))}
             </SelectContent>
-        </CoreSelect>
+        </Select>
     );
 }
 
-export default Select;
+export default CustomSelect;

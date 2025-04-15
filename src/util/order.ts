@@ -5,9 +5,9 @@ export const getOrderStatus = (date: Timestamp) => {
     const deliveryTime = new Date(date.seconds * 1000 + date.nanoseconds / 1e6);
     const present = new Date();
     if (deliveryTime.getTime() > present.getTime()) {
-        return 'delivering';
+        return 'Delivering';
     } else {
-        return 'completed';
+        return 'Completed';
     }
 };
 

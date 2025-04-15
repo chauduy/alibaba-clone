@@ -152,4 +152,8 @@ body {
     .settingLink {
         @apply cursor-pointer hover:font-semibold;
     }
+
+    .tableColumn {
+        @apply text-nowrap text-center;
+    }
 }
