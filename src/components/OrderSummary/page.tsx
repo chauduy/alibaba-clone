@@ -10,7 +10,7 @@ import { RootState } from '@/redux/store';
 import ButtonLoading from '../ButtonLoading/page';
 import { Button } from '../ui/button';
 
-function OrderSummay({ loading, onCheckout }: { loading: boolean; onCheckout: () => {} }) {
+function OrderSummary({ loading, onCheckout }: { loading: boolean; onCheckout: () => void }) {
     const { list } = useAppSelector((state: RootState) => state.cart);
     const quantity = list!.reduce((acc, cur) => acc + cur.quantity!, 0);
     const subtotal = parseFloat(
@@ -64,4 +64,4 @@ function OrderSummay({ loading, onCheckout }: { loading: boolean; onCheckout: ()
     );
 }
 
-export default OrderSummay;
+export default OrderSummary;

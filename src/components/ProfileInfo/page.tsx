@@ -24,7 +24,7 @@ function ProfileInfo() {
     const { user } = useAppSelector((state: RootState) => state.auth);
     const [isShowForm, setIsShowForm] = useState<boolean>(false);
     const [isShowEmailInput, setIsShowEmailInput] = useState<boolean>(false);
-    const [isShowPasswordInut, setIsShowPasswordInput] = useState<boolean>(false);
+    const [isShowPasswordInput, setIsShowPasswordInput] = useState<boolean>(false);
 
     const form = useForm<FormData>({
         defaultValues: {
@@ -36,7 +36,7 @@ function ProfileInfo() {
                 ...(isShowEmailInput && {
                     email: Yup.string().email('Invalid email').required('New email is required')
                 }),
-                ...(isShowPasswordInut && {
+                ...(isShowPasswordInput && {
                     password: Yup.string().required('New password is required')
                 })
             })
@@ -93,7 +93,7 @@ function ProfileInfo() {
                         if (!isShowForm) {
                             setIsShowForm(true);
                         }
-                        if (isShowPasswordInut) {
+                        if (isShowPasswordInput) {
                             setIsShowPasswordInput(false);
                         }
                         setIsShowEmailInput(true);
@@ -135,7 +135,7 @@ function ProfileInfo() {
                             )}
                         </>
                     )}
-                    {isShowPasswordInut && (
+                    {isShowPasswordInput && (
                         <>
                             <Input
                                 placeholder="Please enter your new password"

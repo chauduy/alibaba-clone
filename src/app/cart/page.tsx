@@ -32,7 +32,7 @@ function Cart() {
         setLoading(true);
 
         try {
-            let cart: ProductCheckout[] = [];
+            const cart: ProductCheckout[] = [];
             cart.push({ name: 'Shipping', quantity: 1, price: 10 * 100 });
             list!.forEach((item) => {
                 const product = {

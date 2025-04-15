@@ -30,7 +30,7 @@ const cartSlice = createSlice({
         },
         plusQuantity: (state, action: PayloadAction<number>) => {
             if (state.list) {
-                let findItem = state.list.find((item) => item.id === action.payload);
+                const findItem = state.list.find((item) => item.id === action.payload);
                 if (findItem) {
                     findItem.quantity = findItem.quantity! + 1;
                     state.list = state.list.map((item) =>
@@ -41,7 +41,7 @@ const cartSlice = createSlice({
         },
         minusQuantity: (state, action: PayloadAction<number>) => {
             if (state.list) {
-                let findItem = state.list.find((item) => item.id === action.payload);
+                const findItem = state.list.find((item) => item.id === action.payload);
                 if (findItem) {
                     findItem.quantity = findItem.quantity! - 1;
                     state.list = state.list.map((item) =>

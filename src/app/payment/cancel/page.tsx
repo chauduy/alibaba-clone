@@ -15,8 +15,8 @@ function Cancel() {
                 </div>
                 <h4 className="text-lg font-extrabold md:text-4xl">Order Canceled</h4>
                 <div className="text-center text-sm text-gray-500 md:max-w-[70%] md:text-lg">
-                    We're sorry, but your order has been canceled due to an issue with payment
-                    processing. Please try again or contact our support team if you need assistance.
+                    {`We're sorry, but your order has been canceled due to an issue with payment
+                    processing. Please try again or contact our support team if you need assistance.`}
                 </div>
                 <Button
                     variant={'default'}

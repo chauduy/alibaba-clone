@@ -74,8 +74,8 @@ function AssuranceDrawer() {
                             <div className="text-lg md:text-[20px]">Trade Assurance</div>
                         </div>
                         <div className="mt-2 text-[#666666]">
-                            Alibaba.com's built-in order protection service which protects online
-                            orders when payment is made through Alibaba.com.
+                            {`Alibaba.com's built-in order protection service which protects online
+                            orders when payment is made through Alibaba.com.`}
                         </div>
                         <div className="mt-2 text-[#666666]">Trade Assurance reduces risks in:</div>
                         <div className="mt-2 flex items-center">
