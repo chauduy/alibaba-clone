@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-import CustomTable from '@/components/custom/table';
 import InspirationList from '@/components/InspirationList/page';
 import Loading from '@/components/Loading/page';
 import PaginationCustom from '@/components/ui/pagination';
+import CustomTable from '@/components/ui/table';
 import { cellOrderColumns, headOrderColumns } from '@/constants';
 import { getOrders } from '@/redux/feature/auth/authThunk';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -21,9 +21,7 @@ function Order() {
     const dispatch = useAppDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
-    const [isNext, setIsNext] = useState(false);
-    console.log('currentPage', currentPage);
-    console.log('isNext', isNext);
+    const [isNext, setIsNext] = useState<boolean | null>(null);
 
     useEffect(() => {
         // 5 => items per page
@@ -31,7 +29,7 @@ function Order() {
     }, [countOrders]);
 
     useEffect(() => {
-        if (user && orders && lastItem && firstItem) {
+        if (user && lastItem && firstItem && isNext !== null) {
             const direction = isNext ? 'next' : 'prev';
             dispatch(
                 getOrders({
@@ -78,7 +76,7 @@ function Order() {
             {orders !== null ? (
                 <div className="largeScreenConstrain lg:mt-10">
                     <h1 className="lg mb-4 px-4 text-2xl font-bold">Orders</h1>
-                    <div className="px-4">
+                    <div className="relative min-h-[276px] px-4">
                         {customOrders && customOrders?.length > 0 ? (
                             <>
                                 <CustomTable
@@ -87,7 +85,7 @@ function Order() {
                                     headColumns={headOrderColumns}
                                 />
                                 {totalPage > 1 && (
-                                    <div className="mt-4">
+                                    <div className="absolute bottom-0 left-[50%] -translate-x-1/2">
                                         <PaginationCustom
                                             currentPage={currentPage}
                                             totalPage={totalPage}

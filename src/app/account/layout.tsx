@@ -30,17 +30,17 @@ import { RootState } from '@/redux/store';
 const items = [
     {
         title: 'Home',
-        url: '#',
+        url: '/account',
         icon: <AiFillHome className="homeIcon" />
     },
     {
         title: 'Order',
-        url: '#',
+        url: '/account/order',
         icon: <FiFileText className="homeIcon" />
     },
     {
         title: 'My list',
-        url: '#',
+        url: '/account/favorite',
         icon: <FaList className="homeIcon" />
     }
 ];
@@ -107,18 +107,17 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
                                             />
                                         </div>
                                         {items.map((item) => (
-                                            <SidebarMenuItem key={item.title}>
+                                            <SidebarMenuItem
+                                                key={item.title}
+                                                onClick={() => router.push(item.url)}>
                                                 <SidebarMenuButton asChild>
-                                                    <Link
-                                                        className="flex items-center gap-2 p-4"
-                                                        href={item.url}
-                                                        target="_self">
+                                                    <div className="flex items-center gap-2 p-4">
                                                         {item.icon}
                                                         <span
                                                             className={`text-[16px] text-white ${!isOpen ? 'lg:hidden' : ''}`}>
                                                             {item.title}
                                                         </span>
-                                                    </Link>
+                                                    </div>
                                                 </SidebarMenuButton>
                                             </SidebarMenuItem>
                                         ))}

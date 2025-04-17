@@ -39,10 +39,17 @@ PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {
     isActive?: boolean;
+    disabled?: boolean;
 } & Pick<ButtonProps, 'size'> &
     React.ComponentProps<'a'>;
 
-const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
+const PaginationLink = ({
+    className,
+    isActive,
+    size = 'icon',
+    disabled,
+    ...props
+}: PaginationLinkProps) => (
     <a
         aria-current={isActive ? 'page' : undefined}
         className={cn(
@@ -50,6 +57,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
                 variant: isActive ? 'outline' : 'ghost',
                 size
             }),
+            disabled ? 'cursor-not-allowed' : 'cursor-pointer',
             className
         )}
         {...props}
@@ -109,37 +117,18 @@ function PaginationCustom({
     return (
         <Pagination>
             <PaginationContent>
-                <PaginationItem onClick={onPrevious}>
-                    <PaginationPrevious />
+                <PaginationItem>
+                    <PaginationPrevious
+                        onClick={currentPage === 1 ? () => {} : onPrevious}
+                        disabled={currentPage === 1}
+                    />
                 </PaginationItem>
 
-                {totalPage < 5
-                    ? Array.from({ length: totalPage }).map((item, index) => (
-                          <PaginationItem key={index}>
-                              <PaginationLink
-                                  href="#"
-                                  isActive={currentPage === index + 1}>
-                                  {index + 1}
-                              </PaginationLink>
-                          </PaginationItem>
-                      ))
-                    : Array.from({ length: 5 }).map((item, index) => (
-                          <PaginationItem key={index}>
-                              <PaginationLink
-                                  href="#"
-                                  isActive={currentPage === index + 1}>
-                                  {index + 1}
-                              </PaginationLink>
-                          </PaginationItem>
-                      ))}
-
-                {totalPage > 5 && (
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                )}
-                <PaginationItem onClick={onNext}>
-                    <PaginationNext />
+                <PaginationItem>
+                    <PaginationNext
+                        onClick={currentPage === totalPage ? () => {} : onNext}
+                        disabled={currentPage === totalPage}
+                    />
                 </PaginationItem>
             </PaginationContent>
         </Pagination>

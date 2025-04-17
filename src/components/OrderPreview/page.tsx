@@ -10,8 +10,8 @@ import { RootState } from '@/redux/store';
 import { CustomOrderProps } from '@/type';
 import { convertToDate, getAmount, getOrderStatus } from '@/util';
 
-import CustomTable from '../custom/table';
 import { OrderTabs } from '../Tabs/page';
+import CustomTable from '../ui/table';
 
 function OrderPreview() {
     const [selectedOrderType, setSelectedOrderType] = useState<string | undefined>();
@@ -61,7 +61,7 @@ function OrderPreview() {
                     View all
                 </Link>
             </div>
-            <div>
+            <div className="min-h-[215px]">
                 <OrderTabs
                     selectedOrderType={selectedOrderType}
                     setSelectedOrderType={setSelectedOrderType}

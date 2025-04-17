@@ -10,11 +10,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import ButtonLoading from '@/components/ButtonLoading/page';
-import CustomSelect from '@/components/custom/select';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import CustomSelect from '@/components/ui/select';
 import { db } from '@/lib/firebase';
 import { signUp } from '@/redux/feature/auth/authThunk';
 import { useAppDispatch } from '@/redux/hooks';
