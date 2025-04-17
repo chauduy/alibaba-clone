@@ -9,7 +9,6 @@ import { AiFillHome } from 'react-icons/ai';
 import { CgLogOut } from 'react-icons/cg';
 import { FaList } from 'react-icons/fa';
 import { FiFileText } from 'react-icons/fi';
-import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -24,7 +23,7 @@ import {
     SidebarTrigger
 } from '@/components/ui/sidebar';
 import useViewport from '@/hooks/useViewport';
-import { getOrders, logOut } from '@/redux/feature/auth/authThunk';
+import { countOrders, getOrders, logOut } from '@/redux/feature/auth/authThunk';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 
@@ -57,6 +56,7 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
         if (!user) {
             router.push('/');
         } else {
+            dispatch(countOrders({ uid: user.uid }));
             dispatch(getOrders({ uid: user.uid }));
         }
     }, [user]);

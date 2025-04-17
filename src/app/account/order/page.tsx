@@ -2,25 +2,52 @@
 
 import { useEffect, useState } from 'react';
 
-import PaginationCustom from '@/components/custom/pagination';
 import CustomTable from '@/components/custom/table';
 import InspirationList from '@/components/InspirationList/page';
 import Loading from '@/components/Loading/page';
+import PaginationCustom from '@/components/ui/pagination';
 import { cellOrderColumns, headOrderColumns } from '@/constants';
-import { useAppSelector } from '@/redux/hooks';
+import { getOrders } from '@/redux/feature/auth/authThunk';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { CustomOrderProps } from '@/type';
 import { convertToDate, getAmount, getOrderStatus } from '@/util';
 
 function Order() {
     const [customOrders, setCustomOrders] = useState<CustomOrderProps[]>();
-    const { orders } = useAppSelector((state: RootState) => state.auth);
+    const { orders, countOrders, lastItem, firstItem, user } = useAppSelector(
+        (state: RootState) => state.auth
+    );
+    const dispatch = useAppDispatch();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [isNext, setIsNext] = useState(false);
+    console.log('currentPage', currentPage);
+    console.log('isNext', isNext);
+
+    useEffect(() => {
+        // 5 => items per page
+        setTotalPage(Math.ceil(countOrders! / 5));
+    }, [countOrders]);
+
+    useEffect(() => {
+        if (user && orders && lastItem && firstItem) {
+            const direction = isNext ? 'next' : 'prev';
+            dispatch(
+                getOrders({
+                    uid: user.uid,
+                    lastItem,
+                    firstItem,
+                    direction
+                })
+            );
+        }
+    }, [currentPage]);
 
     useEffect(() => {
         if (!orders) return;
         const tempOrders = orders.map((item, index) => ({
             ...item,
-            id: item.orderId,
             no: String(index + 1),
             delivery_time: convertToDate(item.delivery_time),
             order_time: convertToDate(item.order_time),
@@ -36,6 +63,16 @@ function Order() {
         setCustomOrders(tempOrders);
     }, [orders]);
 
+    const handleNext = () => {
+        setCurrentPage((prevState) => prevState + 1);
+        setIsNext(true);
+    };
+
+    const handleBack = () => {
+        setCurrentPage((prevState) => prevState - 1);
+        setIsNext(false);
+    };
+
     return (
         <>
             {orders !== null ? (
@@ -49,12 +86,19 @@ function Order() {
                                     cellColumns={cellOrderColumns}
                                     headColumns={headOrderColumns}
                                 />
-                                <div className="mt-4">
-                                    <PaginationCustom />
-                                </div>
+                                {totalPage > 1 && (
+                                    <div className="mt-4">
+                                        <PaginationCustom
+                                            currentPage={currentPage}
+                                            totalPage={totalPage}
+                                            onNext={handleNext}
+                                            onPrevious={handleBack}
+                                        />
+                                    </div>
+                                )}
                             </>
                         ) : (
-                            <div className="text-[16px] font-medium">{`You don't have any orders yet}.`}</div>
+                            <div className="text-[16px] font-medium">{`You don't have any orders yet.`}</div>
                         )}
                     </div>
                     <div className="mt-4 lg:mt-8">

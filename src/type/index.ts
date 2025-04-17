@@ -84,10 +84,24 @@ export interface Timestamp {
     nanoseconds: number;
 }
 
+export interface OrderProps {
+    delivery_time: Timestamp;
+    list: Product[];
+    orderId: string;
+    order_time: Timestamp;
+}
+
 export interface CustomOrderProps {
     delivery_time: string;
     list: Product[];
     orderId: string;
+    no: string;
     order_time: string;
     status: string;
+    amount: string;
+    status_style?: string;
+    amount_style?: string;
+    delivery_time_style?: string;
+    order_time_style?: string;
+    no_style?: string;
 }

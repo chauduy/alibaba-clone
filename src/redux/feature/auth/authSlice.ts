@@ -1,20 +1,28 @@
-import { UserInfo } from '@/type';
+import { DocumentData } from 'firebase/firestore';
+
+import { OrderProps, UserInfo } from '@/type';
 import { storage } from '@/util';
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getOrders, getUserInfo, logOut, signIn, signUp } from './authThunk';
+import { countOrders, getOrders, getUserInfo, logOut, signIn, signUp } from './authThunk';
 
 interface AuthState {
     loading: boolean;
     user: UserInfo | null;
-    orders?: Array<any> | null;
+    orders?: OrderProps[] | null;
+    lastItem?: OrderProps | null;
+    firstItem?: OrderProps | null;
+    countOrders?: number | null;
 }
 
 const initialState: AuthState = {
     loading: false,
     user: JSON.parse(storage.getItem('user') as string) as UserInfo | null,
-    orders: null
+    orders: null,
+    lastItem: null,
+    firstItem: null,
+    countOrders: null
 };
 
 const authSlice = createSlice({
@@ -80,9 +88,22 @@ const authSlice = createSlice({
         });
         builder.addCase(getOrders.fulfilled, (state, action) => {
             state.loading = false;
-            state.orders = action.payload;
+            state.orders = action.payload.orders;
+            state.firstItem = action.payload.orders[0];
+            state.lastItem = action.payload.orders.slice(-1)[0];
         });
         builder.addCase(getOrders.rejected, (state, action) => {
+            state.loading = false;
+        });
+
+        builder.addCase(countOrders.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(countOrders.fulfilled, (state, action) => {
+            state.loading = false;
+            state.countOrders = action.payload;
+        });
+        builder.addCase(countOrders.rejected, (state, action) => {
             state.loading = false;
         });
     }

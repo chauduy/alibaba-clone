@@ -1,7 +1,6 @@
 import { Product, Timestamp } from '@/type';
 
 export const getOrderStatus = (date: Timestamp) => {
-    if (!date) return;
     const deliveryTime = new Date(date.seconds * 1000 + date.nanoseconds / 1e6);
     const present = new Date();
     if (deliveryTime.getTime() > present.getTime()) {
@@ -19,15 +18,15 @@ export const convertToDate = (date: Timestamp) =>
     });
 
 export const getAmount = (list: Product[]) => {
-    return list.reduce(
-        (acc, cur) =>
-            acc +
-            Math.round(
-                cur.price.includes('-')
+    return list
+        .reduce(
+            (acc, cur) =>
+                acc +
+                (cur.price.includes('-')
                     ? parseFloat(cur.price.split('-')[1].replace('$', ''))
-                    : parseFloat(cur.price.split('$')[1].replace('$', ''))
-            ),
-        10
-    );
+                    : parseFloat(cur.price.split('$')[1].replace('$', ''))),
+            10
+        )
+        .toFixed(2);
     // shipping price included
 };

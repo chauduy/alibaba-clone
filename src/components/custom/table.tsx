@@ -17,7 +17,7 @@ function CustomTable({
     cellColumns: Array<any>;
 }) {
     return (
-        <Table>
+        <Table className="min-h-[224px]">
             <TableHeader>
                 <TableRow>
                     {headColumns?.map((item) => (
