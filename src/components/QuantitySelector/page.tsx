@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Minus, Plus } from 'lucide-react';
+import { FaMinus } from 'react-icons/fa6';
+import { FaPlus } from 'react-icons/fa6';
 
 import { minusQuantity, plusQuantity } from '@/redux/feature/cart/cartSlice';
 import { useAppDispatch } from '@/redux/hooks';
@@ -9,10 +10,12 @@ import { Button } from '../ui/button';
 
 function QuantitySelector({
     quantity,
-    productId
+    productId,
+    disabled
 }: {
     quantity: number | undefined;
     productId: number;
+    disabled?: boolean;
 }) {
     const dispatch = useAppDispatch();
 
@@ -22,23 +25,24 @@ function QuantitySelector({
                 variant={'outline'}
                 size={'icon'}
                 className="quantityBtn"
-                disabled={quantity === 1}
+                disabled={quantity === 1 || disabled}
                 onClick={() => dispatch(minusQuantity(productId))}>
-                <Minus size={18} />
+                <FaMinus />
             </Button>
 
             <input
                 type="number"
                 value={quantity}
                 readOnly
-                className="w-10 text-center md:ml-3.5 lg:w-12"
+                className="w-10 text-center focus:outline-none md:ml-3.5 lg:w-12"
             />
             <Button
                 variant={'outline'}
                 size={'icon'}
+                disabled={disabled}
                 className="quantityBtn"
                 onClick={() => dispatch(plusQuantity(productId))}>
-                <Plus size={18} />
+                <FaPlus />
             </Button>
         </div>
     );

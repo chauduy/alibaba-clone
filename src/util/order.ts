@@ -18,15 +18,16 @@ export const convertToDate = (date: Timestamp) =>
     });
 
 export const getAmount = (list: Product[]) => {
-    return list
-        .reduce(
-            (acc, cur) =>
-                acc +
-                (cur.price.includes('-')
-                    ? parseFloat(cur.price.split('-')[1].replace('$', ''))
-                    : parseFloat(cur.price.split('$')[1].replace('$', ''))),
-            10
-        )
+    return list!
+        .reduce((acc, cur) => {
+            if (cur.price.includes('-')) {
+                const price = cur.price.split('-')[1];
+                return acc + parseFloat(price) * cur.quantity!;
+            } else {
+                const price = cur.price.split('$')[1];
+                return acc + parseFloat(price) * cur.quantity!;
+            }
+        }, 10)
         .toFixed(2);
     // shipping price included
 };

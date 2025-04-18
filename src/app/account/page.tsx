@@ -16,7 +16,7 @@ function AccountPage() {
             {!loadingFavorite && (
                 <div className="largeScreenConstrain bg-[#f8f8f8] lg:mt-10 lg:bg-white">
                     <div className="lg:flex">
-                        <div className="lg:mr-40">
+                        <div className="xl:mr-40">
                             <ProfileInfo />
                         </div>
                         <ProfileSetting />

@@ -16,9 +16,9 @@ import QuantitySelector from '../QuantitySelector/page';
 import { Button } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
-function CartItem({ product }: { product: Product }) {
+function CartItem({ product, disabled }: { product: Product; disabled?: boolean }) {
     const dispatch = useAppDispatch();
-    const getCateogory = () => {
+    const getCategory = () => {
         let findCategory;
         data.forEach((item) => {
             if (item.productList.some((prod) => prod.id === product.id)) {
@@ -31,7 +31,7 @@ function CartItem({ product }: { product: Product }) {
 
     return (
         <div className={`pb-6 pl-4 ${product.isLast ? '' : 'border-b border-gray-300'}`}>
-            <h4 className="mb-4 text-xl font-bold">{getCateogory()}</h4>
+            <h4 className="mb-4 text-xl font-bold">{getCategory()}</h4>
             <div className="flex gap-x-4">
                 <Image
                     src={product.imageSrc}
@@ -61,15 +61,18 @@ function CartItem({ product }: { product: Product }) {
                         <QuantitySelector
                             quantity={product.quantity}
                             productId={product.id}
+                            disabled={disabled}
                         />
-                        <Button
-                            variant={'ghost'}
-                            size={'icon'}
-                            onClick={() => {
-                                dispatch(removeFromCart(product));
-                            }}>
-                            <FaTrash className="text-[#FF1A1A]" />
-                        </Button>
+                        {!disabled && (
+                            <Button
+                                variant={'ghost'}
+                                size={'icon'}
+                                onClick={() => {
+                                    dispatch(removeFromCart(product));
+                                }}>
+                                <FaTrash className="text-[#FF1A1A]" />
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>

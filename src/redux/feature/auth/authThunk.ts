@@ -111,9 +111,8 @@ export const getOrders = createAsyncThunk(
         try {
             const ordersRef = collection(db, 'customers', payload.uid, 'orders');
             let q;
-
-            // Always order by the same field consistently
             const baseQuery = orderBy('order_time', 'desc');
+            let previewOrdersQuery = query(ordersRef, baseQuery, limit(5));
 
             if (!payload.firstItem && !payload.lastItem) {
                 q = query(ordersRef, baseQuery, limit(5));
@@ -131,7 +130,12 @@ export const getOrders = createAsyncThunk(
             }
 
             const ordersSnap = await getDocs(q);
+            const previewOrderSnap = await getDocs(previewOrdersQuery);
             let orders = ordersSnap.docs.map((doc) => ({
+                ...(doc.data() as OrderProps),
+                id: doc.id
+            }));
+            let previewOrders = previewOrderSnap.docs.map((doc) => ({
                 ...(doc.data() as OrderProps),
                 id: doc.id
             }));
@@ -141,7 +145,7 @@ export const getOrders = createAsyncThunk(
                 orders = orders.reverse();
             }
 
-            return { orders };
+            return { orders, previewOrders };
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }

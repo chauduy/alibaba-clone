@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { cellOrderColumns, headOrderColumns, orderTabs } from '@/constants';
 import { useAppSelector } from '@/redux/hooks';
@@ -17,14 +18,15 @@ function OrderPreview() {
     const [selectedOrderType, setSelectedOrderType] = useState<string | undefined>();
     const [customOrders, setCustomOrders] = useState<CustomOrderProps[]>();
     const [currentOrders, setCurrentOrders] = useState<CustomOrderProps[]>();
-    const { orders } = useAppSelector((state: RootState) => state.auth);
+    const { previewOrders } = useAppSelector((state: RootState) => state.auth);
+    const router = useRouter();
 
     useEffect(() => {
-        if (!orders) return;
-        const tempOrders = orders.map((item, index) => ({
+        if (!previewOrders) return;
+        const tempOrders = previewOrders.map((item) => ({
             ...item,
             id: item.orderId,
-            no: String(index + 1),
+            no: item.orderId.split('-')[0],
             delivery_time: convertToDate(item.delivery_time),
             order_time: convertToDate(item.order_time),
             status: getOrderStatus(item.delivery_time),
@@ -38,7 +40,7 @@ function OrderPreview() {
 
         setSelectedOrderType(orderTabs[0].key);
         setCustomOrders(tempOrders);
-    }, [orders]);
+    }, [previewOrders]);
 
     useEffect(() => {
         if (selectedOrderType === 'All') {
@@ -49,6 +51,11 @@ function OrderPreview() {
             customOrders?.filter((item) => item.status === selectedOrderType).slice(0, 3)
         );
     }, [selectedOrderType]);
+
+    const handleViewOrder = (id: string) => {
+        if (!id) return;
+        router.push(`/account/order/${id}`);
+    };
 
     return (
         <div className="mb-2 bg-white px-4 pb-6 pt-3">
@@ -71,6 +78,7 @@ function OrderPreview() {
                         row={currentOrders}
                         cellColumns={cellOrderColumns}
                         headColumns={headOrderColumns}
+                        onViewOrder={handleViewOrder}
                     />
                 ) : (
                     <div className="text-[16px] font-medium">{`You don't have any orders ${selectedOrderType !== 'All' ? 'on ' + selectedOrderType?.toLocaleLowerCase() : 'yet'}.`}</div>

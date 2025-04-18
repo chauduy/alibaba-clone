@@ -262,7 +262,8 @@ export const headOrderColumns = [
     { name: 'Order time' },
     { name: 'Delivery time' },
     { name: 'Amount' },
-    { name: 'Status' }
+    { name: 'Status' },
+    { name: 'Action' }
 ];
 
 export const cellOrderColumns = [
@@ -270,5 +271,6 @@ export const cellOrderColumns = [
     { name: 'order_time' },
     { name: 'delivery_time' },
     { name: 'amount' },
-    { name: 'status' }
+    { name: 'status' },
+    { name: 'action' }
 ];

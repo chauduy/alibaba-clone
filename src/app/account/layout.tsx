@@ -124,10 +124,10 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
                                         <div className="pl-4">
                                             <Button
                                                 variant={'ghost'}
-                                                className={`w-20 text-white hover:bg-transparent hover:text-white ${!isOpen ? 'lg:w-10 lg:!pl-0' : ''}`}
+                                                className={`text-white hover:bg-transparent hover:text-white ${!isOpen ? 'w-10 !pl-0' : 'w-20'}`}
                                                 onClick={handleSignOut}>
                                                 <CgLogOut />
-                                                <div className={`${!isOpen ? 'lg:hidden' : ''}`}>
+                                                <div className={`${!isOpen ? 'hidden' : ''}`}>
                                                     Sign out
                                                 </div>
                                             </Button>

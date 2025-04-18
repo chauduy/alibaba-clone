@@ -14,7 +14,12 @@ export const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: ['/auth/getOrders/fulfilled'],
-                ignoredPaths: ['auth.orders', 'auth.lastItem', 'auth.firstItem']
+                ignoredPaths: [
+                    'auth.orders',
+                    'auth.lastItem',
+                    'auth.firstItem',
+                    'auth.previewOrders'
+                ]
             }
         })
 });

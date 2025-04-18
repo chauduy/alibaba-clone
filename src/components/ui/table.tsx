@@ -1,6 +1,10 @@
 import * as React from 'react';
 
+import { FaRegEye } from 'react-icons/fa';
+
 import { cn } from '@/lib/utils';
+
+import { Button } from './button';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
     ({ className, ...props }, ref) => (
@@ -110,12 +114,15 @@ TableCaption.displayName = 'TableCaption';
 function CustomTable({
     row,
     headColumns,
-    cellColumns
+    cellColumns,
+    onViewOrder
 }: {
     row: any;
     headColumns: Array<any>;
     cellColumns: Array<any>;
+    onViewOrder?: (item: string) => void;
 }) {
+    console.log('row', row);
     return (
         <Table>
             <TableHeader>
@@ -136,6 +143,21 @@ function CustomTable({
                             const cellStyle = item.hasOwnProperty(`${cell.name}_style`)
                                 ? Object.values(item[`${cell.name}_style`]).join('')
                                 : '';
+
+                            if (cell.name === 'action') {
+                                return (
+                                    <TableCell
+                                        key={cell.name}
+                                        className={`tableColumn ${cellStyle}`}>
+                                        <Button
+                                            className="hover:bg-transparent"
+                                            variant={'ghost'}
+                                            onClick={() => item?.id && onViewOrder?.(item.id)}>
+                                            <FaRegEye className="text-[#82abed]" />
+                                        </Button>
+                                    </TableCell>
+                                );
+                            }
 
                             return (
                                 <TableCell

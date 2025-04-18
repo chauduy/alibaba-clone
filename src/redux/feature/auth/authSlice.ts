@@ -14,6 +14,7 @@ interface AuthState {
     lastItem?: OrderProps | null;
     firstItem?: OrderProps | null;
     countOrders?: number | null;
+    previewOrders?: OrderProps[] | null;
 }
 
 const initialState: AuthState = {
@@ -22,7 +23,8 @@ const initialState: AuthState = {
     orders: null,
     lastItem: null,
     firstItem: null,
-    countOrders: null
+    countOrders: null,
+    previewOrders: null
 };
 
 const authSlice = createSlice({
@@ -91,6 +93,7 @@ const authSlice = createSlice({
             state.orders = action.payload.orders;
             state.firstItem = action.payload.orders[0];
             state.lastItem = action.payload.orders.slice(-1)[0];
+            state.previewOrders = action.payload.previewOrders;
         });
         builder.addCase(getOrders.rejected, (state, action) => {
             state.loading = false;

@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { FaChevronDown } from 'react-icons/fa6';
+import { FaChevronUp } from 'react-icons/fa6';
+import { FaCheck } from 'react-icons/fa6';
 
 import { cn } from '@/lib/utils';
 
@@ -27,7 +29,7 @@ const SelectTrigger = React.forwardRef<
         {...props}>
         {children}
         <SelectPrimitive.Icon asChild>
-            <ChevronDown className="h-4 w-4 opacity-50" />
+            <FaChevronDown className="h-4 w-4 opacity-50" />
         </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
 ));
@@ -41,7 +43,7 @@ const SelectScrollUpButton = React.forwardRef<
         ref={ref}
         className={cn('flex cursor-default items-center justify-center py-1', className)}
         {...props}>
-        <ChevronUp className="h-4 w-4" />
+        <FaChevronUp className="h-4 w-4" />
     </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
@@ -54,7 +56,7 @@ const SelectScrollDownButton = React.forwardRef<
         ref={ref}
         className={cn('flex cursor-default items-center justify-center py-1', className)}
         {...props}>
-        <ChevronDown className="h-4 w-4" />
+        <FaChevronDown className="h-4 w-4" />
     </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
@@ -114,7 +116,7 @@ const SelectItem = React.forwardRef<
         {...props}>
         <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
             <SelectPrimitive.ItemIndicator>
-                <Check className="h-4 w-4" />
+                <FaCheck className="h-4 w-4" />
             </SelectPrimitive.ItemIndicator>
         </span>
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import CartItem from '@/components/CartItem/page';
 import Loading from '@/components/Loading/page';
-import OrderSummay from '@/components/OrderSummary/page';
+import OrderSummary from '@/components/OrderSummary/page';
 import { Button } from '@/components/ui/button';
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
@@ -87,7 +87,8 @@ function Cart() {
                                     />
                                 ))}
                             </div>
-                            <OrderSummay
+                            <OrderSummary
+                                list={list}
                                 loading={loading}
                                 onCheckout={handleCheckout}
                             />
