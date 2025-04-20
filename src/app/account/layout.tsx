@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/sidebar';
 import useViewport from '@/hooks/useViewport';
 import { countOrders, getOrders, logOut } from '@/redux/feature/auth/authThunk';
+import { getFavoriteList } from '@/redux/feature/favorite/favoriteThunk';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 
@@ -58,6 +59,7 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
         } else {
             dispatch(countOrders({ uid: user.uid }));
             dispatch(getOrders({ uid: user.uid }));
+            dispatch(getFavoriteList({ uid: user.uid }));
         }
     }, [user]);
 

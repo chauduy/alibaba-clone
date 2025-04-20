@@ -27,7 +27,6 @@ function OrderDetail() {
     const orderId = Array.isArray(params.slug) ? params.slug[0] : params.slug;
     const [currentOrder, setCurrentOrders] = useState<OrderProps | DocumentData>();
     const { user } = useAppSelector((state: RootState) => state.auth);
-    console.log('currentOrder', totalPage, totalPage);
 
     useEffect(() => {
         async function getOrderById(id: string) {

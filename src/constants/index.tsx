@@ -233,11 +233,11 @@ export const footerSocial = [
 export const accountLink = [
     {
         label: 'My Alibaba',
-        link: 'https://google.com'
+        link: '/account'
     },
     {
         label: 'Orders',
-        link: 'https://google.com'
+        link: '/account/order'
     },
     {
         label: 'Messages',
@@ -249,11 +249,11 @@ export const accountLink = [
     },
     {
         label: 'Favorites',
-        link: 'https://google.com'
+        link: '/account/favorite'
     },
     {
         label: 'Account',
-        link: 'https://google.com'
+        link: '/account'
     }
 ];
 
