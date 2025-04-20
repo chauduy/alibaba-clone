@@ -14,7 +14,7 @@ function PaginationCustom({
 }: {
     currentPage: number;
     totalPage: number;
-    loading: boolean;
+    loading?: boolean;
     onNext: () => void;
     onPrevious: () => void;
 }) {

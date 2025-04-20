@@ -22,7 +22,6 @@ import { DocumentData } from '@google-cloud/firestore';
 function OrderDetail() {
     const [totalPage, setTotalPage] = useState(0);
     const [current, setCurrent] = useState(1);
-    const [loading, setLoading] = useState(false);
     const [source, setSource] = useState<Record<number, Product[]>>({});
     const params = useParams();
     const orderId = Array.isArray(params.slug) ? params.slug[0] : params.slug;
@@ -80,7 +79,7 @@ function OrderDetail() {
                 <>
                     <h1 className="mt-10 text-2xl font-bold">Order Detail</h1>
                     <div className="mt-8 flex flex-col gap-y-4 lg:ml-4 xl:flex-row xl:gap-x-24">
-                        <div className="relative ml-[-16px] flex flex-col gap-y-4 pb-8 lg:ml-[-28px]">
+                        <div className="relative ml-[-16px] flex min-h-[600px] flex-col gap-y-4 pb-8 lg:ml-[-28px] lg:min-h-[720px]">
                             {source[current]?.map((item, index) => (
                                 <CartItem
                                     product={{
@@ -97,7 +96,6 @@ function OrderDetail() {
                                     <PaginationCustom
                                         currentPage={current}
                                         totalPage={totalPage}
-                                        loading={loading}
                                         onNext={handleNext}
                                         onPrevious={handleBack}
                                     />
