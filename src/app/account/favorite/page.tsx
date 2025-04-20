@@ -48,7 +48,7 @@ function Favorite() {
 
     return (
         <div className="largeScreenConstrain p-4">
-            <h1 className="my-10 text-2xl font-bold">Favorite</h1>
+            <h1 className="mb-10 mt-5 text-2xl font-bold">Favorite</h1>
             {favoriteList!?.length > 0 ? (
                 <div
                     className={`relative ml-[-16px] flex flex-col gap-y-4 pb-8 ${totalPage > 1 ? 'min-h-[600px] lg:min-h-[700px]' : ''}`}>
