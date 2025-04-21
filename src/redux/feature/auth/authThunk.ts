@@ -112,7 +112,7 @@ export const getOrders = createAsyncThunk(
             const ordersRef = collection(db, 'customers', payload.uid, 'orders');
             let q;
             const baseQuery = orderBy('order_time', 'desc');
-            let previewOrdersQuery = query(ordersRef, baseQuery, limit(5));
+            const previewOrdersQuery = query(ordersRef, baseQuery, limit(5));
 
             if (!payload.firstItem && !payload.lastItem) {
                 q = query(ordersRef, baseQuery, limit(5));
@@ -135,7 +135,7 @@ export const getOrders = createAsyncThunk(
                 ...(doc.data() as OrderProps),
                 id: doc.id
             }));
-            let previewOrders = previewOrderSnap.docs.map((doc) => ({
+            const previewOrders = previewOrderSnap.docs.map((doc) => ({
                 ...(doc.data() as OrderProps),
                 id: doc.id
             }));
