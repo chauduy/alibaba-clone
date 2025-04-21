@@ -92,7 +92,7 @@ function Order() {
         <>
             {orders !== null ? (
                 <div className="largeScreenConstrain lg:mt-10">
-                    <h1 className="lg mb-4 px-4 text-2xl font-bold">Orders</h1>
+                    <h1 className="my-4 px-4 text-2xl font-bold">Orders</h1>
                     <div className="relative min-h-[350px] px-4">
                         {customOrders && customOrders?.length > 0 ? (
                             <>
