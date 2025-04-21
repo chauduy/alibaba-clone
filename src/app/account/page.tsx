@@ -20,7 +20,7 @@ function AccountPage() {
                             <ProfileInfo />
                         </div>
                         <ProfileSetting />
-                        <div className="lg:ml-auto">
+                        <div className="lg:ml-auto lg:max-w-[30%]">
                             <FavoritePreview />
                         </div>
                     </div>
