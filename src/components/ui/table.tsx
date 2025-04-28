@@ -122,7 +122,6 @@ function CustomTable({
     cellColumns: Array<any>;
     onViewOrder?: (item: string) => void;
 }) {
-    console.log('row', row);
     return (
         <Table>
             <TableHeader>

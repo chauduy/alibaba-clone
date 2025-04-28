@@ -43,14 +43,17 @@ function OrderPreview() {
     }, [previewOrders]);
 
     useEffect(() => {
+        if (!customOrders || !selectedOrderType) return;
+
         if (selectedOrderType === 'All') {
-            setCurrentOrders(customOrders?.slice(0, 3));
+            setCurrentOrders(customOrders.slice(0, 3));
             return;
         }
+
         setCurrentOrders(
-            customOrders?.filter((item) => item.status === selectedOrderType).slice(0, 3)
+            customOrders.filter((item) => item.status === selectedOrderType).slice(0, 3)
         );
-    }, [selectedOrderType]);
+    }, [customOrders, selectedOrderType]);
 
     const handleViewOrder = (id: string) => {
         if (!id) return;

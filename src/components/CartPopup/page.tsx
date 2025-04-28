@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 function CartPopup() {
     const { list } = useAppSelector((state: RootState) => state.cart);
     const router = useRouter();
-    const totalQuantity = list!.reduce((total, item) => total + item.quantity!, 0);
+    const totalQuantity = list ? list!.reduce((total, item) => total + item.quantity!, 0) : 0;
     const emptyCart = totalQuantity === 0;
     const navigateToCart = () => {
         router.push('/cart');

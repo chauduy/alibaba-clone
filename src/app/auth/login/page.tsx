@@ -3,6 +3,7 @@
 import React from 'react';
 
 import * as Yup from 'yup';
+import { signInWithPopup } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,8 @@ import { toast } from 'sonner';
 import ButtonLoading from '@/components/ButtonLoading/page';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { auth, provider } from '@/lib/firebase';
+import { setLoginMethod, setUser } from '@/redux/feature/auth/authSlice';
 import { signIn } from '@/redux/feature/auth/authThunk';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
@@ -49,6 +52,26 @@ function Login() {
             }
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const userResponse = result.user;
+            const user = {
+                display_name: userResponse.displayName,
+                email: userResponse.email,
+                phone_number: userResponse.phoneNumber,
+                token: await userResponse.getIdToken(),
+                uid: userResponse.uid
+            };
+            dispatch(setLoginMethod('google'));
+            dispatch(setUser({ user }));
+            router.push('/');
+        } catch (error) {
+            toast.error('Something went wrong');
+            console.error('Google Sign-In Error:', error);
         }
     };
 
@@ -104,7 +127,9 @@ function Login() {
                 </Button>
                 <div className="mt-6 text-center text-xs text-[#999999]">Or sign in with</div>
                 <div className="mt-4 flex items-center justify-between px-10">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white shadow-2xl">
+                    <div
+                        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white shadow-2xl"
+                        onClick={handleGoogleSignIn}>
                         <FcGoogle className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-800">

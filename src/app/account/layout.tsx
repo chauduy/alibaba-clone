@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AiFillHome } from 'react-icons/ai';
 import { CgLogOut } from 'react-icons/cg';
 import { FaList } from 'react-icons/fa';
@@ -52,6 +52,8 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const viewport = useViewport();
     const isMobile = viewport.width < 768;
+    const isDesktop = viewport.width > 1024;
+    const pathname = usePathname();
 
     useEffect(() => {
         if (!user) {
@@ -62,6 +64,12 @@ function AccountLayout({ children }: { children: React.ReactNode }) {
             dispatch(getFavoriteList({ uid: user.uid }));
         }
     }, [user]);
+
+    useEffect(() => {
+        if (!isDesktop && isOpen) {
+            setIsOpen(false);
+        }
+    }, [pathname]);
 
     const toggleSidebar = () => {
         setIsOpen((prev) => !prev);

@@ -150,7 +150,7 @@ body {
     }
 
     .settingLink {
-        @apply cursor-pointer hover:font-semibold;
+        @apply cursor-pointer text-nowrap hover:font-semibold;
     }
 
     .tableColumn {

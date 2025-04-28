@@ -15,6 +15,7 @@ interface AuthState {
     firstItem?: OrderProps | null;
     countOrders?: number | null;
     previewOrders?: OrderProps[] | null;
+    loginMethod?: string | null;
 }
 
 const initialState: AuthState = {
@@ -24,19 +25,29 @@ const initialState: AuthState = {
     lastItem: null,
     firstItem: null,
     countOrders: null,
-    previewOrders: null
+    previewOrders: null,
+    loginMethod: null
 };
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        setUser: (state, action) => {
+            state.user = action.payload.user;
+            storage.setItem('user', JSON.stringify(action.payload.user));
+        },
+        setLoginMethod: (state, action) => {
+            state.loginMethod = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(signUp.pending, (state, action) => {
             state.loading = true;
         });
         builder.addCase(signUp.fulfilled, (state, action) => {
             state.loading = false;
+            state.loginMethod = 'account';
             state.user = action.payload;
             storage.setItem('user', JSON.stringify(action.payload));
         });
@@ -49,6 +60,7 @@ const authSlice = createSlice({
         });
         builder.addCase(signIn.fulfilled, (state, action) => {
             state.user = action.payload;
+            state.loginMethod = 'account';
             state.loading = false;
             storage.setItem('user', JSON.stringify(action.payload));
         });
@@ -113,5 +125,5 @@ const authSlice = createSlice({
 });
 
 const { reducer, actions } = authSlice;
-export const {} = actions;
+export const { setUser, setLoginMethod } = actions;
 export default reducer;

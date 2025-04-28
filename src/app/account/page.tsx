@@ -2,6 +2,7 @@
 
 import FavoritePreview from '@/components/FavoritePreview/page';
 import InspirationList from '@/components/InspirationList/page';
+import Loading from '@/components/Loading/page';
 import OrderPreview from '@/components/OrderPreview/page';
 import ProfileInfo from '@/components/ProfileInfo/page';
 import ProfileSetting from '@/components/ProfileSetting/page';
@@ -13,10 +14,10 @@ function AccountPage() {
 
     return (
         <>
-            {!loadingFavorite && (
+            {!loadingFavorite ? (
                 <div className="largeScreenConstrain bg-[#f8f8f8] lg:mt-10 lg:bg-white">
                     <div className="lg:flex">
-                        <div className="xl:mr-40">
+                        <div className="2xl:mr-28">
                             <ProfileInfo />
                         </div>
                         <ProfileSetting />
@@ -26,6 +27,10 @@ function AccountPage() {
                     </div>
                     <OrderPreview />
                     <InspirationList />
+                </div>
+            ) : (
+                <div className="screenWrapperLoading">
+                    <Loading />
                 </div>
             )}
         </>

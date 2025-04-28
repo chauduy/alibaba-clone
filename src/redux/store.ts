@@ -13,12 +13,13 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ['/auth/getOrders/fulfilled'],
+                ignoredActions: ['/auth/getOrders/fulfilled', 'auth/setUser'],
                 ignoredPaths: [
                     'auth.orders',
                     'auth.lastItem',
                     'auth.firstItem',
-                    'auth.previewOrders'
+                    'auth.previewOrders',
+                    'auth.user'
                 ]
             }
         })

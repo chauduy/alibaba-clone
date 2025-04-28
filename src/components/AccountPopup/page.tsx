@@ -19,7 +19,12 @@ function AccountPopup() {
             <div className="absolute right-3.5 top-0 h-0 w-0 -translate-x-1/2 -translate-y-full border-b-8 border-l-8 border-r-8 border-b-gray-100 border-l-transparent border-r-transparent"></div>
 
             <div className="mx-6 mb-4 border-b border-[#dddddd] pb-4 font-bold">
-                Hi, {`${user?.first_name} ${user?.last_name}`}
+                Hi,{' '}
+                {`${
+                    user?.display_name
+                        ? user.display_name
+                        : user?.first_name! + ' ' + user?.last_name!
+                }`}
             </div>
             <div className="flex flex-col">
                 {accountLink.map((item) => (

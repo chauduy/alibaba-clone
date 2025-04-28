@@ -10,7 +10,7 @@ interface FavoriteProps {
 }
 
 const initialState: FavoriteProps = {
-    favoriteList: null,
+    favoriteList: [],
     loadingFavorite: false
 };
 

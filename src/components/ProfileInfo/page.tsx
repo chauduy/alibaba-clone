@@ -21,7 +21,7 @@ interface FormData {
 }
 
 function ProfileInfo() {
-    const { user } = useAppSelector((state: RootState) => state.auth);
+    const { user, loginMethod } = useAppSelector((state: RootState) => state.auth);
     const [isShowForm, setIsShowForm] = useState<boolean>(false);
     const [isShowEmailInput, setIsShowEmailInput] = useState<boolean>(false);
     const [isShowPasswordInput, setIsShowPasswordInput] = useState<boolean>(false);
@@ -71,50 +71,60 @@ function ProfileInfo() {
             <div className="flex flex-col gap-y-2">
                 <div className="flex items-center">
                     <div className="min-w-[120px]">Your name:</div>
-                    <div>{user?.first_name! + ' ' + user?.last_name!}</div>
+                    <div>
+                        {user?.display_name
+                            ? user.display_name
+                            : user?.first_name! + ' ' + user?.last_name!}
+                    </div>
                 </div>
                 <div className="flex items-center">
                     <div className="min-w-[120px]">Email:</div>
-                    {`${user?.email?.slice(0, 4)}***@${user?.email?.split('@')[1]}`}
+                    {`${user?.email?.slice(0, 3)}***@${user?.email?.split('@')[1]}`}
                 </div>
-                <div className="flex items-center">
-                    <div className="min-w-[120px]">Password:</div>*********
-                </div>
+                {loginMethod === 'account' && (
+                    <div className="flex items-center">
+                        <div className="min-w-[120px]">Password:</div>*********
+                    </div>
+                )}
                 <div className="flex items-center">
                     <div className="min-w-[120px]">Linked Mobile:</div>
-                    <div>{`****** ${user?.phone_number?.slice(-4)}`}</div>
+                    <div>
+                        {user?.phone_number ? `****** ${user?.phone_number?.slice(-4)}` : 'N/A'}
+                    </div>
                 </div>
             </div>
-            <div className="mt-2 flex items-center gap-x-2">
-                <Button
-                    variant={'ghost'}
-                    className="pl-0 text-blue-700 focus:bg-transparent"
-                    onClick={() => {
-                        if (!isShowForm) {
-                            setIsShowForm(true);
-                        }
-                        if (isShowPasswordInput) {
-                            setIsShowPasswordInput(false);
-                        }
-                        setIsShowEmailInput(true);
-                    }}>
-                    Change email address
-                </Button>
-                <Button
-                    variant={'ghost'}
-                    className="text-blue-700 focus:bg-transparent"
-                    onClick={() => {
-                        if (!isShowForm) {
-                            setIsShowForm(true);
-                        }
-                        if (isShowEmailInput) {
-                            setIsShowEmailInput(false);
-                        }
-                        setIsShowPasswordInput(true);
-                    }}>
-                    Change password
-                </Button>
-            </div>
+            {loginMethod === 'account' && (
+                <div className="mt-2 flex items-center gap-x-2">
+                    <Button
+                        variant={'ghost'}
+                        className="pl-0 text-blue-700 focus:bg-transparent"
+                        onClick={() => {
+                            if (!isShowForm) {
+                                setIsShowForm(true);
+                            }
+                            if (isShowPasswordInput) {
+                                setIsShowPasswordInput(false);
+                            }
+                            setIsShowEmailInput(true);
+                        }}>
+                        Change email address
+                    </Button>
+                    <Button
+                        variant={'ghost'}
+                        className="text-blue-700 focus:bg-transparent"
+                        onClick={() => {
+                            if (!isShowForm) {
+                                setIsShowForm(true);
+                            }
+                            if (isShowEmailInput) {
+                                setIsShowEmailInput(false);
+                            }
+                            setIsShowPasswordInput(true);
+                        }}>
+                        Change password
+                    </Button>
+                </div>
+            )}
             {isShowForm && (
                 <form
                     className="mt-2"

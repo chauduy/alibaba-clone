@@ -26,7 +26,7 @@ function MainHeader() {
     const pathname = usePathname();
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { user } = useAppSelector((state: RootState) => state.auth);
+    const { user, loginMethod } = useAppSelector((state: RootState) => state.auth);
     const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
     const { favoriteList, loadingFavorite } = useAppSelector((state: RootState) => state.favorite);
     const isHideCart = pathname.includes('/cart') || pathname.includes('/auth') || !user;
@@ -68,7 +68,7 @@ function MainHeader() {
     }, [favoriteList]);
 
     useEffect(() => {
-        if (user !== null && !pathname.includes('/auth')) {
+        if (user !== null && !pathname.includes('/auth') && loginMethod === 'account') {
             dispatch(getUserInfo({ uid: user.uid }));
         }
     }, [pathname]);

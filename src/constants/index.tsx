@@ -241,11 +241,11 @@ export const accountLink = [
     },
     {
         label: 'Messages',
-        link: 'https://google.com'
+        link: '/account'
     },
     {
         label: 'RFQs',
-        link: 'https://google.com'
+        link: '/account'
     },
     {
         label: 'Favorites',
