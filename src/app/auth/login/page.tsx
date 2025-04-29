@@ -126,17 +126,11 @@ function Login() {
                     {loading ? <ButtonLoading /> : 'Sign in'}
                 </Button>
                 <div className="mt-6 text-center text-xs text-[#999999]">Or sign in with</div>
-                <div className="mt-4 flex items-center justify-between px-10">
+                <div className="mt-4 flex items-center justify-center">
                     <div
                         className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white shadow-2xl"
                         onClick={handleGoogleSignIn}>
                         <FcGoogle className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-800">
-                        <FaFacebookF className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0076b8]">
-                        <FaLinkedinIn className="h-6 w-6 text-white" />
                     </div>
                 </div>
                 <div className="mt-6 flex items-center justify-center text-center">

@@ -46,7 +46,7 @@ function AccountPopup() {
                 }}>
                 <Button
                     variant={'ghost'}
-                    className="m-0 p-0 font-normal">
+                    className="m-0 p-0 font-normal hover:bg-transparent hover:font-bold">
                     Sign out{' '}
                 </Button>
             </div>
