@@ -94,19 +94,11 @@ function Login() {
                 {form.formState.errors.email && (
                     <div className="mt-1 text-red-600">{form.formState.errors.email.message}</div>
                 )}
-                <div className="mt-4 flex items-center justify-between">
-                    <label
-                        className="font-bold"
-                        htmlFor="password">
-                        Password:
-                    </label>
-                    <Link
-                        href="/auth/forget-password"
-                        target="_self"
-                        className="text-xs text-[#08c]">
-                        Forgot password?
-                    </Link>
-                </div>
+                <label
+                    className="font-bold"
+                    htmlFor="password">
+                    Password:
+                </label>
                 <Input
                     className="mt-1 text-sm focus-within:border-primary focus-visible:ring-0"
                     id="password"
