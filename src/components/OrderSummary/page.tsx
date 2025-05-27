@@ -33,7 +33,7 @@ function OrderSummary({
             </div>
             <div className="mt-2 flex items-center justify-between text-sm">
                 <div>Item subtotal</div>
-                <div className="font-bold">${Number(subtotal) - 10}</div>
+                <div className="font-bold">${(Number(subtotal) - 10).toFixed(2)}</div>
             </div>
             <div className="mt-2 flex items-center justify-between border-b border-gray-200 pb-4 text-sm">
                 <div>Shipping fee</div>
