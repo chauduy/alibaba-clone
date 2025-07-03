@@ -5,7 +5,7 @@ import AppRedirect from '@/components/AppRedirect/page';
 import Footer from '@/components/Footer/page';
 import MainHeader from '@/components/MainHeader/page';
 import { Toaster } from '@/components/ui/sonner';
-import AppProvide from '@/redux/provider';
+import AppProvider from '@/redux/provider';
 
 import './globals.css';
 
@@ -48,14 +48,14 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <AppProvide>
+                <AppProvider>
                     <AppRedirect>
                         <MainHeader />
                         {children}
                         <Footer />
                         <Toaster />
                     </AppRedirect>
-                </AppProvide>
+                </AppProvider>
             </body>
         </html>
     );
