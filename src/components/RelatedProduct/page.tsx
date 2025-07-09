@@ -14,7 +14,7 @@ function RelatedProduct({ product, isHideInfo }: { product: ProductProps; isHide
                 height={1000}
                 alt="product-img"
                 src={product.imageSrc}
-                className="w-full rounded-t-sm lg:rounded-lg"
+                className="w-full rounded-sm lg:rounded-lg"
             />
             {!isHideInfo && (
                 <div className="p-2 lg:pl-0">
