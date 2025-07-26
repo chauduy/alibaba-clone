@@ -16,7 +16,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: 'Ali | Buy anything in anywhere',
+    title: 'Ali | Buy anything from anywhere',
     icons: '/images/brand-logo.png',
     keywords: ['online marketplace', 'global trade', 'wholesale', 'b2b ecommerce'],
     robots: 'index, follow',
