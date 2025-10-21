@@ -150,7 +150,7 @@ body {
     }
 
     .settingLink {
-        @apply cursor-pointer text-nowrap hover:font-semibold;
+        @apply min-w-[130px] cursor-pointer text-nowrap hover:font-semibold;
     }
 
     .tableColumn {
